@@ -1,5 +1,5 @@
 ## Version: v3.34.2
-## Date: 2021-3-26
+## Date: 2021-3-29
 ## Update Content: 新增 "Telegram 代理的认证参数" 推送通知环境变量(3)
 
 
@@ -65,8 +65,8 @@ EnableExtraShell=""
 ## 如果您想自动同步您的 DIY 脚本，请赋值为 "true"
 EnableExtraShellUpdate=""
 
-## DIY 脚本同步地址链接：（默认使用本人项目中的 DIY 脚本）
-EnableExtraShellURL="https://gitee.com/SuperManito/JD-FreeFuck/raw/main/diy/diy.sh"
+## DIY 脚本同步地址链接：
+EnableExtraShellURL=""
 
 ## 可在下方补充您需要用到的第三方活动脚本环境变量，例如通知变量，具体查看脚本内的注释，格式：export 变量名="变量值"
 ## export
