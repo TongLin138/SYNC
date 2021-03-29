@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 ## Author: SuperManito
-## Project: JD-FreeFuck
-## Modified: 2021-3-21
+## Modified: 2021-3-29
 
 ## 文件路径、脚本网址、文件版本以及各种环境的判断
 ShellDir=${JD_DIR:-$(
@@ -52,7 +51,7 @@ function Update_Cron() {
 
 ## 更新Shell源码
 function Git_PullShell() {
-  echo -e "\n更新 JD-FreeFuck 项目脚本：\n"
+  echo -e "\n更新 HELLOWORLD 项目脚本：\n"
   cd ${ShellDir}
   git fetch --all
   ExitStatusShell=$?
@@ -391,7 +390,7 @@ echo -e "+-----------------------------------------------------------+"
 
 ## 克隆或更新js脚本
 [ -f ${ScriptsDir}/package.json ] && PackageListOld=$(cat ${ScriptsDir}/package.json)
-# [ -d ${ScriptsDir}/.git ] && Git_PullScripts || Git_CloneScripts
+[ -d ${ScriptsDir}/.git ] && Git_PullScripts || Git_CloneScripts
 
 echo -e "+----------------------- 郑 重 提 醒 -----------------------+"
 echo -e ""
@@ -407,7 +406,7 @@ echo -e "+-----------------------------------------------------------+"
 echo -e ''
 
 ## 执行各函数
-## if [[ ${ExitStatusScripts} -eq 0 ]]; then
+if [[ ${ExitStatusScripts} -eq 0 ]]; then
   Change_ALL
   [ -d ${ScriptsDir}/node_modules ] && Notify_Version
   Diff_Cron
@@ -423,6 +422,3 @@ else
   echo -e "\033[31m活动脚本更新失败，请检查原因或再次运行 git_pull.sh ......\033[0m"
   Change_ALL
 fi
-
-  ExtraShell
-  Run_All
