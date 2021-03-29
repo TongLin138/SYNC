@@ -386,7 +386,7 @@ echo -e "+-----------------------------------------------------------+"
 [[ $(date "+%-H") -le 2 ]] && Update_Cron
 
 ## 更新Shell源码
-[ -d ${ShellDir}/.git ] && Git_PullShell
+#[ -d ${ShellDir}/.git ] && Git_PullShell
 
 ## 克隆或更新js脚本
 [ -f ${ScriptsDir}/package.json ] && PackageListOld=$(cat ${ScriptsDir}/package.json)
