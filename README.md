@@ -59,7 +59,7 @@
 
 > ㅤ如果您想推荐某位作者的第三方活动脚本并将它加入到本项目自定义脚本中，您可以在 Issues 专题下方留言。
 #### 6. 查看帮助文档：
-    docker exec -it jd cat course/docker.md
+    docker exec -it jd cat README.md
 > _注意：此文档为《使用与更新》教程，即当前页面内容，跟随项目同步更新。_
 
 ***
