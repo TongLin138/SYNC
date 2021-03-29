@@ -1,7 +1,6 @@
 # 此镜像仅供内部使用，若发现大规模传播，直接删库跑路！！！
 # 请群内成员遵守群规，否则直接封禁！如有问题，请在群内讨论。
-ㅤ
-ㅤ
+
 
 # 《使用与更新》教程
 ## 修订日期：2021 年 3 月 30 日
@@ -63,6 +62,7 @@
       4. 您还可以将自制的 Diy 脚本上传至您的仓库并使用自动同步功能
 - 启用该功能
 
+      docker exec -it jd cp -f config/diy.sh.sample /config/diy.sh
       docker exec -it jd sed -i 's/EnableExtraShell=""/EnableExtraShell="true"/g' config/config.sh
 - 启用自动同步功能（选择）
 
