@@ -62,7 +62,7 @@
       4. 您还可以将自制的 Diy 脚本上传至您的仓库并使用自动同步功能
 - 启用该功能
 
-      docker exec -it jd cp -f config/diy.sh.sample /config/diy.sh
+      docker exec -it jd cp -f sample/diy.sh.sample config/diy.sh
       docker exec -it jd sed -i 's/EnableExtraShell=""/EnableExtraShell="true"/g' config/config.sh
 - 启用自动同步功能（选择）
 
@@ -223,4 +223,3 @@
 #### 6. 除手动运行活动脚本外该项目还会通过定时的方式全天候自动运行活动脚本，具体运行记录可通过日志查看
 #### 7. 该项目已默认配置好 `Crontab` 定时任务，定时配置文件 `crontab.list` 会通过活动脚本的更新而同步更新
 #### 8. 之前填入的 `Cookie部分内容` 具有一定的时效性，若提示失效请根据教程重新获取并手动更新
-#### 9. 我不是活动脚本的开发者，但后续使用遇到任何问题都可访问本项目寻求帮助，制作不易，理解万岁
