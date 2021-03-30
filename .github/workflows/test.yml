@@ -1,4 +1,4 @@
-name: sync-v4_shell
+name: test
 on:
   workflow_dispatch:
   schedule:
