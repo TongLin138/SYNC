@@ -66,7 +66,7 @@ EnableExtraShell=""
 EnableExtraShellUpdate=""
 
 ## DIY 脚本同步地址链接：
-EnableExtraShellURL=""
+EnableExtraShellURL="https://gitee.com/SuperManito/scripts/raw/master/"
 
 ## 可在下方补充您需要用到的第三方活动脚本环境变量，例如通知变量，具体查看脚本内的注释，格式：export 变量名="变量值"
 ## export
