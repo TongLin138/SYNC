@@ -19,18 +19,18 @@ jobs:
     - name: Prepare
       run: |
         mkdir -p ~/.ssh
-        echo -e "${{ secrets.KEY2 }}" > ~/.ssh/id_rsa
+        echo -e "${{ secrets.KEY3 }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan gitee.com > ~/.ssh/known_hosts
     - name: Clone Master
       run: |
-        git clone -b master git@gitee.com:evine/jd_shell.git v4
-    - name: Push Branch
+        git clone -b master git@gitee.com: supermanito/jd_base.git master
+   - name: Push Branch
       uses: ad-m/github-push-action@master
       with:
-        directory: v4
+        directory: master
         github_token: ${{ secrets.TOKEN }}
-        branch: v3
+        branch: base
     - name: Delete workflow runs
       uses: Mattraks/delete-workflow-runs@main
       with:
