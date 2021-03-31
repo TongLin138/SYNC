@@ -1,6 +1,6 @@
-## Version: v3.34.2
-## Date: 2021-3-29
-## Update Content: 新增 "Telegram 代理的认证参数" 推送通知环境变量(3)
+## Version: v3.34.3
+## Date: 2021-4-1
+## Update Content: 移除 "环球挑战赛" 互助码类环境变量
 
 
 ## 上面版本号中，如果第2位数字有变化，那么代表增加了新的参数，如果只有第3位数字有变化，仅代表更新了注释，没有增加新的参数，可更新可不更新
@@ -440,25 +440,6 @@ ForOtherCfd3=""
 ForOtherCfd4=""
 ForOtherCfd5=""
 ForOtherCfd6=""
-
-
-################################## 13. 定义环球挑战赛互助（选填） ##################################
-## 具体填法及要求详见本文件最下方“互助码填法示例”
-MyGlobal1=""
-MyGlobal2=""
-MyGlobal3=""
-MyGlobal4=""
-MyGlobal5=""
-MyGlobal6=""
-MyGlobalA=""
-MyGlobalB=""
-
-ForOtherGlobal1=""
-ForOtherGlobal2=""
-ForOtherGlobal3=""
-ForOtherGlobal4=""
-ForOtherGlobal5=""
-ForOtherGlobal6=""
 
 
 ##################################################################################################
