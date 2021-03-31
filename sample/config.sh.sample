@@ -16,7 +16,7 @@
 ## $(date "+%w") 当前是星期几，如：3
 ## $(date "+%H") 当前的小时数，如：23
 ## $(date "+%M") 当前的分钟数，如：49
-## 其他date命令的更多用法，可以在命令行中输入 date --help  查看
+## 其他date命令的更多用法，可以在命令行中输入 date --help 查看
 ## 判断条件 -eq -ne -gt -ge -lt -le ，具体含义可百度一下
 
 ## ---------------------------------- 账 号 设 置 ----------------------------------
@@ -66,7 +66,7 @@ EnableExtraShell=""
 EnableExtraShellUpdate=""
 
 ## DIY 脚本同步地址链接：
-EnableExtraShellURL="https://gitee.com/SuperManito/scripts/raw/master/"
+EnableExtraShellURL="https://gitee.com/SuperManito/scripts/raw/master/diy.sh"
 
 ## 可在下方补充您需要用到的第三方活动脚本环境变量，例如通知变量，具体查看脚本内的注释，格式：export 变量名="变量值"
 ## export
