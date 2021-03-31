@@ -25,7 +25,7 @@ jobs:
     - name: Clone Master
       run: |
         git clone -b master git@gitee.com: supermanito/jd_base.git master
-   - name: Push Branch
+    - name: Push Branch
       uses: ad-m/github-push-action@master
       with:
         directory: master
