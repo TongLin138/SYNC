@@ -1,6 +1,6 @@
-## Version: v3.34.3
-## Date: 2021-4-1
-## Update Content: 移除 "环球挑战赛" 互助码类环境变量
+## Version: v3.35.0
+## Date: 2021-4-2
+## Update Content:  新增 "京东手机狂欢城" 互助码类环境变量
 
 
 ## 上面版本号中，如果第2位数字有变化，那么代表增加了新的参数，如果只有第3位数字有变化，仅代表更新了注释，没有增加新的参数，可更新可不更新
@@ -440,6 +440,25 @@ ForOtherCfd3=""
 ForOtherCfd4=""
 ForOtherCfd5=""
 ForOtherCfd6=""
+
+
+################################## 13. 定义京东手机狂欢城互助（选填） ##################################
+## 具体填法及要求详见本文件最下方“互助码填法示例”
+MyCarni1=""
+MyCarni2=""
+MyCarni3=""
+MyCarni4=""
+MyCarni5=""
+MyCarni6=""
+MyCarniA=""
+MyCarniB=""
+
+ForOtherCarni1=""
+ForOtherCarni2=""
+ForOtherCarni3=""
+ForOtherCarni4=""
+ForOtherCarni5=""
+ForOtherCarni6=""
 
 
 ##################################################################################################
