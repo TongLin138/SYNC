@@ -40,13 +40,13 @@ function Detect_Cron() {
 
 ## 用户数量UserSum
 function Count_UserSum() {
-  for ((i = 1; i <= 30; i++)); do
+  for ((i = 1; i <= 35; i++)); do
     Tmp=Cookie$i
     CookieTmp=${!Tmp}
     [[ ${CookieTmp} ]] && UserSum=$i || break
   done
 
-  for ((d = 31; d <= 1000; d++)); do
+  for ((d = 36; d <= 1000; d++)); do
     Del=Cookie$d
     sed -i "/${!Del}/d" ${FileConf} || break
   done
@@ -114,7 +114,7 @@ function Combin_All() {
   export JDSGMH_SHARECODES=$(Combin_Sub ForOtherSgmh)
   ## 京喜财富岛(jd_cfd.js)
   export JDCFD_SHARECODES=$(Combin_Sub ForOtherCfd)
-  #京东手机狂欢城(jd_carnivalcity.js) 截至至4月20号
+  ## 手机狂欢城(jd_carnivalcity.js) 截至至4月20号
   export JD818_SHARECODES=$(Combin_Sub ForOtherCarni)
 }
 
