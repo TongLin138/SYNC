@@ -370,8 +370,6 @@ function Run_All() {
 
   ## 去除脚本中的空行
   sed -i '/^\s*$/d' ${ShellDir}/run_all.sh
-  ## 赋权
-  chmod 777 ${ShellDir}/run_all.sh
 }
 
 ## 在日志中记录时间与路径
