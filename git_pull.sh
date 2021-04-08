@@ -129,9 +129,10 @@ function Diff_Cron() {
 
     cat ${ListCronLxk} | grep -E "j[drx]_\w+\.js" | perl -pe "s|.+(j[drx]_\w+)\.js.+|\1|" | sort -u >${ListJs}
     if [[ ${EnableExtraShell} == true ]]; then
-      cat ${FileDiy} | grep -v "#" | grep "my_scripts_list" | grep -io "j[drx]_[a-z]*\w[a-z]*" | sort -u >>${ListJs}
+      cat ${FileDiy} | grep -v "#" | grep "my_scripts_list" | grep -io "j[drx]_[a-z]*\w[a-z]*\w[a-z]*" | sort -u >>${ListJs}
+      [ -f ${ScriptsDir}/sendNotify.js ] && sed -i '/desp += author;/a\  if (text.includes("FreeFuck") || desp.includes("FreeFuck")) return ;' ${ScriptsDir}/sendNotify.js
     fi
-
+    
     grep -vwf ${ListTask} ${ListJs} >${ListJsAdd}
     grep -vwf ${ListJs} ${ListTask} >${ListJsDrop}
   else
