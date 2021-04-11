@@ -130,7 +130,6 @@ function Diff_Cron() {
     cat ${ListCronLxk} | grep -E "j[drx]_\w+\.js" | perl -pe "s|.+(j[drx]_\w+)\.js.+|\1|" | sort -u >${ListJs}
     if [[ ${EnableExtraShell} == true ]]; then
       cat ${FileDiy} | grep -v "#" | grep "my_scripts_list" | grep -io "j[drx]_[a-z]*\w[a-z]*\w[a-z]*" | sort -u >>${ListJs}
-      [ -f ${ScriptsDir}/sendNotify.js ] && sed -i '/desp += author;/a\  if (text.includes("FreeFuck") || desp.includes("FreeFuck")) return ;' ${ScriptsDir}/sendNotify.js
     fi
     
     grep -vwf ${ListTask} ${ListJs} >${ListJsAdd}
@@ -391,6 +390,9 @@ echo -e "+-----------------------------------------------------------+"
 ## 克隆或更新js脚本
 [ -f ${ScriptsDir}/package.json ] && PackageListOld=$(cat ${ScriptsDir}/package.json)
 [ -d ${ScriptsDir}/.git ] && Git_PullScripts || Git_CloneScripts
+if [[ ${EnableExtraShell} == true ]]; then
+  [ -f ${ScriptsDir}/sendNotify.js ] && sed -i '/desp += author;/a\  if (text.includes("FreeFuck") || desp.includes("FreeFuck")) return ;' ${ScriptsDir}/sendNotify.js
+fi
 
 echo -e "+----------------------- 郑 重 提 醒 -----------------------+"
 echo -e ""
