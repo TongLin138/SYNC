@@ -74,6 +74,9 @@ function Git_PullScripts() {
   ExitStatusScripts=$?
   git reset --hard origin/master
   echo
+  if [[ ${EnableExtraShell} == true ]]; then
+    [ -f ${ScriptsDir}/sendNotify.js ] && sed -i '/desp += author;/a\  if (text.includes("FreeFuck") || desp.includes("FreeFuck")) return ;' ${ScriptsDir}/sendNotify.js
+  fi
 }
 
 ## 用户数量UserSum
@@ -388,9 +391,6 @@ echo -e "+-----------------------------------------------------------+"
 [ -d ${ShellDir}/.git ] && Git_PullShell
 
 ## 克隆或更新js脚本
-if [[ ${EnableExtraShell} == true ]]; then
-  [ -f ${ScriptsDir}/sendNotify.js ] && sed -i '/desp += author;/a\  if (text.includes("FreeFuck") || desp.includes("FreeFuck")) return ;' ${ScriptsDir}/sendNotify.js
-fi
 [ -f ${ScriptsDir}/package.json ] && PackageListOld=$(cat ${ScriptsDir}/package.json)
 [ -d ${ScriptsDir}/.git ] && Git_PullScripts || Git_CloneScripts
 
