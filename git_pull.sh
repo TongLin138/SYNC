@@ -388,11 +388,12 @@ echo -e "+-----------------------------------------------------------+"
 [ -d ${ShellDir}/.git ] && Git_PullShell
 
 ## 克隆或更新js脚本
-[ -f ${ScriptsDir}/package.json ] && PackageListOld=$(cat ${ScriptsDir}/package.json)
-[ -d ${ScriptsDir}/.git ] && Git_PullScripts || Git_CloneScripts
 if [[ ${EnableExtraShell} == true ]]; then
   [ -f ${ScriptsDir}/sendNotify.js ] && sed -i '/desp += author;/a\  if (text.includes("FreeFuck") || desp.includes("FreeFuck")) return ;' ${ScriptsDir}/sendNotify.js
 fi
+[ -f ${ScriptsDir}/package.json ] && PackageListOld=$(cat ${ScriptsDir}/package.json)
+[ -d ${ScriptsDir}/.git ] && Git_PullScripts || Git_CloneScripts
+
 
 echo -e "+----------------------- 郑 重 提 醒 -----------------------+"
 echo -e ""
