@@ -1,9 +1,19 @@
-# 此镜像仅供内部使用，若发现大规模传播，直接删库跑路！
-# 请群内成员遵守群规，否则直接封禁！如有问题，请在群内讨论！
+## 《群规》
+### 修订日期：2021 年 4 月 10 日
+
+1. 本群为技术交流群，请不要发送、分享任何涉黄和与政治相关的内容或信息.
+2. 任何人不得转发、分享群内资源和相关信息，若发现大规模传播将删库跑路。
+3. 本群内部资源仅供内部使用，不允许存在脚踩两只船的行为，如果您不使用请自行退群，v4新版除外。
+4. 关于本人自用的 Diy 脚本，如果您知道可自行使用，否则无可奉告，群内禁止宣传、讨论。
+5. 请大家不要对外询问、泄露关于群内资源得任何信息，如有在其它群组发现直接封禁。
+
+ㅤ★ 如有部署或使用相关的问题请先仔细查看文档，解决不了再@作者寻求帮助，看到后会回复的，请勿私聊。\
+ㅤ★ 群内可随意自由讨论除规定内容外的任何内容，不带节奏即可。\
+ㅤ★ 请大家遵守上述规定，如有发现违规者一律封禁处理，无警告等二次机会，请谨慎发言低调使用！\
 ㅤ
 ㅤ
 # 《使用与更新》教程
-## 修订日期：2021 年 4 月 4 日
+## 修订日期：2021 年 4 月 11 日
 ㅤ
 ## 一、基础使用教程
 >附：[Docker 容器使用教程](https://www.runoob.com/docker/docker-container-usage.html)
@@ -100,8 +110,8 @@
 > MyFruitA=""\
 > MyFruitB=""
 > 
-> ForOtherFruit1="${MyFruit1}@${MyFruit2}@${MyFruit3}@${MyFruit4}@${MyFruit5}@${MyFruit6}"
-> ForOtherFruit2="${MyFruit1}@${MyFruit2}@${MyFruit3}@${MyFruit4}@${MyFruit5}@${MyFruit6}"\
+> ForOtherFruit1="${MyFruit1}@${MyFruit2}"
+> ForOtherFruit2="${MyFruit1}@${MyFruit2}"\
 > ForOtherFruit3=""\
 > ForOtherFruit4=""\
 > ForOtherFruit5=""\
@@ -198,7 +208,7 @@
 
 ㅤ
 ## 四、更新教程
-#### 1. 更新 `配置文件` ：
+#### 1. 更新配置文件：
 - 备份当前配置文件
 
       docker exec -it jd mv config/config.sh config/bak/config.sh

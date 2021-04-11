@@ -160,8 +160,9 @@ function Help() {
   echo -e "本脚本的用法为："
   echo -e "1. bash ${HelpJd} xxx      # 如果设置了随机延迟并且当时时间不在0-2、30-31、59分内，将随机延迟一定秒数"
   echo -e "2. bash ${HelpJd} xxx now  # 无论是否设置了随机延迟，均立即运行"
-  echo -e "3. bash ${HelpJd} hangup   # 重启挂机程序"
-  echo -e "4. bash ${HelpJd} resetpwd # 重置控制面板用户名和密码"
+  echo -e "3. bash ${HelpJd} hangup   # 启动/重启后台挂机程序"
+  echo -e "4. bash ${HelpJd} resetpwd # 重置控制面板的用户名和密码"
+  echo -e "5. source run_all   # 一键执行所有活动脚本（Ctrl + Z 跳过执行某脚本，Ctrl + C 停止执行）"
   echo -e "\n针对用法1、用法2中的\"xxx\"，可以不输入后缀\".js\"，另外，如果前缀是\"jd_\"的话前缀也可以省略。"
   echo -e "当前有以下脚本可以运行（仅列出以jd_、jr_、jx_开头的脚本）："
   cd ${ScriptsDir}
