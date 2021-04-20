@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 ## Author: SuperManito
-## Modified: 2021-4-4
 
 ## 文件路径、脚本网址、文件版本以及各种环境的判断
 ShellDir=${JD_DIR:-$(
@@ -131,7 +130,7 @@ function Diff_Cron() {
     if [[ ${EnableExtraShell} == true ]]; then
       cat ${FileDiy} | grep -v "#" | grep "my_scripts_list" | grep -io "j[drx]_[a-z]*\w[a-z]*\w[a-z]*" | sort -u >>${ListJs}
     fi
-    
+
     grep -vwf ${ListTask} ${ListJs} >${ListJsAdd}
     grep -vwf ${ListJs} ${ListTask} >${ListJsDrop}
   else
@@ -394,7 +393,7 @@ echo -e "+-----------------------------------------------------------+"
 
 echo -e "+----------------------- 郑 重 提 醒 -----------------------+"
 echo -e ""
-echo -e "  本项目开源免费使用，并且不可分享在国内的任何媒体与网站上！"
+echo -e "  本项目开源免费使用但不可传播分享在国内任何的媒体与网站上！"
 echo -e ""
 echo -e "  如果在其它地方发现以付费的形式传播与使用请举报并向我反馈！"
 echo -e ""
