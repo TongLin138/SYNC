@@ -114,6 +114,8 @@ function Combin_All() {
   export JDSGMH_SHARECODES=$(Combin_Sub ForOtherSgmh)
   ## 京喜财富岛(jd_cfd.js)
   export JDCFD_SHARECODES=$(Combin_Sub ForOtherCfd)
+  ## 东东健康社区(jd_health.js)
+  export JDHEALTH_SHARECODES=$(Combin_Sub ForOtherHealth)
 }
 
 ## 转换JD_BEAN_SIGN_STOP_NOTIFY或JD_BEAN_SIGN_NOTIFY_SIMPLE
