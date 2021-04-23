@@ -141,47 +141,47 @@
 
 
 #### 4. 提交您的互助码到公共库(Telegram机器人)：
-    Telegram Bot：  
-    @TuringLabbot   https://t.me/TuringLabbot
-    @LvanLamCommitCodeBot   https://t.me/LvanLamCommitCodeBot
-    
-    【随机互助Bot使用规则】
-    1.用/Start开启bot 用/help获取帮助
-    2.支持互助码批量提交(使用 & 隔开)每周期内最多提交同一活动5个互助码，尽量错峰提交。频繁提交，一经发现永 ban ！
-    3.每个月1号，8号，16号，24号凌晨2点清理一次数据库，清理后需重新在Bot提交互助码。有啥问题别问我，下次回复这条信息禁言12小时。
-
-    下面是提交格式
-
-    Turing Lab Bot：
-
-    ## 东东农场
-    /submit_activity_codes farm &&&&
-    ## 东东萌宠
-    /submit_activity_codes pet &&&&
-    ## 种豆得豆
-    /submit_activity_codes bean &&&&
-    ## 东东工厂
-    /submit_activity_codes ddfactory &&&&
-    ## 京喜工厂
-    /submit_activity_codes jxfactory &&&&
-    ## 闪购盲盒
-    /submit_activity_codes sgmh &&&&
-    ## 京喜财富岛
-    /submit_activity_codes jxcfd &&&&
-    ## 东东健康社区
-    /submit_activity_codes health &&&&
-
-    Commit Code Bot：
-
-    ## 京东赚赚
-    /jdzz &&&&
-    ## 疯狂的JOY
-    /jdcrazyjoy &&&&
-    ## 签到领现金
-    /jdcash &&&&
-
-    ## 格式示例（已 & 划分开每个互助码）：
-    /submit_activity_codes farm 123456&000000&abcde&ABCDE&123ABC
+> Telegram Bot：  
+> @TuringLabbot   https://t.me/TuringLabbot
+> @LvanLamCommitCodeBot   https://t.me/LvanLamCommitCodeBot
+> 
+> 【随机互助Bot使用规则】
+> 1.用/Start开启bot 用/help获取帮助
+> 2.支持互助码批量提交(使用 & 隔开)每周期内最多提交同一活动5个互助码，尽量错峰提交。频繁提交，一经发现永 ban ！
+> 3.每个月1号，8号，16号，24号凌晨2点清理一次数据库，清理后需重新在Bot提交互助码。有啥问题别问我，下次回复这条信息禁言12小时。
+> 
+> 下面是提交格式
+> 
+> Turing Lab Bot：
+> 
+> ## 东东农场
+> /submit_activity_codes farm &&&&
+> ## 东东萌宠
+> /submit_activity_codes pet &&&&
+> ## 种豆得豆
+> /submit_activity_codes bean &&&&
+> ## 东东工厂
+> /submit_activity_codes ddfactory &&&&
+> ## 京喜工厂
+> /submit_activity_codes jxfactory &&&&
+> ## 闪购盲盒
+> /submit_activity_codes sgmh &&&&
+> ## 京喜财富岛
+> /submit_activity_codes jxcfd &&&&
+> ## 东东健康社区
+> /submit_activity_codes health &&&&
+> 
+> Commit Code Bot：
+> 
+> ## 京东赚赚
+> /jdzz &&&&
+> ## 疯狂的JOY
+> /jdcrazyjoy &&&&
+> ## 签到领现金
+> /jdcash &&&&
+> 
+> ## 格式示例（已 & 划分开每个互助码）：
+> /submit_activity_codes farm 123456&000000&abcde&ABCDE&123ABC
 
 > _注意：此公共库由活动脚本作者 `lxk0301` 大佬开发并维护，用于活动间的相互助力以解决助力机会和被助力次数不足的问题，此库定时清空且名额有限，具体提交教程详见回复信息。_
 
