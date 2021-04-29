@@ -19,7 +19,7 @@ jobs:
         git config --global user.name 'GitHub Actions' && git config --global user.email 'noreply@github.com'
     - name: Clone Master
       run: |
-        git clone -b dust git@github.com:monk-coder/dust.git dust
+        git clone dust git@github.com:monk-coder/dust.git dust
     - name: Push Master
       uses: ad-m/github-push-action@master
       with:
