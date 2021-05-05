@@ -128,7 +128,7 @@ function Diff_Cron() {
 
     cat ${ListCronLxk} | grep -E "j[drx]_\w+\.js" | perl -pe "s|.+(j[drx]_\w+)\.js.+|\1|" | sort -u >${ListJs}
     if [[ ${EnableExtraShell} == true ]]; then
-      cat ${FileDiy} | grep -v "#" | grep "my_scripts_list" | grep -v "jx_tokens.js" | grep -io "j[drx]_[a-z]*\w[a-z]*\w[a-z]*" | sort -u >>${ListJs}
+      cat ${FileDiy} | grep -v "#" | grep "my_scripts_list" | grep -io "j[drx]_[a-z]*\w[a-z]*\w[a-z]*" | sort -u >>${ListJs}
     fi
 
     grep -vwf ${ListTask} ${ListJs} >${ListJsAdd}
@@ -359,12 +359,12 @@ function Run_All() {
     sed -i '/jd_crazy_joy_coin/d' ${ShellDir}/run_all.sh
     echo "bash ${ShellDir}/jd.sh jd_crazy_joy_coin now" >>${ShellDir}/run_all.sh
   fi
-
   ## 去除不想加入到此脚本中的活动
   ## 例：sed -i '/xxx/d' ${ShellDir}/run_all.sh
   sed -i '/jd_delCoupon/d' ${ShellDir}/run_all.sh ## 不执行 "京东家庭号" 活动
   sed -i '/jd_family/d' ${ShellDir}/run_all.sh    ## 不执行 "删除优惠券" 活动
   sed -i '/jd_shop_lottery/d' ${ShellDir}/run_all.sh
+  sed -i '/jd_try/d' ${ShellDir}/run_all.sh
 
   ## 去除脚本中的空行
   sed -i '/^\s*$/d' ${ShellDir}/run_all.sh
