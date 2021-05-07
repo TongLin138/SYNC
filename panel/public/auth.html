@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="./css/normalize.min.css">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" type="text/css" href="./css/main.css">
-    <link rel="icon" type="image/x-icon" href="https://www.jd.com/favicon.ico" />
 </head>
 
 <body>
@@ -31,12 +30,16 @@
     </div>
 
     <div class="login-form">
-        <h1>Dashboard</h1>
+        <h1>控制面板</h1>
         <form action="auth" method="POST">
             <input type="text" name="username" class="username" placeholder="用户名" required>
             <input type="password" name="password" class="password" placeholder="密码" required>
             <input type="submit" id="login" value="登录">
         </form>
+        <div style="color:rgb(185, 185, 185);"> <p>友情提示：<br></p></div>
+        <div style="text-indent: 2em; color:rgb(185, 185, 185);">
+            <p>如果您的网络环境暴露在公网请更改默认的用户名和密码，并且请使用强密码，否则造成的隐私泄露后果自负。</p>
+        </div>
     </div>
     <script>
         $.ajaxSetup({

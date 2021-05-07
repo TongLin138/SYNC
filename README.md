@@ -13,7 +13,7 @@
 ㅤ
 ㅤ
 # 《使用与更新》教程
-## 修订日期：2021 年 4 月 23 日
+## 修订日期：2021 年 5 月 8 日
 ㅤ
 ## 一、基础使用教程
 >附：[Docker 容器基础使用教程](https://www.runoob.com/docker/docker-container-usage.html)
@@ -140,7 +140,7 @@
 > ForOtherPet8="${MyPet1}@${MyPet2}@${MyPet3}@${MyPet4}@${MyPet5}@${MyPet6}@${MyPet7}@${MyPet8}"
 
 
-#### 4. 提交您的互助码到公共库(Telegram机器人)：
+#### 4. 提交您的互助码到公共库（Telegram Bot）：
 > Telegram Bot：  
 > @TuringLabbot   https://t.me/TuringLabbot
 > @LvanLamCommitCodeBot   https://t.me/LvanLamCommitCodeBot
@@ -244,6 +244,9 @@
     pm2 start ecosystem.config.js
     exit
 > _注意：此命令适用于在容器初始化过程中安装失败时使用。_
+
+#### 7. 重启网页终端：
+    docker exec -it jd pm2 restart ttyd
 
 ***
 
