@@ -108,8 +108,6 @@ function Combin_All() {
   export BOOKSHOP_SHARECODES=$(Combin_Sub ForOtherBookShop)
   ## 签到领现金(jd_cash.js)
   export JD_CASH_SHARECODES=$(Combin_Sub ForOtherCash)
-  ## 京喜农场(jd_jxnc.js)
-  export JXNC_SHARECODES=$(Combin_Sub ForOtherJxnc)
   ## 闪购盲盒(jd_sgmh.js)
   export JDSGMH_SHARECODES=$(Combin_Sub ForOtherSgmh)
   ## 京喜财富岛(jd_cfd.js)
@@ -130,11 +128,17 @@ function Trans_JD_BEAN_SIGN_NOTIFY() {
   esac
 }
 
+## 转换UN_SUBSCRIBES
+function Trans_UN_SUBSCRIBES() {
+  export UN_SUBSCRIBES="${goodPageSize}\n${shopPageSize}\n${jdUnsubscribeStopGoods}\n${jdUnsubscribeStopShop}"
+}
+
 ## 申明全部变量
 function Set_Env() {
   Count_UserSum
   Combin_All
   Trans_JD_BEAN_SIGN_NOTIFY
+  Trans_UN_SUBSCRIBES
 }
 
 ## 随机延迟
