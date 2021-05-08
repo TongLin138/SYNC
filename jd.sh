@@ -130,17 +130,11 @@ function Trans_JD_BEAN_SIGN_NOTIFY() {
   esac
 }
 
-## 转换UN_SUBSCRIBES
-function Trans_UN_SUBSCRIBES() {
-  export UN_SUBSCRIBES="${goodPageSize}\n${shopPageSize}\n${jdUnsubscribeStopGoods}\n${jdUnsubscribeStopShop}"
-}
-
 ## 申明全部变量
 function Set_Env() {
   Count_UserSum
   Combin_All
   Trans_JD_BEAN_SIGN_NOTIFY
-  Trans_UN_SUBSCRIBES
 }
 
 ## 随机延迟
