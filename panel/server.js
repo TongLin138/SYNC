@@ -16,6 +16,9 @@ var {
     execSync,
     exec
 } = require('child_process');
+const {
+    createProxyMiddleware
+} = require('http-proxy-middleware');
 
 var rootPath = path.resolve(__dirname, '..')
 // config.sh 文件所在目录
@@ -185,8 +188,6 @@ async function checkLogin() {
     }
 }
 
-
-
 /**
  * 检查 config.sh 以及 config.sh.sample 文件是否存在
  */
@@ -297,7 +298,6 @@ function getLastModifyFilePath(dir) {
     return filePath;
 }
 
-
 var app = express();
 // gzip压缩
 app.use(compression({
@@ -330,6 +330,18 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// ttyd proxy
+app.use(
+    '/shell',
+    createProxyMiddleware({
+        target: 'http://localhost:7681',
+        ws: true,
+        changeOrigin: true,
+        pathRewrite: {
+            '^/shell': '/',
+        },
+    })
+);
 /**
  * 登录页面
  */
@@ -347,6 +359,17 @@ app.get('/', function (request, response) {
 app.get('/changepwd', function (request, response) {
     if (request.session.loggedin) {
         response.sendFile(path.join(__dirname + '/public/pwd.html'));
+    } else {
+        response.redirect('/');
+    }
+});
+
+/**
+ * terminal
+ */
+app.get('/terminal', function (request, response) {
+    if (request.session.loggedin) {
+        response.sendFile(path.join(__dirname + '/public/terminal.html'));
     } else {
         response.redirect('/');
     }
@@ -466,7 +489,6 @@ app.get('/home', function (request, response) {
     } else {
         response.redirect('/');
     }
-
 });
 
 /**
@@ -490,7 +512,6 @@ app.get('/crontab', function (request, response) {
     } else {
         response.redirect('/');
     }
-
 });
 
 /**
@@ -535,7 +556,6 @@ app.post('/runCmd', function (request, response) {
                         msg: stdout ? `${stdout}${error}` : `${error}`
                     });
                     return;
-
                 }
 
                 if (stdout) {
@@ -545,7 +565,6 @@ app.post('/runCmd', function (request, response) {
                         msg: `${stdout}`
                     });
                     return;
-
                 }
 
                 if (stderr) {
@@ -590,7 +609,6 @@ app.get('/runLog/:jsName', function (request, response) {
         response.send(loginFaild);
     }
 })
-
 
 /**
  * auth
@@ -655,10 +673,8 @@ app.post('/changepass', function (request, response) {
                 msg: "请输入用户名密码!"
             });
         }
-
     } else {
         response.send(loginFaild);
-
     }
 });
 
@@ -668,7 +684,6 @@ app.post('/changepass', function (request, response) {
 app.get('/logout', function (request, response) {
     request.session.destroy()
     response.redirect('/');
-
 });
 
 /**
@@ -738,11 +753,9 @@ app.get('/api/logs', function (request, response) {
             dirs
         };
         response.send(result);
-
     } else {
         response.redirect('/');
     }
-
 });
 
 /**
@@ -819,11 +832,9 @@ app.get('/api/scripts', function (request, response) {
             dirs
         };
         response.send(result);
-
     } else {
         response.redirect('/');
     }
-
 });
 
 /**
@@ -843,10 +854,43 @@ app.get('/api/scripts/:dir/:file', function (request, response) {
     } else {
         response.redirect('/');
     }
-
 });
 
-
+/**
+ * 更新已经存在的人的cookie
+ * */
+app.post('/updateCookie', function (request, response) {
+    if (request.body.cookie) {
+        const content = getFileContentByName(confFile);
+        const lines = content.split('\n');
+        const pt_pin = request.body.cookie.match(/pt_pin=.+?;/)[0];
+        let updateFlag = false;
+        for (var i = 0; i < lines.length; i++) {
+            var line = lines[i];
+            if (
+                line.startsWith('Cookie') &&
+                line.match(/pt_pin=.+?;/) &&
+                line.match(/pt_pin=.+?;/)[0] == pt_pin
+            ) {
+                const head = line.split('=')[0];
+                const newLine = [head, '=', '"', request.body.cookie, '"'].join('');
+                lines[i] = newLine;
+                updateFlag = true;
+                break;
+            }
+        }
+        saveNewConf('config.sh', lines.join('\n'));
+        response.send({
+            err: 0,
+            msg: updateFlag ? '更新成功' : '没有此CK，请联系管理员添加',
+        });
+    } else {
+        response.send({
+            msg: '参数错误',
+            err: -1
+        });
+    }
+});
 checkConfigFile()
 
 app.listen(5678, () => {
