@@ -86,7 +86,7 @@ if [[ ${ENABLE_WEB_PANEL} == true ]]; then
   echo -e "控制面板启动成功...\n"
   cd ${JD_DIR}
   echo -e "[*] 正在下载 ttyd 网页终端二进制文件..."
-  wget https://pd.zwc365.com/seturl/https://github.com/tsl0922/ttyd/releases/download/1.6.3/ttyd.$(uname -m) -O /usr/local/bin/ttyd -q
+  wget https://mirror.ghproxy.com/https://github.com/tsl0922/ttyd/releases/download/1.6.3/ttyd.$(uname -m) -O /usr/local/bin/ttyd -q
   if [ -f /usr/local/bin/ttyd ]; then
     echo -e ''
     chmod +x /usr/local/bin/ttyd
