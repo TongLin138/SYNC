@@ -86,13 +86,14 @@ if [[ ${ENABLE_WEB_PANEL} == true ]]; then
   echo -e "控制面板启动成功...\n"
   cd ${JD_DIR}
   echo -e "[*] 正在下载 ttyd 网页终端二进制文件..."
-  wget https://mirror.ghproxy.com/https://github.com/tsl0922/ttyd/releases/download/1.6.3/ttyd.$(uname -m) -O /usr/local/bin/ttyd -q
+  wget https://ghproxy.com/https://github.com/tsl0922/ttyd/releases/download/1.6.3/ttyd.$(uname -m) -O /usr/local/bin/ttyd -q
   if [ -f /usr/local/bin/ttyd ]; then
     echo -e ''
     chmod +x /usr/local/bin/ttyd
     export PS1="\u@\h:\w \$ "
     pm2 start ttyd --name="ttyd" -- -t fontSize=14 -t disableLeaveAlert=true -t rendererType=webgl bash
     if [ $? -eq 0 ]; then
+      echo -e ''
       echo -e "网页终端启动成功...\n"
     else
       echo -e "网页终端启动失败，但容器将继续启动...\n"
@@ -106,10 +107,10 @@ elif [[ ${ENABLE_WEB_PANEL} == false ]]; then
   echo -e "已设置为不自动启动控制面板，跳过...\n"
 fi
 
-UseNotes
-
 if [ "${1#-}" != "${1}" ] || [ -z "$(command -v "${1}")" ]; then
   set -- node "$@"
 fi
+
+UseNotes
 
 exec "$@"
