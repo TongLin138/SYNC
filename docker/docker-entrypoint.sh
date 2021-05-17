@@ -85,21 +85,28 @@ if [[ ${ENABLE_WEB_PANEL} == true ]]; then
   pm2 start ecosystem.config.js
   echo -e "控制面板启动成功...\n"
   cd ${JD_DIR}
+  Architecture=$(uname -m)
+  if [ ${Architecture} = "armv7l*" ]; then
+    SOURCE_ARCH=armhf
+  elif [ $Architecture = "armv*" ]; then
+    SOURCE_ARCH=arm
+  else
+    SOURCE_ARCH=${Architecture}
+  fi
   echo -e "[*] 正在下载 ttyd 网页终端二进制文件..."
-  wget https://ghproxy.com/https://github.com/tsl0922/ttyd/releases/download/1.6.3/ttyd.$(uname -m) -O /usr/local/bin/ttyd -q
+  wget https://ghproxy.com/https://github.com/tsl0922/ttyd/releases/download/1.6.3/ttyd.${SOURCE_ARCH} -O /usr/local/bin/ttyd -q
   if [ -f /usr/local/bin/ttyd ]; then
     echo -e ''
     chmod +x /usr/local/bin/ttyd
     export PS1="\u@\h:\w \$ "
     pm2 start ttyd --name="ttyd" -- -t fontSize=14 -t disableLeaveAlert=true -t rendererType=webgl bash
     if [ $? -eq 0 ]; then
-      echo -e ''
-      echo -e "网页终端启动成功...\n"
+      echo -e "\n网页终端启动成功...\n"
     else
-      echo -e "网页终端启动失败，但容器将继续启动...\n"
+      echo -e "\n网页终端启动失败，但容器将继续启动...\n"
     fi
   else
-    echo -e "\n下载出错或CPU架构暂不支持，无法正常使用网页终端！\n"
+    echo -e "\n下载出错或处理器架构不支持，无法正常使用网页终端！\n"
   fi
   echo -e "如未修改用户名密码，则初始用户名为：useradmin，初始密码为：supermanito\n"
   echo -e "请访问 http://<内部或外部IP地址>:5678 登陆并修改配置...\n"
