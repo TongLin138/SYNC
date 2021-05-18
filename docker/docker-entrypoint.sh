@@ -86,7 +86,7 @@ if [[ ${ENABLE_WEB_PANEL} == true ]]; then
   echo -e "控制面板启动成功...\n"
   cd ${JD_DIR}
   Architecture=$(uname -m)
-  if [ ${Architecture} = "armv7l*" ]; then
+  if [ ${Architecture} = "armv7l" ]; then
     SOURCE_ARCH=armhf
   elif [ $Architecture = "armv*" ]; then
     SOURCE_ARCH=arm

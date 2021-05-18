@@ -5,6 +5,8 @@
 ## 2. 作者脚本地址URL
 ## 3. 作者脚本名称
 
+## 注意：此文件为模板，您需要复制此文件至 config 目录并更名为 diy.sh 才可以使用
+
 ## 定义 Github Raw 文件服务器解析地址
 cat /etc/hosts | grep "raw.githubusercontent.com" -q
 if [ $? -ne 0 ]; then
@@ -16,21 +18,24 @@ if [ $? -ne 0 ]; then
   echo "185.199.111.133 raw.githubusercontent.com" >>/etc/hosts
 fi
 
+## 定义代理链接
+PROXY_URL=https://ghproxy.com/
+
 ##############################  作  者  昵  称  （必填）  ##############################
 # 使用空格隔开
 author_list=""
 
 ## 添加更多作者昵称（必填）示例：author_list="testuser1 testuser2"  直接追加进双引号内，不要新定义变量
 
-##############################  作  者  脚  本  地  址  URL  （必填）  ##############################
-# 例如：https://raw.sevencdn.com/whyour/hundun/master/quanx/jx_nc.js
+##############################  作  者  脚  本  地  址  链  接  （必填）  ##############################
 # 1.从作者库中随意挑选一个脚本地址，每个作者的地址添加一个即可，无须重复添加
 # 2.将地址最后的 “脚本名称+后缀” 剪切到下一个变量里（my_scripts_list_xxx）
 scripts_base_url_1=
 
 
-## 添加更多脚本地址URL示例：scripts_base_url_2=https://raw.githubusercontent.com/testuser/testrepository/main/
-## 注意带上项目分支名称，可自行更换 CDN 代理加速
+## 添加脚本地址链接示例：scripts_base_url_2=https://raw.githubusercontent.com/testuser/testrepository/main/
+## 使用代理添加脚本地址链接示例：scripts_base_url_2=${PROXY_URL}https://raw.githubusercontent.com/testuser/testrepository/main/
+## 注意带上项目分支名称，并且使用 raw 地址，不要忘了后面的斜杠，填错任何一个地方都会导致脚本拉取失败
 
 ##############################  作  者  脚  本  名  称  （必填）  ##############################
 # 将相应作者的脚本填写到以下变量中
