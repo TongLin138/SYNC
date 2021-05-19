@@ -356,7 +356,7 @@ function Run_All() {
   ## 自定义添加脚本
   ## echo "bash ${ShellDir}/jd.sh xxx now" >>${RunAll}
 
-  sed -i "s/^/bash ${ShellDir}/jd.sh &/g" ${RunAll}
+  sed -i "s/^/bash ${ShellJd} &/g" ${RunAll}
   sed -i 's/$/&.js now/g' ${RunAll}
   sed -i '1i\#!/bin/env bash' ${RunAll}
   sed -i '/^\s*$/d' ${RunAll}
