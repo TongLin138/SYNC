@@ -12,7 +12,7 @@ __ㅤ修订日期：2021 年 5 月 8 日__
 ㅤ
 ㅤ
 # 《使用与更新》教程
-## 修订日期：2021 年 5 月 8 日
+## 修订日期：2021 年 5 月 20 日
 ㅤ
 ## 一、基础使用教程
 >附：[Docker 容器基础使用教程](https://www.runoob.com/docker/docker-container-usage.html)
@@ -21,7 +21,7 @@ __ㅤ修订日期：2021 年 5 月 8 日__
 #### 1. 容器的进入与退出：
 - 进入容器
 
-      docker exec -it jd /bin/bash
+      docker exec -it jd bash
 - 退出容器
 
       exit
@@ -34,7 +34,7 @@ __ㅤ修订日期：2021 年 5 月 8 日__
 #### 2. 手动运行一键脚本开始您的薅羊毛行为：
 - 进入容器
 
-      docker exec -it jd /bin/bash
+      docker exec -it jd bash
 
 - 执行一键脚本
 
@@ -66,9 +66,9 @@ __ㅤ修订日期：2021 年 5 月 8 日__
 #### 5. 使用 Diy 自定义脚本扩展活动脚本数量：
 - 使用需知
 
-      1. 此脚本的用途为收集并添加第三方作者编写的活动脚本
-      3. 您必须使用本项目中的模板文件根据说明自定义构建您的专属脚本
-      4. 您还可以将自制的 Diy 脚本上传至您的仓库并使用自动同步功能
+      1. 此脚本的用途为添加第三方作者编写的活动脚本到项目中
+      2. 您必须使用本项目中的模板文件根据教程说明自己动手编写
+      3. 您还可以将自制的 Diy 脚本上传至您的仓库并使用自动同步功能
 - 启用该功能
 
       docker exec -it jd cp -f sample/diy.sh.sample config/diy.sh
@@ -76,7 +76,7 @@ __ㅤ修订日期：2021 年 5 月 8 日__
 - 启用自动同步功能（选择）
 
       docker exec -it jd sed -i 's/EnableExtraShellUpdate=""/EnableExtraShellUpdate="true"/g' config/config.sh
-> _ㅤ注意：1. 启用该功能后便可直接下载或同步更新本项目中的 Diy 脚本。_
+> _注意：启用该功能后便可直接下载或同步更新本项目中的 Diy 脚本，同时代表每次更新时会覆盖您本地编写的内容。_
 
 #### 6. 查看帮助文档：
     docker exec -it jd cat README.md
@@ -102,19 +102,12 @@ __ㅤ修订日期：2021 年 5 月 8 日__
 > 
 > MyFruit1="xxxxxxxxxxxxxxxxxxxxxxxxx"\
 > MyFruit2="xxxxxxxxxxxxxxxxxxxxxxxxx"\
-> MyFruit3=""\
-> MyFruit4=""\
-> MyFruit5=""\
-> MyFruit6=""\
 > MyFruitA=""\
 > MyFruitB=""
 > 
 > ForOtherFruit1="${MyFruit1}@${MyFruit2}"
-> ForOtherFruit2="${MyFruit1}@${MyFruit2}"\
-> ForOtherFruit3=""\
-> ForOtherFruit4=""\
-> ForOtherFruit5=""\
-> ForOtherFruit6=""
+> ForOtherFruit2="${MyFruit1}@${MyFruit2}"
+>
 > 
 > ################################## 2. 定义东东萌宠互助（选填） ##################################
 > 
@@ -124,19 +117,15 @@ __ㅤ修订日期：2021 年 5 月 8 日__
 > MyPet4="xxxxxxxxxxxxxxxxxxxxxxxxx"\
 > MyPet5="xxxxxxxxxxxxxxxxxxxxxxxxx"\
 > MyPet6="xxxxxxxxxxxxxxxxxxxxxxxxx"\
-> MyPet7="xxxxxxxxxxxxxxxxxxxxxxxxx"\
-> MyPet8="xxxxxxxxxxxxxxxxxxxxxxxxx"\
 > MyPetA=""\
 > MyPetB=""
 > 
-> ForOtherPet1="${MyPet1}@${MyPet2}@${MyPet3}@${MyPet4}@${MyPet5}@${MyPet6}@${MyPet7}@${MyPet8}"
-> ForOtherPet2="${MyPet1}@${MyPet2}@${MyPet3}@${MyPet4}@${MyPet5}@${MyPet6}@${MyPet7}@${MyPet8}"
-> ForOtherPet3="${MyPet1}@${MyPet2}@${MyPet3}@${MyPet4}@${MyPet5}@${MyPet6}@${MyPet7}@${MyPet8}"
-> ForOtherPet4="${MyPet1}@${MyPet2}@${MyPet3}@${MyPet4}@${MyPet5}@${MyPet6}@${MyPet7}@${MyPet8}"
-> ForOtherPet5="${MyPet1}@${MyPet2}@${MyPet3}@${MyPet4}@${MyPet5}@${MyPet6}@${MyPet7}@${MyPet8}"
-> ForOtherPet6="${MyPet1}@${MyPet2}@${MyPet3}@${MyPet4}@${MyPet5}@${MyPet6}@${MyPet7}@${MyPet8}"
-> ForOtherPet7="${MyPet1}@${MyPet2}@${MyPet3}@${MyPet4}@${MyPet5}@${MyPet6}@${MyPet7}@${MyPet8}"
-> ForOtherPet8="${MyPet1}@${MyPet2}@${MyPet3}@${MyPet4}@${MyPet5}@${MyPet6}@${MyPet7}@${MyPet8}"
+> ForOtherPet1="${MyPet1}@${MyPet2}@${MyPet3}@${MyPet4}@${MyPet5}@${MyPet6}"\
+> ForOtherPet2="${MyPet1}@${MyPet2}@${MyPet3}@${MyPet4}@${MyPet5}@${MyPet6}"\
+> ForOtherPet3="${MyPet1}@${MyPet2}@${MyPet3}@${MyPet4}@${MyPet5}@${MyPet6}"\
+> ForOtherPet4="${MyPet1}@${MyPet2}@${MyPet3}@${MyPet4}@${MyPet5}@${MyPet6}"\
+> ForOtherPet5="${MyPet1}@${MyPet2}@${MyPet3}@${MyPet4}@${MyPet5}@${MyPet6}"\
+> ForOtherPet6="${MyPet1}@${MyPet2}@${MyPet3}@${MyPet4}@${MyPet5}@${MyPet6}"
 
 
 #### 4. 提交您的互助码到公共库（Telegram Bot）：
@@ -147,7 +136,7 @@ __ㅤ修订日期：2021 年 5 月 8 日__
 > 【随机互助Bot使用规则】
 > 1.用/Start开启bot 用/help获取帮助
 > 2.支持互助码批量提交(使用 & 隔开)每周期内最多提交同一活动5个互助码，尽量错峰提交。频繁提交，一经发现永 ban ！
-> 3.每个月1号，8号，16号，24号凌晨2点清理一次数据库，清理后需重新在Bot提交互助码。有啥问题别问我，下次回复这条信息禁言12小时。
+> 3.每个月1号，8号，16号，24号凌晨2点清理一次数据库，清理后需重新在Bot提交互助码。
 > 
 > 下面是提交格式
 > 
@@ -210,7 +199,10 @@ __ㅤ修订日期：2021 年 5 月 8 日__
 ㅤ
 ## 三、控制面板教程
 #### 1. 手动开启控制面板：
-    docker exec -it jd pm2 start panel/ecosystem.config.js
+    docker exec -it jd bash
+    cd panel
+    pm2 start ecosystem.config.js
+    exit
 > _注意：在某些环境下当系统重启导致控制面板无法访问提示拒绝连接时可用此命令恢复使用。_
 
 
@@ -227,25 +219,24 @@ __ㅤ修订日期：2021 年 5 月 8 日__
     docker exec -it jd bash jd.sh resetpwd
 
 
-#### 5. 升级控制面板：
-    docker exec -it jd /bin/bash
+#### 5. 重新安装控制面板：
+    docker exec -it jd bash
     cd panel
-    yarn install || yarn install --registry=https://registry.npm.taobao.org
-    exit
-> _注意：如果您更改了默认访问端口，那么在执行此命令后需要重新修改。_
-
-
-#### 6. 重新安装控制面板：
-    docker exec -it jd /bin/bash
-    cd panel
-    yarn install || yarn install --registry=https://registry.npm.taobao.org
     npm install -g pm2
     pm2 start ecosystem.config.js
     exit
 > _注意：此命令适用于在容器初始化过程中安装失败时使用。_
 
+#### 6. 手动开启网页终端：
+    docker exec -it jd pm2 start ttyd
+
+
 #### 7. 重启网页终端：
     docker exec -it jd pm2 restart ttyd
+
+
+#### 8. 查看控制面板和网页终端启动状态
+    docker exec -it jd pm2 list
 
 ***
 
@@ -264,11 +255,11 @@ __ㅤ修订日期：2021 年 5 月 8 日__
 
 ㅤ
 ## 五、使用需知
-#### 1.  `run_all.sh` 为一键执行所有活动脚本， `git_pull.sh` 为一键更新脚本
-#### 2. 手动执行 `run_all.sh` 脚本后无需守在电脑旁，会自动在最后运行挂机活动脚本
-#### 3. 执行 `run_all.sh` 脚本期间如果卡住，可按回车键尝试或通过命令 `Ctrl + Z` 跳过继续执行剩余活动脚本
-#### 4. 由于京东活动一直变化可能会出现无法参加活动、报错等正常现象，可手动更新活动脚本
-#### 5. 如果需要更新活动脚本，请执行一键更新脚本，它会同步更新 `run_all.sh` 一键执行所有活动脚本
-#### 6. 除手动运行活动脚本外该项目还会通过定时的方式全天候自动运行活动脚本，具体运行记录可通过日志查看
-#### 7. 该项目已默认配置好 `Crontab` 定时任务，定时配置文件 `crontab.list` 会通过活动脚本的更新而同步更新
+#### 1. `git_pull.sh` 为一键更新脚本，`run_all.sh` 为一键执行所有活动脚本
+#### 2. 本项目可以通过定时的方式全天候自动运行活动脚本，具体运行记录可通过日志查看
+#### 3. 项目已配置好 `Crontab` 定时任务，定时配置文件 `crontab.list` 会通过活动脚本的更新而同步更新
+#### 4. 您可以通过容器外的主机挂载目录来编辑配置文件、查看活动运行日志、查看脚本文件
+#### 5. 手动执行 `run_all.sh` 脚本后无需守在电脑旁，会自动在最后运行挂机活动脚本
+#### 6. 执行 `run_all` 脚本期间如果卡住，可按回车键尝试或通过命令 `Ctrl + Z` 跳过继续执行剩余活动脚本
+#### 7. 由于京东活动一直变化可能会出现无法参加活动、报错等正常现象，可手动执行一键更新脚本完成更新
 #### 8. 之前填入的 `Cookie部分内容` 具有一定的时效性，若提示失效请根据教程重新获取并手动更新

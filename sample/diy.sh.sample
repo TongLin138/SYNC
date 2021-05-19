@@ -2,7 +2,7 @@
 
 ## 您需要填写此脚本的以下几处地方：
 ## 1. 作者昵称
-## 2. 作者脚本地址URL
+## 2. 作者脚本地址链接
 ## 3. 作者脚本名称
 
 ## 注意：此文件为模板，您需要复制此文件至 config 目录并更名为 diy.sh 才可以使用
@@ -20,6 +20,7 @@ fi
 
 ## 定义代理链接
 PROXY_URL=https://ghproxy.com/
+## 可选 https://mirror.ghproxy.com/ https://pd.zwc365.com/
 
 ##############################  作  者  昵  称  （必填）  ##############################
 # 使用空格隔开
@@ -43,7 +44,7 @@ my_scripts_list_1=""
 
 
 ## 添加脚本名称示例：my_scripts_list_2="jd_test1.js jd_test2.js jd_test3.js"
-##                 my_scripts_list_3="jd_ceshi1.js jd_ceshi2.js jd_ceshi3.js"
+##                 my_scripts_list_3="jd_ceshiA.js jd_ceshiB.js jd_ceshiC.js"
 
 ##############################  随  机  函  数  ##############################
 rand() {

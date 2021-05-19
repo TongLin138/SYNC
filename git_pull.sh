@@ -11,6 +11,7 @@ LogDir=${ShellDir}/log
 [ ! -d ${LogDir} ] && mkdir -p ${LogDir}
 ScriptsDir=${ShellDir}/scripts
 ConfigDir=${ShellDir}/config
+RunAll=${ShellDir}/run_all.sh
 FileConf=${ConfigDir}/config.sh
 FileDiy=${ConfigDir}/diy.sh
 FileConfSample=${ShellDir}/sample/config.sh.sample
@@ -129,6 +130,7 @@ function Diff_Cron() {
     cat ${ListCronLxk} | grep -E "j[drx]_\w+\.js" | perl -pe "s|.+(j[drx]_\w+)\.js.+|\1|" | sort -u >${ListJs}
     if [[ ${EnableExtraShell} == true ]]; then
       cat ${FileDiy} | grep -v "#" | grep "my_scripts_list" | grep -io "j[drx]_[a-z]*\w[a-z]*\w[a-z]*" | sort -u >>${ListJs}
+      cat ${FileDiy} | grep -v "#" | grep "my_scripts_list" | grep -io "adolf_[a-z]*\w[a-z]*\w[a-z]*" | sort -u >>${ListJs}
     fi
 
     grep -vwf ${ListTask} ${ListJs} >${ListJsAdd}
@@ -334,40 +336,30 @@ function ExtraShell() {
 
 ## 一键执行所有活动脚本
 function Run_All() {
-  ## 临时删除以旧版脚本
-  rm -rf ${ShellDir}/run-all.sh
   ## 默认将 "jd、jx、jr" 开头的活动脚本加入其中
-  rm -rf ${ShellDir}/run_all.sh
-  bash ${ShellDir}/jd.sh | grep -io 'j[drx]_[a-z].*' | grep -v 'bean_change' >${ShellDir}/run_all.sh
-  sed -i "1i\jd_bean_change.js" ${ShellDir}/run_all.sh ## 置顶京豆变动通知
-  sed -i "s#^#bash ${ShellDir}/jd.sh &#g" ${ShellDir}/run_all.sh
-  sed -i 's#.js# now#g' ${ShellDir}/run_all.sh
-  sed -i '1i\#!/bin/env bash' ${ShellDir}/run_all.sh
+  rm -rf ${RunAll}
+  cat ${ListJs} | grep -v bean_change >${RunAll}
+
+  ## 调整执行顺序
+  sed -i "1i\bean_change" ${RunAll} ## 置顶京豆变动通知
+  echo "crazy_joy_coin" >>${RunAll} ## 末尾加入挂机脚本
+
+  ## 去除不适合的活动脚本
+  ## 例：sed -i '/xxx/d' ${RunAll}
+  sed -i '/jd_delCoupon/d' ${RunAll} ## 不执行 "京东家庭号" 活动
+  sed -i '/jd_family/d' ${RunAll}    ## 不执行 "删除优惠券" 活动
+  ## 第三方脚本
+  sed -i '/jd_shop_lottery/d' ${RunAll}
+  sed -i '/jd_try/d' ${RunAll}
+  sed -i '/jx_cfdtx/d' ${RunAll}
+
   ## 自定义添加脚本
-  ## 例：echo "bash ${ShellDir}/jd.sh xxx now" >>${ShellDir}/run_all.sh
+  ## echo "bash ${ShellDir}/jd.sh xxx now" >>${RunAll}
 
-  ## 将挂机活动移至末尾从而最后执行
-  ## 目前仅有 "疯狂的JOY" 这一个活动
-  ## 模板如下 ：
-  ## cat run_all.sh | grep xxx -wq
-  ## if [ $? -eq 0 ];then
-  ##   sed -i '/xxx/d' ${ShellDir}/run_all.sh
-  ##   echo "bash jd.sh xxx now" >>${ShellDir}/run_all.sh
-  ## fi
-  cat ${ShellDir}/run_all.sh | grep jd_crazy_joy_coin -wq
-  if [ $? -eq 0 ]; then
-    sed -i '/jd_crazy_joy_coin/d' ${ShellDir}/run_all.sh
-    echo "bash ${ShellDir}/jd.sh jd_crazy_joy_coin now" >>${ShellDir}/run_all.sh
-  fi
-  ## 去除不想加入到此脚本中的活动
-  ## 例：sed -i '/xxx/d' ${ShellDir}/run_all.sh
-  sed -i '/jd_delCoupon/d' ${ShellDir}/run_all.sh ## 不执行 "京东家庭号" 活动
-  sed -i '/jd_family/d' ${ShellDir}/run_all.sh    ## 不执行 "删除优惠券" 活动
-  sed -i '/jd_shop_lottery/d' ${ShellDir}/run_all.sh
-  sed -i '/jd_try/d' ${ShellDir}/run_all.sh
-
-  ## 去除脚本中的空行
-  sed -i '/^\s*$/d' ${ShellDir}/run_all.sh
+  sed -i "s/^/bash ${ShellDir}/jd.sh &/g" ${RunAll}
+  sed -i 's/$/&.js now/g' ${RunAll}
+  sed -i '1i\#!/bin/env bash' ${RunAll}
+  sed -i '/^\s*$/d' ${RunAll}
 }
 
 ## 在日志中记录时间与路径
