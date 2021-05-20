@@ -1,11 +1,38 @@
 #!/usr/bin/env bash
+## 此文件为 DIY 自定义脚本模板，您需要复制此文件至 config 目录并更名为 diy.sh 才可以使用，并且环境变量赋值为 "true" 才能生效执行
 
 ## 您需要填写此脚本的以下几处地方：
 ## 1. 作者昵称
 ## 2. 作者脚本地址链接
 ## 3. 作者脚本名称
+## 4. 定义下载代理（选填）
+## 5. 删除失效的活动脚本（选填）
 
-## 注意：此文件为模板，您需要复制此文件至 config 目录并更名为 diy.sh 才可以使用
+##############################  1. 作  者  昵  称  （必填）  ##############################
+# 使用空格隔开
+author_list=""
+
+## 添加更多作者昵称（必填）示例：author_list="testuser1 testuser2"  直接追加进双引号内，不要新定义变量
+
+##############################  2. 作  者  脚  本  地  址  链  接  （必填）  ##############################
+# 1.从作者库中随意挑选一个脚本地址，每个作者的地址添加一个即可，无须重复添加
+# 2.将地址最后的 “脚本名称+后缀” 剪切到下一个变量里（my_scripts_list_xxx）
+scripts_base_url_1=
+
+
+## 添加脚本地址链接示例：scripts_base_url_2=https://raw.githubusercontent.com/testuser/testrepository/main/
+## 使用代理添加脚本地址链接示例：scripts_base_url_2=${PROXY_URL}https://raw.githubusercontent.com/testuser/testrepository/main/
+## 注意带上项目分支名称，如果脚本在文件夹中也要带上文件夹名，不要忘了最后面的斜杠；并且一定要使用 raw 地址，填错任何一个地方都会导致脚本拉取失败
+
+##############################  3. 作  者  脚  本  名  称  （必填）  ##############################
+# 将相应作者的脚本填写到以下变量中
+my_scripts_list_1=""
+
+
+## 添加脚本名称示例：my_scripts_list_2="jd_test1.js jd_test2.js jd_test3.js"
+##                 my_scripts_list_3="jd_ceshiA.js jd_ceshiB.js jd_ceshiC.js"
+
+##############################  4. 定  义  下  载  代  理  （选填）  ##############################
 
 ## 定义 Github Raw 文件服务器解析地址
 cat /etc/hosts | grep "raw.githubusercontent.com" -q
@@ -22,29 +49,13 @@ fi
 PROXY_URL=https://ghproxy.com/
 ## 可选 https://mirror.ghproxy.com/ https://pd.zwc365.com/
 
-##############################  作  者  昵  称  （必填）  ##############################
-# 使用空格隔开
-author_list=""
 
-## 添加更多作者昵称（必填）示例：author_list="testuser1 testuser2"  直接追加进双引号内，不要新定义变量
-
-##############################  作  者  脚  本  地  址  链  接  （必填）  ##############################
-# 1.从作者库中随意挑选一个脚本地址，每个作者的地址添加一个即可，无须重复添加
-# 2.将地址最后的 “脚本名称+后缀” 剪切到下一个变量里（my_scripts_list_xxx）
-scripts_base_url_1=
+##########################  5. 删  除  失  效  的  活  动  脚  本  （选填）  ##########################
+## 删除失效的活动脚本示例： rm -rf ${ScriptsDir}/jd_test.js
 
 
-## 添加脚本地址链接示例：scripts_base_url_2=https://raw.githubusercontent.com/testuser/testrepository/main/
-## 使用代理添加脚本地址链接示例：scripts_base_url_2=${PROXY_URL}https://raw.githubusercontent.com/testuser/testrepository/main/
-## 注意带上项目分支名称，并且使用 raw 地址，不要忘了后面的斜杠，填错任何一个地方都会导致脚本拉取失败
 
-##############################  作  者  脚  本  名  称  （必填）  ##############################
-# 将相应作者的脚本填写到以下变量中
-my_scripts_list_1=""
-
-
-## 添加脚本名称示例：my_scripts_list_2="jd_test1.js jd_test2.js jd_test3.js"
-##                 my_scripts_list_3="jd_ceshiA.js jd_ceshiB.js jd_ceshiC.js"
+## 以下为脚本核心内容，请不要随意更改
 
 ##############################  随  机  函  数  ##############################
 rand() {
@@ -56,8 +67,7 @@ rand() {
 cd ${ShellDir}
 index=1
 for author in $author_list; do
-  echo -e "开始下载 $author 的活动脚本："
-  echo -e ''
+  echo -e "开始下载 $author 的活动脚本：\n"
   # 下载my_scripts_list中的每个js文件，重命名增加前缀"作者昵称_"，增加后缀".new"
   eval scripts_list=\$my_scripts_list_${index}
   #echo $scripts_list
@@ -91,6 +101,3 @@ for author in $author_list; do
   done
   index=$(($index + 1))
 done
-
-##########################  删  除  失  效  的  活  动  脚  本  ##########################
-## 删除旧版本失效的活动示例： rm -rf ${ScriptsDir}/jd_test.js
