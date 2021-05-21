@@ -44,29 +44,28 @@
             <header>
                 <h1>脚本执行工具</h1>
                 <div style="margin-left: 0.5em;">
-                    <button id="git_pull" title="更新脚本文件">更新脚本文件</button><button id="jd_get_share_code" class="cmd-btn"
-                        title="获取互助码">获取互助码</button><button id="export_sharecodes"
-                        title="格式化所有互助码">格式化导出互助码</button><button id="rm_log" title="删除日志">删除日志</button><button
-                        id="jd_crazy_joy_coin" class="cmd-btn" title="运行挂机活动">运行挂机活动</button><button id="hangup"
-                        title="启动/重启后台挂机程序">启动/重启后台挂机程序</button><button id="ttyd"
-                        title="启动/重启网页终端">启动/重启网页终端</button><button id="crazy_joy_coin"
-                        title="停止后台挂机程序">停止后台挂机程序</button><button id="resetpwd"
-                        title="重置控制面板用户名和密码">重置控制面板用户名和密码</button><button id="wrap" class="cmd-btn"
-                        title="切换换行">切换换行</button><button id="move-bottom" class="cmd-btn" title="跳转底部">跳转底部</button>
+                    <button id="jd_list" class="cmd-btn" title="列出脚本">列出脚本</button><button id="git_pull"
+                        title="更新脚本文件">更新脚本文件</button><button id="rm_log" title="删除日志">删除日志</button><button
+                        id="jd_get_share_code" class="cmd-btn" title="获取互助码">获取互助码</button><button
+                        id="export_sharecodes" title="导出互助码">导出互助码</button><button id="jd_unsubscribe" class="cmd-btn"
+                        title="取关店铺和商品">取关店铺和商品</button><button id="ttyd" title="启动/重启网页终端">启动/重启网页终端</button><button
+                        id="hangup" title="启动/重启后台挂机程序">启动/重启后台挂机程序</button><button id="crazy_joy_coin"
+                        title="停止后台挂机程序">停止后台挂机程序</button><button id="ps" title="查看进程">查看进程</button><button id="wrap"
+                        class="cmd-btn" title="切换换行">切换换行</button><button id="move-bottom" class="cmd-btn"
+                        title="跳转底部">跳转底部</button>
                     <br />
-                    <button id="jd_list" class="cmd-btn" title="列出活动脚本">列出活动脚本</button><button id="jd_bean_change"
-                        class="cmd-btn" title="京豆变动通知">京豆变动通知</button><button id="jd_unsubscribe" class="cmd-btn"
-                        title="取关店铺和商品">取关店铺和商品</button><button id="jd_price" class="cmd-btn"
-                        title="京东保价">京东保价</button><button id="jd_fruit" class="cmd-btn"
-                        title="东东农场">东东农场</button><button id="jd_pet" class="cmd-btn" title="东东萌宠">东东萌宠</button><button
-                        id="jd_plantBean" class="cmd-btn" title="种豆得豆">种豆得豆</button><button id="jd_jdfactory"
-                        class="cmd-btn" title="东东工厂">东东工厂</button><button id="jd_dreamFactory" class="cmd-btn"
+                    <button id="jd_bean_change" class="cmd-btn" title="京豆变动通知">京豆变动通知</button><button id="jd_fruit"
+                        class="cmd-btn" title="东东农场">东东农场</button><button id="jd_pet" class="cmd-btn"
+                        title="东东萌宠">东东萌宠</button><button id="jd_plantBean" class="cmd-btn"
+                        title="种豆得豆">种豆得豆</button><button id="jd_jdfactory" class="cmd-btn"
+                        title="东东工厂">东东工厂</button><button id="jd_dreamFactory" class="cmd-btn"
                         title="京喜工厂">京喜工厂</button><button id="jd_jdzz" class="cmd-btn" title="京东赚赚">京东赚赚</button><button
                         id="jd_crazy_joy" class="cmd-btn" title="疯狂的JOY">疯狂的JOY</button><button id="jd_bookshop"
                         class="cmd-btn" title="口袋书店">口袋书店</button><button id="jd_cash" class="cmd-btn"
                         title="签到领现金">签到领现金</button><button id="jd_jxnc" class="cmd-btn"
                         title="京喜农场">京喜农场</button><button id="jd_sgmh" class="cmd-btn" title="闪购盲盒">闪购盲盒</button><button
-                        id="jd_cfd" class="cmd-btn" title="京喜财富岛">京喜财富岛</button>
+                        id="jd_cfd" class="cmd-btn" title="京喜财富岛">京喜财富岛</button><button id="jd_health" class="cmd-btn"
+                        title="东东健康社区">东东健康社区</button><button id="jd_price" class="cmd-btn" title="京东保价">京东保价</button>
                     <br />
                 </div>
                 <form class="run-cmd-form" action="runCmd" method="POST">
@@ -139,17 +138,21 @@
             });
 
 
-            $('#git_pull, #export_sharecodes, #hangup, #ttyd, #rm_log, #resetpwd, #jd_delCoupon, #crazy_joy_coin, #run_all')
+            $('#git_pull, #export_sharecodes, #hangup, #ttyd, #ps, #rm_log, #jd_delCoupon, #crazy_joy_coin, #run_all')
                 .click(function () {
                     let confirmTxt, cmd;
                     switch (this.id) {
                         case 'git_pull':
-                            confirmTxt = '确认更新项目文件与活动脚本？';
+                            confirmTxt = '确认更新脚本文件？';
                             cmd = `bash ${this.id}`;
                             break;
                         case 'export_sharecodes':
-                            confirmTxt = '确认格式化导出互助码？';
+                            confirmTxt = '确认导出互助码？';
                             cmd = `bash ${this.id}`;
+                            break;
+                        case 'ps':
+                            confirmTxt = '确认查看进程？';
+                            cmd = `${this.id}`;
                             break;
                         case 'hangup':
                             confirmTxt = '确认启动/重启挂机程序？';
@@ -162,10 +165,6 @@
                         case 'rm_log':
                             confirmTxt = '确认删除日志？';
                             cmd = `bash ${this.id}`;
-                            break;
-                        case 'resetpwd':
-                            confirmTxt = '确认重置用户名与密码？';
-                            cmd = `bash jd.sh ${this.id}`;
                             break;
                         case 'jd_delCoupon':
                             confirmTxt = '确认删除优惠券（存在误删，谨慎操作）？';
