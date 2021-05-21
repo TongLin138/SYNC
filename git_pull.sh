@@ -131,8 +131,8 @@ function Diff_Cron() {
         cat ${ListCronLxk} | grep -E "j[drx]_\w+\.js" | perl -pe "s|.+(j[drx]_\w+)\.js.+|\1|" | sort -u >${ListJs}
 
         if [ ${EnableExtraShell} = "true" ]; then
-            grep "my_scripts_list" ${FileDiy} | grep -v "#" | grep -io "\w*[a-z]_[a-z]*\w[a-z]*\w[a-z]*.js" | sort -u >>${ListJs}
-            grep "my_scripts_list" ${FileDiy} | grep -v "#" | grep -io "\w*[a-z]_[a-z]*\w[a-z]*\w[a-z]*.js" | sort -u >>${ListTask}
+            grep "my_scripts_list" ${FileDiy} | grep -v "#" | grep -io "\w*[a-z]_[a-z]*\w[a-z]*\w[a-z]*" | grep -v "\w*scripts_list" | sort -u >>${ListJs}
+            grep "my_scripts_list" ${FileDiy} | grep -v "#" | grep -io "\w*[a-z]_[a-z]*\w[a-z]*\w[a-z]*" | grep -v "\w*scripts_list" | sort -u >>${ListTask}
         fi
 
         grep -vwf ${ListTask} ${ListJs} >${ListJsAdd}
