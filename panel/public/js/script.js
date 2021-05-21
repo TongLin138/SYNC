@@ -767,7 +767,7 @@ function toggleAnimation(elm) {
     animating ^= true;
     if (animating) animate();
     if (elm) {
-        elm.innerHTML = animating ? "Stop" : "Start";
+        elm.innerHTML = animating ? "关闭动画" : "开启动画";
     }
 }
 
