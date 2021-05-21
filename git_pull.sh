@@ -131,8 +131,8 @@ function Diff_Cron() {
         cat ${ListCronLxk} | grep -E "j[drx]_\w+\.js" | perl -pe "s|.+(j[drx]_\w+)\.js.+|\1|" | sort -u >${ListJs}
 
         if [ ${EnableExtraShell} = "true" ]; then
-            grep "my_scripts_list" ${FileDiy} | grep -v "#" | grep -io "\w*[a-z]_[a-z]*\w[a-z]*\w[a-z]*" | sort -u >>${ListJs}
-            grep "my_scripts_list" ${FileDiy} | grep -v "#" | grep -io "\w*[a-z]_[a-z]*\w[a-z]*\w[a-z]*" | grep -iv "j[drx]_[a-z]*\w[a-z]*\w[a-z]*" | sort -u >>${ListTask}
+            grep "my_scripts_list" ${FileDiy} | grep -v "#" | grep -io "\w*[a-z]_[a-z]*\w[a-z]*\w[a-z]*.js" | sort -u >>${ListJs}
+            grep "my_scripts_list" ${FileDiy} | grep -v "#" | grep -io "\w*[a-z]_[a-z]*\w[a-z]*\w[a-z]*.js" | grep -iv "j[drx]_[a-z]*\w[a-z]*\w[a-z]*" | sort -u >>${ListTask}
         fi
 
         grep -vwf ${ListTask} ${ListJs} >${ListJsAdd}
@@ -351,7 +351,6 @@ function Run_All() {
     sed -i '/jd_delCoupon/d' ${FileRunAll} ## 不执行 "京东家庭号" 活动
     sed -i '/jd_family/d' ${FileRunAll}    ## 不执行 "删除优惠券" 活动
     ## 第三方脚本
-    sed -i '/jd_shop_lottery/d' ${FileRunAll}
     sed -i '/jd_try/d' ${FileRunAll}
     sed -i '/jx_cfdtx/d' ${FileRunAll}
 
