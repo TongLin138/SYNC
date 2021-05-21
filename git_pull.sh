@@ -132,7 +132,7 @@ function Diff_Cron() {
 
         if [ ${EnableExtraShell} = "true" ]; then
             grep "my_scripts_list" ${FileDiy} | grep -v "#" | grep -io "\w*[a-z]_[a-z]*\w[a-z]*\w[a-z]*.js" | sort -u >>${ListJs}
-            grep "my_scripts_list" ${FileDiy} | grep -v "#" | grep -io "\w*[a-z]_[a-z]*\w[a-z]*\w[a-z]*.js" | grep -iv "j[drx]_[a-z]*\w[a-z]*\w[a-z]*" | sort -u >>${ListTask}
+            grep "my_scripts_list" ${FileDiy} | grep -v "#" | grep -io "\w*[a-z]_[a-z]*\w[a-z]*\w[a-z]*.js" | sort -u >>${ListTask}
         fi
 
         grep -vwf ${ListTask} ${ListJs} >${ListJsAdd}
