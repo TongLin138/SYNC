@@ -178,7 +178,7 @@ function Help() {
     Name=$(grep "new Env" ${ListOtherScripts[i]} | awk -F "'|\"" '{print $2}')
     echo -e "$(($i + 1)).${Name}：${ListOtherScripts[i]}"
   done
-  echo -e "\n注：以 jd、jr、jx 开头的脚本会被识别成 lxk0301 的脚本，并且本地导入的脚本不会随更新而自动删除"
+  echo -e "\n注：所有以 jd、jr、jx 开头的脚本会被识别成 lxk0301 的脚本，本地导入的脚本不会随更新而自动删除\n"
 }
 
 ## nohup
