@@ -12,7 +12,7 @@ __ㅤ修订日期：2021 年 5 月 8 日__
 ㅤ
 ㅤ
 # 《使用与更新》教程
-## 修订日期：2021 年 5 月 20 日
+## 修订日期：2021 年 5 月 24 日
 ㅤ
 ## 一、基础使用教程
 >附：[Docker 容器基础使用教程](https://www.runoob.com/docker/docker-container-usage.html)
@@ -226,6 +226,7 @@ __ㅤ修订日期：2021 年 5 月 8 日__
     pm2 start ecosystem.config.js
     exit
 > _注意：此命令适用于在容器初始化过程中安装失败时使用。_
+
 
 #### 6. 手动开启网页终端：
     docker exec -it jd pm2 start ttyd
