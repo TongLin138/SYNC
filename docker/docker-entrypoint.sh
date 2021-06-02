@@ -79,6 +79,7 @@ fi
 
 echo -e "========================4. 启动控制面板========================\n"
 if [[ ${ENABLE_WEB_PANEL} == true ]]; then
+  ######################### 手动安装控制面板和网页终端命令 #########################
   cd ${JD_DIR}/panel
   pm2 start ecosystem.config.js
   echo -e "控制面板启动成功...\n"
@@ -108,6 +109,7 @@ if [[ ${ENABLE_WEB_PANEL} == true ]]; then
   fi
   echo -e "如未修改用户名密码，则初始用户名为：useradmin，初始密码为：supermanito\n"
   echo -e "请访问 http://<内部或外部IP地址>:5678 登陆并修改配置...\n"
+  ###########################################################################
 elif [[ ${ENABLE_WEB_PANEL} == false ]]; then
   echo -e "已设置为不自动启动控制面板，跳过...\n"
 fi
