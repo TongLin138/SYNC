@@ -116,7 +116,7 @@ function Change_ALL() {
 
 ## 检测文件：lxk0301/jd_scripts 仓库中的 docker/crontab_list.sh
 ## 检测定时任务是否有变化，此函数会在Log文件夹下生成四个文件，分别为：
-## task.list    crontab.list中的所有任务清单，仅保留脚本名
+## task.                       list    crontab.list中的所有任务清单，仅保留脚本名
 ## js.list      上述检测文件中用来运行js脚本的清单（去掉后缀.js，非运行脚本的不会包括在内）
 ## js-add.list  如果上述检测文件增加了定时任务，这个文件内容将不为空
 ## js-drop.list 如果上述检测文件删除了定时任务，这个文件内容将不为空
@@ -131,8 +131,8 @@ function Diff_Cron() {
         cat ${ListCronLxk} | grep -E "j[drx]_\w+\.js" | perl -pe "s|.+(j[drx]_\w+)\.js.+|\1|" | sort -u >${ListJs}
 
         if [ ${EnableExtraShell} = "true" ]; then
-            grep "my_scripts_list" ${FileDiy} | grep -v "#" | grep -io "\w*[a-z]_[a-z]*\w[a-z]*\w[a-z]*" | grep -v "\w*scripts_list" | sort -u >>${ListJs}
-            grep "my_scripts_list" ${FileDiy} | grep -v "#" | grep -io "\w*[a-z]_[a-z]*\w[a-z]*\w[a-z]*" | grep -v "\w*scripts_list" | sort -u >>${ListTask}
+            grep "my_scripts_list" ${FileDiy} | grep -v '#' | grep -Eio "\w+\.js" | sed "s/\.js//g" | sort -u >>${ListJs}
+            grep "my_scripts_list" ${FileDiy} | grep -v '#' | grep -Eio "\w+\.js" | sed "s/\.js//g" | sort -u >>${ListTask}
         fi
 
         grep -vwf ${ListTask} ${ListJs} >${ListJsAdd}
