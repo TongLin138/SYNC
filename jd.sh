@@ -17,7 +17,7 @@ ListScripts=($(
 ))
 ListOtherScripts=($(
   cd ${ScriptsDir}
-  ls *.js | grep -Eiv "j[drx]_|$(git ls-files)|ShareCodes|AGENTS|index.js|tencentscf.js|Notify|getJDCookie"
+  ls *.js | grep -Eiv "j[drx]_|$(git ls-files)|ShareCodes|AGENTS|index.js|tencentscf.js|Notify|Cookie"
 ))
 ListCron=${ConfigDir}/crontab.list
 
