@@ -1,6 +1,6 @@
-## Version: v3.38.1
-## Date: 2021-06-03
-## Update Content: 新增 (36) "定义京喜工厂拼团瓜分电力活动ID" 控制脚本功能环境变量，去除过期活动互助码类环境变量
+## Version: v3.38.2
+## Date: 2021-06-05
+## Update Content: 新增 "下载代理" DIY脚本功能设置环境变量
 
 
 ## 上面版本号中，如果第2位数字有变化，那么代表增加了新的参数，如果只有第3位数字有变化，仅代表更新了注释，没有增加新的参数，可更新可不更新
@@ -59,6 +59,8 @@ TempBlockCookie=""
 ## 如果您自己会写shell脚本，并且希望在每次git_pull.sh这个脚本运行时，额外运行您的DIY脚本，请赋值为 "true"
 ## sample 目录下已有此脚本的空白模板，可根据模板中的教程内容自行编写
 ## 请务必将您的脚本命名为 diy.sh (只能叫这个文件名)，放在 config 目录下
+
+## 启用开关，如想启用请赋值为 "true"
 EnableExtraShell=""
 
 ## DIY 脚本远程同步功能，如想启用请赋值为 "true"
@@ -67,6 +69,15 @@ EnableExtraShellUpdate=""
 ## 2. 同步地址：
 EnableExtraShellURL=""
 ## 友情提示：项目托管平台的地址需要使用 raw 链接，如果报错那么请仔细检测是否填入了有效的地址链接
+
+## 定义 DIY 脚本中 Github 仓库脚本的下载代理，默认启用，如想关闭请修改为 "false"
+EnableExtraShellProxyDownload="true"
+## 定义 DIY 脚本中的下载代理
+ExtraShellProxyUrl=https://ghproxy.com/
+
+## 非电信用户可以根据自身情况使用默认代理的分支镜像站：https://mirror.ghproxy.com/
+## 如果您使用其它代理请确保代理链接的正确性和可用性，不要丢掉后面的 "/"
+
 
 ## 可在下方补充您需要用到的第三方活动脚本环境变量，例如通知变量，具体查看脚本内的注释，格式：export 变量名="变量值"
 ## export 
