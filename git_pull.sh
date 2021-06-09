@@ -74,6 +74,8 @@ function Git_PullScripts() {
     ExitStatusScripts=$?
     git reset --hard
     git pull
+    ## 临时命令
+    git reset --hard a38137a7defd1a41a5f5438ef8fe0d5becff1982
     echo ''
 }
 
@@ -390,9 +392,9 @@ echo -e "  本项目目前闭源并且仅面向内部开放，脚本免费使用
 echo -e ""
 echo -e "  圈内资源禁止以任何形式发布到咸鱼等国内平台，否则后果自负！"
 echo -e ""
-echo -e "  我们不会放纵某些行为，不保证不采取非常手段，请勿挑战底线！"
-echo -e ""
 echo -e "  我们始终致力于打击使用本项目进行违法贩卖行为的个人或组织！"
+echo -e ""
+echo -e "  我们不会放纵某些行为，不保证不采取非常手段，请勿挑战底线！"
 echo -e ""
 echo -e "+-----------------------------------------------------------+"
 echo -e ''
@@ -413,6 +415,7 @@ if [[ ${ExitStatusScripts} -eq 0 ]]; then
 else
     echo -e "\033[31m活动脚本更新失败，请检查原因或再次运行 git_pull.sh ......\033[0m"
     Change_ALL
+    ExtraShell
 fi
 
 ## 赋权
