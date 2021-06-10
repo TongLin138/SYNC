@@ -25,7 +25,7 @@ ContentNewTask=${ShellDir}/new_task
 ContentDropTask=${ShellDir}/drop_task
 SendCount=${ShellDir}/send_count
 isTermux=${ANDROID_RUNTIME_ROOT}${ANDROID_ROOT}
-ScriptsURL=git@jd_scripts_gitee:lxk0301/jd_scripts.git
+ScriptsURL=https://ghproxy.com/https://github.com/chinnkarahoi/jd_scripts.git
 
 ## 更新crontab，gitee服务器同一时间限制5个链接，因此每个人更新代码必须错开时间，每次执行git_pull随机生成。
 ## 每天次数随机，更新时间随机，更新秒数随机，至少6次，至多12次，大部分为8-10次，符合正态分布。
@@ -74,8 +74,6 @@ function Git_PullScripts() {
     ExitStatusScripts=$?
     git reset --hard
     git pull
-    ## 临时命令
-    git reset --hard a38137a7defd1a41a5f5438ef8fe0d5becff1982
     echo ''
 }
 
@@ -413,9 +411,10 @@ if [[ ${ExitStatusScripts} -eq 0 ]]; then
     Run_All
     echo -e "活动脚本更新完成......\n"
 else
-    echo -e "\033[31m活动脚本更新失败，请检查原因或再次运行 git_pull.sh ......\033[0m"
+    echo -e "\033[31mScripts仓库脚本更新失败，请检查原因或再次执行更新命令 ......\033[0m"
     Change_ALL
     ExtraShell
+    Run_All
 fi
 
 ## 赋权
