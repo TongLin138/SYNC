@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-## 赋权
-chmod 777 ${ShellDir}/*
 
 ## 文件路径、脚本网址、文件版本以及各种环境的判断
 ShellDir=${JD_DIR:-$(
@@ -429,3 +427,6 @@ else
     ExtraShell
     Run_All
 fi
+
+## 赋权
+chmod 777 ${ShellDir}/*
