@@ -55,6 +55,8 @@ function Git_PullShell() {
     git fetch --all
     ExitStatusShell=$?
     git reset --hard
+    ## 赋权
+    chmod 777 ${ShellDir}/*
     git pull
 }
 
