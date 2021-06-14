@@ -389,6 +389,8 @@ echo -e "+-----------------------------------------------------------+"
 
 ## 更新源码
 [ -d ${ShellDir}/.git ] && Git_PullShell
+## 赋权
+chmod 777 ${ShellDir}/*
 
 ## 克隆或更新js脚本
 [ -f ${ScriptsDir}/package.json ] && PackageListOld=$(cat ${ScriptsDir}/package.json)
@@ -427,6 +429,3 @@ else
     ExtraShell
     Run_All
 fi
-
-## 赋权
-chmod 777 ${ShellDir}/*
