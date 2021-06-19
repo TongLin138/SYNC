@@ -55,7 +55,6 @@ function Git_PullShell() {
     git fetch --all
     ExitStatusShell=$?
     git reset --hard
-    ## 赋权
     chmod 777 ${ShellDir}/*
     git pull
 }
@@ -136,8 +135,8 @@ function Diff_Cron() {
             if [ ${EnableExtraShellUpdate} == "true" ]; then
                 echo ${EnableExtraShellURL} | grep "SuperManito" -q
                 if [ $? -eq 0 ]; then
-                    grep "my_scripts_list" ${FileDiy} | grep -v '#' | grep -ioE "\w+\.js" | sed "s/\.js//g" | sed "s/jd_zoo/jd_cute_animals/g" | sed "s/jd_jxmc/jx_pasture/g" | sed "s/jd_star_shop/jd_star_store/g" | sort -u >>${ListJs}
-                    grep "my_scripts_list" ${FileDiy} | grep -v '#' | grep -ioE "\w+\.js" | sed "s/\.js//g" | sed "s/jd_zoo/jd_cute_animals/g" | sed "s/jd_jxmc/jx_pasture/g" | sed "s/jd_star_shop/jd_star_store/g" | sort -u >>${ListTask}
+                    grep "my_scripts_list" ${FileDiy} | grep -v '#' | grep -ioE "\w+\.js" | sed "s/\.js//g" | sed "s/jd_jxmc/jx_pasture/g" | sed "s/jd_star_shop/jd_star_store/g" | sort -u >>${ListJs}
+                    grep "my_scripts_list" ${FileDiy} | grep -v '#' | grep -ioE "\w+\.js" | sed "s/\.js//g" | sed "s/jd_jxmc/jx_pasture/g" | sed "s/jd_star_shop/jd_star_store/g" | sort -u >>${ListTask}
                 else
                     grep "my_scripts_list" ${FileDiy} | grep -v '#' | grep -ioE "\w+\.js" | sed "s/\.js//g" | sort -u >>${ListJs}
                     grep "my_scripts_list" ${FileDiy} | grep -v '#' | grep -ioE "\w+\.js" | sed "s/\.js//g" | sort -u >>${ListTask}
