@@ -54,7 +54,7 @@ function Git_PullShell() {
     cd ${ShellDir}
     git fetch --all
     ExitStatusShell=$?
-    git reset --hard
+    git reset --hard origin/master
     chmod 777 ${ShellDir}/*
     git pull
 }
@@ -73,7 +73,7 @@ function Git_PullScripts() {
     cd ${ScriptsDir}
     git fetch --all
     ExitStatusScripts=$?
-    git reset --hard
+    git reset --hard 
     git pull
     echo ''
 }
