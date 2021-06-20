@@ -55,7 +55,7 @@ function Git_PullShell() {
     git fetch --all
     ExitStatusShell=$?
     git reset --hard origin/master
-    chmod 777 ${ShellDir}/*
+
     git pull
 }
 
@@ -430,3 +430,5 @@ else
     ExtraShell
     Run_All
 fi
+
+chmod 777 ${ShellDir}/*
