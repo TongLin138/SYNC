@@ -10,19 +10,7 @@
 
 ## Tips:看清楚板块和其中的注释，不要乱写乱改
 
-##############################  定  义  代  理  相  关  设  置  （选填）  ##############################
-## 建议不要随意更改此部分内容
-## 定义 Github Raw 文件服务器解析地址
-# cat /etc/hosts | grep "raw.githubusercontent.com" -q
-# if [ $? -ne 0 ]; then
-#   echo "199.232.28.133 raw.githubusercontent.com" >>/etc/hosts
-#   echo "199.232.68.133 raw.githubusercontent.com" >>/etc/hosts
-#   echo "185.199.108.133 raw.githubusercontent.com" >>/etc/hosts
-#   echo "185.199.109.133 raw.githubusercontent.com" >>/etc/hosts
-#   echo "185.199.110.133 raw.githubusercontent.com" >>/etc/hosts
-#   echo "185.199.111.133 raw.githubusercontent.com" >>/etc/hosts
-# fi
-
+##############################  定  义  代  理  相  关  设  置  ##############################
 ## 判定是否启用了下载代理，${DownloadJudgment}是一个判定变量，勿动
 if [[ ${EnableExtraShellProxyDownload} == true ]]; then
   DownloadJudgment=${ExtraShellProxyUrl}
@@ -107,4 +95,3 @@ for author in $author_list; do
 done
 
 ##############################  5. 自  定  义  命  令  （选填）  ##############################
-
