@@ -64,7 +64,7 @@ function Git_CloneScripts() {
     echo -e "\n开始克隆仓库 /jd/scripts\n"
     git clone -b main ${ScriptsURL} ${ScriptsDir}
     ExitStatusScripts=$?
-    [ -f ${ListCronLxk} ] || wget -P /jd/scripts/docker https://gitee.com/SuperManito/scripts/raw/master/crontab_list.sh -q
+    [ -f ${ListCronLxk} ] || wget -P ${ScriptsDir}/docker https://gitee.com/SuperManito/scripts/raw/master/crontab_list.sh -q
     echo
 }
 
