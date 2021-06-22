@@ -1,6 +1,6 @@
-## Version: v3.39.1
-## Date: 2021-06-21
-## Update Content: 近期维护更新出现了一个bug导致无法正常更新源码，请进入容器后执行修复命令(cd /jd && git reset --hard origin/master && git pull)，没有报错就忽略。此次"更新"没有新的内容仅为通知
+## Version: v3.39.2
+## Date: 2021-06-22
+## Update Content: 目前已换库到 https://github.com/JDHelloWorld/jd_scripts ，可以删除 scripts 目录后执行更新命令完成更新也可以拉取新的镜像重新部署（验证方法：如果更新完 scripts 目录下仍有 activity 这个文件夹说明更新失败，请执行 git reset --hard && git pull 后重试，反之则说明换库成功）。配置文件修正了部分注释内容移除了部分变量。
 
 
 ## 上面版本号中，如果第2位数字有变化，那么代表增加了新的参数，如果只有第3位数字有变化，仅代表更新了注释，没有增加新的参数，可更新可不更新
@@ -60,24 +60,24 @@ TempBlockCookie=""
 ## sample 目录下已有此脚本的空白模板，可根据模板中的教程内容自行编写
 ## 请务必将您的脚本命名为 diy.sh (只能叫这个文件名)，放在 config 目录下
 
-## 启用开关，如想启用请赋值为 "true"，默认关闭
+## 启用开关，如想启用请赋值为 "true"
 EnableExtraShell=""
 
-## 定义 DIY 脚本远程同步功能，如想启用请赋值为 "true"
-## 1. 功能开关
+## 定义 DIY 脚本远程同步功能：
+## 1. 功能开关，如想启用请赋值为 "true"
 EnableExtraShellUpdate=""
-## 2. 同步地址：
+## 2. 同步地址
 EnableExtraShellURL=""
 ## 友情提示：项目托管平台的地址需要使用 raw 链接，如果报错那么请仔细检测是否填入了有效的地址链接
+##  示    例  ：https://ghproxy.com/https://raw.githubusercontent.com/testuser/repository/main/diy.sh
 
-## 定义 DIY 脚本中 Github 仓库脚本的下载代理，默认启用，如想关闭请修改为 "false"
+## 定义 DIY 脚本中 Github 仓库脚本的下载代理：
+## 启用开关，默认启用，如想关闭请修改为 "false"
 EnableExtraShellProxyDownload="true"
-## 代理链接
+## 代理链接地址
 ExtraShellProxyUrl=https://ghproxy.com/
-
 ## 非电信用户可以根据自身情况使用默认代理的 CDN 镜像站：https://mirror.ghproxy.com/
 ## 如果您使用其它代理请确保代理链接的正确性和可用性，不要丢掉后面的 "/"
-
 
 ## 可在下方补充您需要用到的第三方活动脚本环境变量，例如通知变量，具体查看脚本内的注释，格式：export 变量名="变量值"
 ## export 
@@ -478,7 +478,7 @@ export JOY_RUN_TOKEN=""
 ## 东东超市蓝币兑换，可用值包括：
 ## 一、0：表示不兑换京豆，这也是js脚本的默认值
 ## 二、20：表示兑换20个京豆
-## 三、1000：表示兑换1000个京豆
+## 三、超值京豆包：表示兑换1000个京豆
 ## 四、可兑换清单的商品名称，输入能跟唯一识别出来的关键词即可，比如：MARKET_COIN_TO_BEANS="抽纸"
 ## 注意：有些比较贵的实物商品京东只是展示出来忽悠人的，即使您零点用脚本去抢，也会提示没有或提示已下架
 export MARKET_COIN_TO_BEANS="0"
@@ -578,7 +578,7 @@ export TUAN_ACTIVEID=""
 
 
 ################################## 37. 定义活动脚本是否给作者助力（选填） ##################################
-## 默认给作者助力，涉及“免费拿、极速版拆红包、省钱大赢家”等活动脚本，如不想给作者助力，请修改为 "false"
+## 默认给作者助力，涉及 "免费拿、极速版拆红包、省钱大赢家" 等活动脚本，如不想给作者助力，请修改为 "false"
 export HELP_AUTHOR=""
 
 

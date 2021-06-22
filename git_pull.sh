@@ -72,6 +72,7 @@ function Git_PullScripts() {
     echo -e "\n开始更新仓库 /jd/scripts\n"
     cd ${ScriptsDir}
     wget -q https://gitee.com/SuperManito/scripts/raw/master/crontab_list.sh -O ${ListCronLxk}
+    [ $? -ne 0 ] && echo -e "\033[31mScripts仓库脚本定时任务同步清单拉取失败...\033[0m"
     git fetch --all
     ExitStatusScripts=$?
     git reset --hard
