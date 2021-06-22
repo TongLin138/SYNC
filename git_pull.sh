@@ -55,7 +55,6 @@ function Git_PullShell() {
     git fetch --all
     ExitStatusShell=$?
     git reset --hard origin/master
-
     git pull
 }
 
@@ -133,7 +132,7 @@ function Diff_Cron() {
 
         cat ${ListCronLxk} | grep -E "j[drx]_\w+\.js" | perl -pe "s|.+(j[drx]_\w+)\.js.+|\1|" | sort -u >${ListJs}
 
-        if [ ${EnableExtraShell} == "true" ]; then
+        if [[ -n ${EnableExtraShell} && ${EnableExtraShell} == "true" ]]; then
             grep "my_scripts_list" ${FileDiy} | grep -v '#' | grep -ioE "\w+\.js" | sed "s/\.js//g" | grep -v 'Tokens' | sort -u >>${ListJs}
             grep "my_scripts_list" ${FileDiy} | grep -v '#' | grep -ioE "\w+\.js" | sed "s/\.js//g" | grep -v 'Tokens' | sort -u >>${ListTask}
         fi
