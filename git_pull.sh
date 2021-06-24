@@ -63,7 +63,8 @@ function Git_CloneScripts() {
     echo -e "\n开始克隆仓库 /jd/scripts\n"
     git clone -b main ${ScriptsURL} ${ScriptsDir}
     ExitStatusScripts=$?
-    [ -f ${ListCronLxk} ] || wget -P ${ScriptsDir}/docker https://gitee.com/SuperManito/scripts/raw/master/crontab_list.sh -q
+    [ -d ${ScriptsDir}/docker ] || mkdir -p ${ScriptsDir}/docker
+    [ -f ${ListCronLxk} ] || mv -f ${ShellDir}/docker/crontab_list.sh ${ListCronLxk}
     echo
 }
 
@@ -71,13 +72,14 @@ function Git_CloneScripts() {
 function Git_PullScripts() {
     echo -e "\n开始更新仓库 /jd/scripts\n"
     cd ${ScriptsDir}
+    [ -d ${ScriptsDir}/docker ] || mkdir -p ${ScriptsDir}/docker
     wget -q https://gitee.com/SuperManito/scripts/raw/master/crontab_list.sh -O ${ListCronLxk}
-    [ $? -ne 0 ] && echo -e "\033[31mScripts仓库脚本定时任务同步清单拉取失败...\033[0m"
+    ExitStatusCronLxk=$?
+    [ ${ExitStatusCronLxk} -ne 0 ] && mv -f ${ShellDir}/docker/crontab_list.sh ${ListCronLxk}
     git fetch --all
     ExitStatusScripts=$?
     git reset --hard
     git pull
-    echo ''
 }
 
 ## 用户数量UserSum
@@ -318,12 +320,10 @@ function ExtraShell() {
     if [[ ${EnableExtraShellUpdate} == true ]]; then
         wget -q $EnableExtraShellURL -O ${FileDiy}
         if [ $? -eq 0 ]; then
-            echo -e "自定义 DIY 脚本同步完成......"
-            echo -e ''
+            echo -e "自定义脚本同步完成 [Done]\n"
             sleep 2s
         else
-            echo -e "\033[31m自定义 DIY 脚本同步失败！\033[0m"
-            echo -e ''
+            echo -e "\033[31m自定义脚本同步失败，请检查原因或再次执行更新命令 ......\033[0m\n"
             sleep 2s
         fi
     fi
@@ -367,8 +367,7 @@ function Run_All() {
 }
 
 ## 在日志中记录时间与路径
-echo -e ''
-echo -e "+----------------- 开 始 执 行 更 新 脚 本 -----------------+"
+echo -e "\n+----------------- 开 始 执 行 更 新 脚 本 -----------------+"
 echo -e ''
 echo -e "   活动脚本目录：${ScriptsDir}"
 echo -e ''
@@ -387,9 +386,10 @@ chmod 777 ${ShellDir}/*
 ## 克隆或更新js脚本
 [ -f ${ScriptsDir}/package.json ] && PackageListOld=$(cat ${ScriptsDir}/package.json)
 [ -d ${ScriptsDir}/.git ] && Git_PullScripts || Git_CloneScripts
-[ -f ${ScriptsDir}/sendNotify.js ] && sed -i '/desp += author;/a\  if (text.includes("FreeFuck") || desp.includes("FreeFuck")) return ;' ${ScriptsDir}/sendNotify.js
+[ ${ExitStatusCronLxk} -ne 0 ] && echo -e "\n\033[33mScripts仓库脚本定时任务清单拉取失败，已启用备份\033[0m"
+# [ -f ${ScriptsDir}/sendNotify.js ] && sed -i '/desp += author;/a\  if (text.includes("FreeFuck") || desp.includes("FreeFuck")) return ;' ${ScriptsDir}/sendNotify.js
 
-echo -e "+----------------------- 郑 重 提 醒 -----------------------+"
+echo -e "\n+----------------------- 郑 重 提 醒 -----------------------+"
 echo -e ""
 echo -e "  本项目目前闭源并且仅面向内部开放，脚本免费使用仅供于学习！"
 echo -e ""
@@ -399,8 +399,7 @@ echo -e "  我们始终致力于打击使用本项目进行违法贩卖行为的
 echo -e ""
 echo -e "  我们不会放纵某些行为，不保证不采取非常手段，请勿挑战底线！"
 echo -e ""
-echo -e "+-----------------------------------------------------------+"
-echo -e ''
+echo -e "+-----------------------------------------------------------+\n"
 
 ## 执行各函数
 if [[ ${ExitStatusScripts} -eq 0 ]]; then
@@ -416,7 +415,7 @@ if [[ ${ExitStatusScripts} -eq 0 ]]; then
     Run_All
     echo -e "活动脚本更新完成......\n"
 else
-    echo -e "\033[31mScripts仓库脚本更新失败，请检查原因或再次执行更新命令 ......\033[0m"
+    echo -e "\033[31mScripts仓库脚本更新失败，请检查原因或再次执行更新命令 ......\033[0m\n"
     Change_ALL
     ExtraShell
     Run_All
