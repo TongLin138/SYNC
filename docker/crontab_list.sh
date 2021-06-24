@@ -1,12 +1,11 @@
+## 适配 https://github.com/JDHelloWorld/jd_scripts
+
 # 每3天的23:50分清理一次日志(互助码不清理，proc_file.sh对该文件进行了去重)
 50 23 */3 * * find /scripts/logs -name '*.log' | grep -v 'sharecodeCollection' | xargs rm -rf
 # 收集助力码
 30 * * * * sh +x /scripts/docker/auto_help.sh collect >> /scripts/logs/auto_help_collect.log 2>&1
 
 ##############短期活动##############
-# 女装盲盒 活动时间：2021-05-24到2021-06-22
-35 1,22 * * * node /scripts/jd_nzmh.js >> /scripts/logs/jd_nzmh.log 2>&1
-
 # 京东极速版红包(活动时间：2021-5-5至2021-5-31)
 45 0,23 * * * node /scripts/jd_speed_redpocke.js >> /scripts/logs/jd_speed_redpocke.log 2>&1
 
@@ -16,8 +15,6 @@
 # 每日抽奖(小鸽有礼，活动时间：2021-05-01至2021-05-31)
 13 1,22,23 * * * node /scripts/jd_daily_lottery.js >> /scripts/logs/jd_daily_lottery.log 2>&1
 
-# 手机狂欢城
-0 0,12,18,21 * * * node /scripts/jd_carnivalcity.js >> /scripts/logs/jd_carnivalcity.log 2>&1
 # 金榜创造营 活动时间：2021-05-21至2021-12-31
 0 1,22 * * * node /scripts/jd_gold_creator.js >> /scripts/logs/jd_gold_creator.log 2>&1
 # 5G超级盲盒(活动时间：2021-06-2到2021-07-31)
@@ -127,11 +124,19 @@
 10 10,23 * * * node /scripts/jd_market_lottery.js >> /scripts/logs/jd_market_lottery.log 2>&1
 # 领金贴
 5 0 * * * node /scripts/jd_jin_tie.js >> /scripts/logs/jd_jin_tie.log 2>&1
-# 跳跳乐瓜分京豆
-15 0,12,22 * * * node /scripts/jd_jump.js >> /scripts/logs/jd_jump.log 2>&1
 # 天天加速
 8 0-23/3 * * * node /scripts/jd_speed.js >> /scripts/logs/jd_speed.log 2>&1
 # 京喜牧场
 15 0,12,22 * * * node /scripts/jd_jxmc.js >> /scripts/logs/jd_jxmc.log 2>&1
 # 东东电竞经理
 0 0-23/2 * * * node /scripts/jd_EsportsManager.js >> /scripts/logs/jd_EsportsManager.log 2>&1
+
+##############新的宠汪汪##############
+# 宠汪汪
+45 */2,23 * * * node /scripts/jd_joy_new.js >> /scripts/logs/jd_joy_new.log 2>&1
+# 宠汪汪积分兑换京豆
+0 0-16/8 * * * node /scripts/jd_joy_reward_new.js >> /scripts/logs/jd_joy_reward_new.log 2>&1
+# 宠汪汪邀请助力
+10 13-20/1 * * * node /scripts/jd_joy_run.js >> /scripts/logs/jd_joy_run.log 2>&1
+# 宠汪汪偷好友积分与助力
+10 0-21/3 * * * node /scripts/jd_joy_steal.js >> /scripts/logs/jd_joy_steal.log 2>&1
