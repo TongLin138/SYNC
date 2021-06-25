@@ -411,6 +411,7 @@ button {
     cursor: pointer;
     transition: 200ms ease all;
     outline: none;
+    border-radius: 6px;
 }
 
 button:hover {
