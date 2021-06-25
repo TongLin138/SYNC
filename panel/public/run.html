@@ -33,32 +33,27 @@
                 </ul>
             </nav>
             <header>
-                <h1>脚本执行工具</h1>
-                <div style="margin-left: 0.5em;">
+                <h1 style="margin-left: 0.5em;">脚本执行工具</h1>
+                <div>
                     <button id="jd_list" class="cmd-btn" title="列出脚本">列出脚本</button><button id="git_pull"
-                        title="更新脚本文件">更新脚本文件</button><button id="rm_log" title="删除日志">删除日志</button><button
-                        id="jd_get_share_code" class="cmd-btn" title="获取互助码">获取互助码</button><button
-                        id="export_sharecodes" title="导出互助码">导出互助码</button><button id="jd_unsubscribe" class="cmd-btn"
-                        title="取关店铺和商品">取关店铺和商品</button><button id="ps" title="查看进程">查看进程</button><button id="hangup"
-                        title="启动/重启后台挂机程序">启动/重启后台挂机程序</button><button id="crazy_joy_coin"
-                        title="停止后台挂机程序">停止后台挂机程序</button><button id="ttyd" title="启动/重启网页终端">启动/重启网页终端</button><button
-                        id="wrap" class="cmd-btn" title="切换换行">切换换行</button><button id="move-bottom" class="cmd-btn"
-                        title="跳转底部">跳转底部</button>
+                        title="git_pull">更新脚本文件</button><button id="jd_get_share_code" class="cmd-btn"
+                        title="获取互助码">获取互助码</button><button id="export_sharecodes" title="导出互助码">导出互助码</button><button
+                        id="rm_log" title="rm_log">删除日志</button><button id="ps" title="ps">查看进程</button><button
+                        id="ttyd" title="pm2 restart ttyd">重启网页终端</button><button id="wrap" class="cmd-btn"
+                        title="切换换行">切换换行</button><button id="move-bottom" class="cmd-btn" title="跳转底部">跳转底部</button>
                     <br />
-                    <button id="jd_bean_change" class="cmd-btn" title="京豆变动通知">京豆变动通知</button><button id="jd_fruit"
-                        class="cmd-btn" title="东东农场">东东农场</button><button id="jd_pet" class="cmd-btn"
-                        title="东东萌宠">东东萌宠</button><button id="jd_plantBean" class="cmd-btn"
-                        title="种豆得豆">种豆得豆</button><button id="jd_jdfactory" class="cmd-btn"
-                        title="东东工厂">东东工厂</button><button id="jd_dreamFactory" class="cmd-btn"
-                        title="京喜工厂">京喜工厂</button><button id="jd_jdzz" class="cmd-btn" title="京东赚赚">京东赚赚</button><button
-                        id="jd_crazy_joy" class="cmd-btn" title="疯狂的JOY">疯狂的JOY</button><button id="jd_bookshop"
-                        class="cmd-btn" title="口袋书店">口袋书店</button><button id="jd_cash" class="cmd-btn"
-                        title="签到领现金">签到领现金</button><button id="jd_jxnc" class="cmd-btn"
-                        title="京喜农场">京喜农场</button><button id="jd_sgmh" class="cmd-btn" title="闪购盲盒">闪购盲盒</button><button
-                        id="jd_cfd" class="cmd-btn" title="京喜财富岛">京喜财富岛</button><button id="jd_health" class="cmd-btn"
-                        title="东东健康社区">东东健康社区</button><button id="jd_price" class="cmd-btn" title="京东保价">京东保价</button>
+                    <button id="jd_bean_change" class="cmd-btn" title="京豆变动通知">京豆变动通知</button><button
+                        id="jd_unsubscribe" class="cmd-btn" title="jd_unsubscribe.js">取关店铺和商品</button><button
+                        id="jd_price" class="cmd-btn" title="jd_price.js">京东保价</button><button id="jd_fruit"
+                        class="cmd-btn" title="jd_fruit.js">东东农场</button><button id="jd_pet" class="cmd-btn"
+                        title="jd_pet.js">东东萌宠</button><button id="jd_jdfactory" class="cmd-btn"
+                        title="jd_jdfactory.js">东东工厂</button><button id="jd_dreamFactory" class="cmd-btn"
+                        title="jd_dreamFactory.js">京喜工厂</button><button id="jd_jxnc" class="cmd-btn"
+                        title="jd_jxnc.js">京喜农场</button><button id="jd_cfd" class="cmd-btn"
+                        title="jd_cfd.js">京喜财富岛</button>
                     <br />
                 </div>
+                <br />
                 <form class="run-cmd-form" action="runCmd" method="POST">
                     <div class="cmd-section" style="margin-left: 0.5em;">
                         <input id="jdScript" name="jdScript" type="text" placeholder="请输入脚本名称" required>
@@ -66,13 +61,13 @@
                     <input style="width: 60px;height: 30px" type="submit" id="runCmd" class="ant-btn ant-btn-primary"
                         value="执行">
                     &#12288;<p>
-                        <font color="#F0EFF4" size="2">温馨提示：手动执行的活动直到运行结束才会输出日志，时间较长请耐心等候。若执行活动脚本期间卡住或想停止运行，刷新页面即可。
+                        <font color="#d9d9d9" size="2">温馨提示：手动执行的活动直到运行结束才会输出日志。
                         </font>
                     </p>
                 </form>
                 <br />
             </header>
-            &nbsp;
+
             <div class="wrapper">
                 <textarea id="code" name="code" readonly="readonly"></textarea>
             </div>

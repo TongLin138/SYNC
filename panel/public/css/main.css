@@ -1,14 +1,13 @@
 body,
 html {
     margin: 0;
-    padding: 0;
+    height: 0;
 }
 
 h1,
 ul {
     color: #ffffff;
     margin: 0.2em 0 0.4em 0;
-    margin-left: 0.5em;
     font-size: 1.5rem;
     padding-right: 1rem;
 }
@@ -33,10 +32,10 @@ nav ul li a:link,
 nav ul li a:visited,
 nav ul li a:active {
     font-size: 0.875rem;
-    padding: 0.5rem 1.4rem;
+    padding: 0.5rem 1rem;
     color: white;
     text-decoration: none;
-    background-color: #535252;
+    background-color: transparent;
     transition: background-color 200ms;
 }
 
@@ -401,7 +400,7 @@ nav .active a {
 /* 按钮配置 */
 button {
     /* 静态背景颜色 */
-    background: #535252;
+    background: transparent;
     /* 静态字体颜色 */
     color: rgb(255, 255, 255);
     border: none;
@@ -415,11 +414,11 @@ button {
 }
 
 button:hover {
-    /* 静态字体颜色 */
+    /* 点击后字体颜色 */
     color: #000000;
-    /* 点击背景颜色 */
+    /* 点击后背景颜色 */
     background: rgb(255, 255, 255);
-
+	border-radius: 6px;
 }
 
 button:before,
