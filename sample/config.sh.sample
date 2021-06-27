@@ -1,6 +1,6 @@
-## Version: v3.39.2
-## Date: 2021-06-22
-## Update Content: 目前已换库到 https://github.com/JDHelloWorld/jd_scripts ，可以删除 scripts 目录后执行更新命令完成更新也可以拉取新的镜像重新部署（验证方法：如果更新完 scripts 目录下仍有 activity 这个文件夹说明更新失败，请执行 git reset --hard && git pull 后重试，反之则说明换库成功）。配置文件修正了部分注释内容移除了部分变量。
+## Version: v3.39.3
+## Date: 2021-06-27
+## Update Content: 1. 目前发现 scripts 仓库更新报错原因可能在于作者，删掉 scripts 文件夹重新更新（克隆仓库）即可；2. 新的仓库每周六晚9点可以提交互助码到TG BOT跟原来lxk的差不多，具体教程详见《使用与更新教程》。配置文件修改了部分注释内容。
 
 
 ## 上面版本号中，如果第2位数字有变化，那么代表增加了新的参数，如果只有第3位数字有变化，仅代表更新了注释，没有增加新的参数，可更新可不更新
@@ -25,8 +25,8 @@
 ## 请依次填入每个用户的Cookie，Cookie的具体形式（只有pt_key字段和pt_pin字段，没有其他字段）：pt_key=xxxxxxxxxx;pt_pin=xxxx;
 ## 下面是获取方式，有效期均为 1 个月有效期
 ## 1. 通过控制面板主页的方 "扫码获取Cookie" 获取
-## 2. 通过浏览器开发工具获取 https://github.com/wisz2021/jd_docker/blob/main/backUp/GetJdCookie.md 
-## 3. 通过浏览器插件获取 https://github.com/wisz2021/jd_docker/blob/main/backUp/GetJdCookie2.md 
+## 2. 通过浏览器开发工具获取 https://github.com/wisz2021/jd_docker/blob/main/backUp/GetJdCookie.md
+## 3. 通过浏览器插件获取 https://github.com/wisz2021/jd_docker/blob/main/backUp/GetJdCookie2.md
 ## 必须按数字顺序1、2、3、4...依次编号下去，例子只有6个，超出6个您继续往下编号即可
 ## 不允许有汉字，如果ID有汉字，请在PC浏览器上获取Cookie，会自动将汉字转换为URL编码
 Cookie1=""

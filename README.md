@@ -1,6 +1,6 @@
 # 《使用与更新》教程
-## 修订日期：2021 年 6 月 22 日
-ㅤ
+## 修订日期：2021 年 6 月 27 日
+
 ## 一、基础使用教程
 >附：[Docker 容器基础使用教程](https://www.runoob.com/docker/docker-container-usage.html)
 
@@ -117,7 +117,9 @@
 
 #### 4. 提交您的互助码到公共库（Telegram Bot）：
 > Telegram Bot：  
-> @JD_ShareCode_Bot https://t.me/JD_ShareCode_Bot
+> @JD_ShareCode_Bot：https://t.me/JD_ShareCode_Bot
+> 使用提交机器人需要先加入作者的群：https://t.me/jdShareCode
+> 对外不要向他人透露你所使用的项目，请低调使用
 
 > 输入 /help 查看使用帮助
 
