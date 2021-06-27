@@ -494,3 +494,23 @@ button:hover:after {
     -moz-border-radius: 6px 6px 6px 6px;
     -webkit-border-radius: 6px 6px 6px 6px;
 }
+
+/* chrome 滚动条 */
+::-webkit-scrollbar-track-piece {
+    width: 10px;
+    background-color: rgba(140, 130, 130, .3);
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background: rgba(177, 163, 163, .5);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(177, 163, 163, .8);
+}
