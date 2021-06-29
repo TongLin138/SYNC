@@ -181,11 +181,7 @@
     docker exec -it jd pm2 start ttyd
 
 
-#### 7. 重启网页终端：
-    docker exec -it jd pm2 restart ttyd
-
-
-#### 8. 查看控制面板和网页终端启动状态
+#### 7. 查看控制面板状态
     docker exec -it jd pm2 list
 
 ***
