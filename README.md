@@ -1,5 +1,5 @@
 # 《使用与更新》教程
-## 修订日期：2021 年 6 月 27 日
+## 修订日期：2021 年 6 月 30 日
 
 ## 一、基础使用教程
 >附：[Docker 容器基础使用教程](https://www.runoob.com/docker/docker-container-usage.html)
@@ -176,12 +176,7 @@
     exit
 > _注意：此命令适用于在容器初始化过程中安装失败时使用。_
 
-
-#### 6. 手动开启网页终端：
-    docker exec -it jd pm2 start ttyd
-
-
-#### 7. 查看控制面板状态
+#### 8. 查看控制面板启动状态
     docker exec -it jd pm2 list
 
 ***

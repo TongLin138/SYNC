@@ -346,19 +346,6 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ttyd proxy
-app.use(
-    '/shell',
-    createProxyMiddleware({
-        target: 'http://localhost:7681',
-        ws: true,
-        changeOrigin: true,
-        pathRewrite: {
-            '^/shell': '/',
-        },
-    })
-);
-
 /**
  * 登录页面
  */
@@ -376,17 +363,6 @@ app.get('/', function (request, response) {
 app.get('/changepwd', function (request, response) {
     if (request.session.loggedin) {
         response.sendFile(path.join(__dirname + '/public/pwd.html'));
-    } else {
-        response.redirect('/');
-    }
-});
-
-/**
- * terminal
- */
-app.get('/terminal', function (request, response) {
-    if (request.session.loggedin) {
-        response.sendFile(path.join(__dirname + '/public/terminal.html'));
     } else {
         response.redirect('/');
     }

@@ -422,8 +422,3 @@ else
 fi
 
 chmod 777 ${ShellDir}/*
-
-if [[ ${ENABLE_WEB_PANEL} == true ]]; then
-    COMMAND=$(pm2 list | grep ttyd | awk -F'│' '{print $10}')
-    [ ${COMMAND} = "online" ] && pm2 stop ttyd
-fi
