@@ -44,7 +44,7 @@ var loginFaild = '请先登录!';
 var configString = 'config sample crontab diy';
 
 var s_token, cookies, guid, lsid, lstoken, okl_token, token, userCookie = ''
-
+    
 function praseSetCookies(response) {
     s_token = response.body.s_token
     guid = response.headers['set-cookie'][0]
@@ -887,7 +887,8 @@ app.post('/updateCookie', function (request, response) {
         let updateFlag = false;
         let lastIndex = 0;
         let maxCookieCount = 0;
-
+        let CK_AUTO_ADD = false
+        if (content.match(/CK_AUTO_ADD=".+?"/)){CK_AUTO_ADD = content.match(/CK_AUTO_ADD=".+?"/)[0].split('"')[1]}
         for (var i = 0; i < lines.length; i++) {
             var line = lines[i];
             if (line.startsWith('Cookie')) {
@@ -901,35 +902,49 @@ app.post('/updateCookie', function (request, response) {
                     line.match(/pt_pin=.+?;/)[0] == pt_pin
                 ) {
                     const head = line.split('=')[0];
-                    const newLine = [head, '=', '"', cookie, '"', '  ##', userMsg].join(
+                    //const newLine = [head, '=', '"', cookie, '"', '  ##', userMsg].join
+                    const newLine = [head, '=', '"', cookie, '"'].join(
                         ''
                     );
                     lines[i] = newLine;
                     updateFlag = true;
+	                var lineNext = lines[i+1];
+	                if (
+	                    lineNext.match(/上次更新：/)
+		                ) {
+		                    const bz = lineNext.split('备注：')[1];
+		                	const newLine = ['## ', pt_pin, ' 上次更新：', new Date().toLocaleDateString(), ' 备注：', bz ? bz : userMsg].join('');
+                    		lines[i+1] = newLine;
+	                	} else {
+		                	const newLine = ['## ', pt_pin, ' 上次更新：', new Date().toLocaleDateString(), ' 备注：', userMsg].join('');
+			            	lines.splice(lastIndex + 1, 0, newLine);
+			        }
                 }
             }
         }
         let CookieCount = Number(maxCookieCount) + 1;
-        if (!updateFlag) {
-            const newLine = [
+        if (!updateFlag && CK_AUTO_ADD === 'true') {
+            let newLine = [
                 'Cookie',
                 CookieCount,
                 '=',
                 '"',
                 cookie,
                 '"',
-                '  #',
-                userMsg,
+                //'  #',
+                //userMsg,
             ].join('');
             //提交备注
             lines.splice(lastIndex + 1, 0, newLine);
+            newLine = ['## ', pt_pin, ' 上次更新：', new Date().toLocaleDateString(), ' 备注：', userMsg].join('');
+            lines.splice(lastIndex + 2, 0, newLine);
         }
         saveNewConf('config.sh', lines.join('\n'));
-
         response.send({
             err: 0,
             msg: updateFlag ?
-                `[更新成功]\n当前用户量:(${maxCookieCount})` : `[新的Cookie]\n当前用户量:(${CookieCount})`,
+                `[更新成功]\n当前用户量:(${maxCookieCount})` : CK_AUTO_ADD === 'true' ? `[新的Cookie]\n当前用户量:(${CookieCount})` : `服务器配置不自动添加Cookie\n如需启用请添加export CK_AUTO_ADD="true"`,
+                //`[更新成功]\n本服用户量:(${maxCookieCount})` : `非本服用户\n本服用户量:(${CookieCount})`,
         });
     } else {
         response.send({
