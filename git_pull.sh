@@ -422,3 +422,10 @@ else
 fi
 
 chmod 777 ${ShellDir}/*
+
+## 强制关闭终端
+if [ -f /usr/local/bin/ttyd ]; then
+    pm2 stop ttyd && pm2 delete ttyd
+    rm -rf /usr/local/bin/ttyd
+    echo -e "\n由于Web Shell存在重大安全隐患该功能已强制下线\n"
+fi
