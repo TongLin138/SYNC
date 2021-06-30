@@ -203,12 +203,18 @@ function Npm_InstallSub() {
         echo -e "检测到本机安装了 yarn，使用 yarn 替代 npm...\n"
         yarn install || yarn install --registry=https://registry.npm.taobao.org
     fi
+    npm install canvas --build-from-source
 }
 
 ## npm install
 function Npm_Install() {
     cd ${ScriptsDir}
     if [[ "${PackageListOld}" != "$(cat package.json)" ]]; then
+        echo -e "安装环境所需的软件包 ...\n"
+        apk update
+        apk add --no-cache build-base g++ cairo-dev jpeg-dev pango-dev giflib-dev python3 py3-pip
+        pip3 install --upgrade pip
+        pip3 install requests
         echo -e "检测到package.json有变化，运行 npm install...\n"
         Npm_InstallSub
         if [ $? -ne 0 ]; then
