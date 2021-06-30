@@ -120,8 +120,6 @@
 ##############新的修复版脚本##############
 # 宠汪汪
 45 */2,23 * * * node /scripts/jd_joy_new.js >> /scripts/logs/jd_joy_new.log 2>&1
-# 宠汪汪积分兑换京豆
-0 0-16/8 * * * node /scripts/jd_joy_reward_new.js >> /scripts/logs/jd_joy_reward_new.log 2>&1
 # 宠汪汪邀请助力
 10 13-20/1 * * * node /scripts/jd_joy_run.js >> /scripts/logs/jd_joy_run.log 2>&1
 # 宠汪汪偷好友积分与助力

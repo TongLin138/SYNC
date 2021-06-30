@@ -65,6 +65,7 @@ function Git_CloneScripts() {
     ExitStatusScripts=$?
     [ -d ${ScriptsDir}/docker ] || mkdir -p ${ScriptsDir}/docker
     [ -f ${ListCronLxk} ] || mv -f ${ShellDir}/docker/crontab_list.sh ${ListCronLxk}
+    ExitStatusCronLxk=$?
     echo
 }
 
