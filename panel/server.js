@@ -356,6 +356,11 @@ app.use(
         pathRewrite: {
             '^/shell': '/',
         },
+        onProxyReq(proxyReq, req, res) {
+            if (!req.session.loggedin) {
+              res.redirect('/');
+            }
+        },
     })
 );
 
