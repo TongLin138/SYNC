@@ -52,7 +52,7 @@ function Count_UserSum() {
 
   for ((d = 36; d <= 1000; d++)); do
     Del=Cookie$d
-    sed -i "/${!Del}/d" ${FileConf} || break
+    grep -q "Cookie36" ${FileConf} && sed -i "/${!Del}/d" ${FileConf} || break
   done
 }
 

@@ -79,9 +79,8 @@ function Git_PullScripts() {
     [ ${ExitStatusCronLxk} -ne 0 ] && mv -f ${ShellDir}/docker/crontab_list.sh ${ListCronLxk}
     git fetch --all
     ExitStatusScripts=$?
-    git reset --hard
+    git reset --hard origin/main
     git pull
-    echo -e ''
 }
 
 ## 用户数量UserSum
