@@ -80,6 +80,7 @@ function Git_PullScripts() {
     ExitStatusScripts=$?
     git reset --hard
     git pull
+    echo -e ''
 }
 
 ## 用户数量UserSum
@@ -367,7 +368,7 @@ function Run_All() {
 }
 
 ## 在日志中记录时间与路径
-echo -e "\n+----------------- 开 始 执 行 更 新 脚 本 -----------------+"
+echo -e "+----------------- 开 始 执 行 更 新 脚 本 -----------------+"
 echo -e ''
 echo -e "   活动脚本目录：${ScriptsDir}"
 echo -e ''
