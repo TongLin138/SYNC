@@ -1,0 +1,335 @@
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>使用教程 · 京东薅羊毛控制面板</title>
+  <link href="./css/semantic/semantic.min.css" rel="stylesheet">
+  <link href="./css/markdown.css" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="https://www.jd.com/favicon.ico" />
+  <style>
+    body{padding-top:0;background:#f7f7f7}
+    body>.ui.container{width:100%;padding:0}
+    #project-title{background:#6e6e6e;width:100%;line-height:3.572rem;color:#fff;font-size:1.2rem}
+    #project-title .title-wrap{font-weight:700;padding:0 12px;width:100%;max-width:1366px!important;min-width:900px;margin:0 auto}
+    #project-title .left,#project-title right{display:inline-block}
+    #project-title .right{float:right}
+    #project-title .right .wiki-actions .menu{left:auto;right:0;margin-top:.4em!important}
+    #wiki-preview-container{width:100%;max-width:1366px!important;min-width:900px;padding:0;border:1px solid #e3e9ed;border-top:0}
+    #wiki-preview>.ui.segment{margin-top:0;padding:1rem;padding-left:0;border:0}
+    .hover-places{display:inline-block}
+    #page-detail{width:60%;margin:0 auto}
+    #page-detail .title{font-weight:700;font-size:24px;padding:12px 0;border-bottom:1px solid #ccc}
+    #page-detail .content{margin-top:15px}
+    .content p{word-wrap:break-word}
+    #wiki-parent,#wiki-title,#wikis{display:none}
+    .ui.grid{padding:0!important}
+    #ex-all{cursor:pointer;color:#537c8d}
+  </style>
+</head>
+<body>
+  <div class="ui container">
+    <div id="project-title">
+      <div class="title-wrap">
+        <div class="left">
+          <i class="icon eye"></i>
+          文档预览
+        </div>
+      </div>
+    </div>
+
+    <div class="ui container" id="wiki-preview-container">
+      <div id="wiki-preview">
+        <div class="ui segment">
+          <div id="page-detail" class="markdown-body">
+            <div class='content'><h1>
+<a id="使用与更新教程" class="anchor" href="#%E4%BD%BF%E7%94%A8%E4%B8%8E%E6%9B%B4%E6%96%B0%E6%95%99%E7%A8%8B"></a>《使用与更新》教程</h1>
+<ul>
+<li><strong>修订日期：2021 年 7 月 1 日</strong></li>
+</ul>
+<h2>
+<a id="一基础使用教程" class="anchor" href="#%E4%B8%80%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B"></a>一、基础使用教程</h2>
+<blockquote>
+<p>附：<a href="https://www.runoob.com/docker/docker-container-usage.html">Docker 容器基础使用教程</a></p>
+</blockquote>
+<h3>
+<a id="1-容器的进入与退出" class="anchor" href="#1-%E5%AE%B9%E5%99%A8%E7%9A%84%E8%BF%9B%E5%85%A5%E4%B8%8E%E9%80%80%E5%87%BA"></a>1. 容器的进入与退出：</h3>
+<ul>
+<li>
+<p>进入容器</p>
+<pre><code>docker exec -it jd bash
+</code></pre>
+</li>
+<li>
+<p>退出容器</p>
+<pre><code>exit
+</code></pre>
+</li>
+</ul>
+<blockquote>
+<p><em>ㅤ注意：1. 大部分命令都可在容器外部执行，但部分复杂命令只能在容器内执行，注意区分下面教程的命令执行位置。</em><br>
+<em>ㅤㅤㅤㅤ2. 如果您修改了默认的容器名称，当使用下面所有的命令时则需要将 <code>jd</code>替换为新的名称。</em><br>
+<em>ㅤㅤㅤㅤ3. 下面的命令中如果前面加上了 <code>docker exec -it jd</code> 则表示在容器外部运行此命令。</em><br>
+<em>ㅤㅤㅤㅤ4. 例如 <code>docker exec -it newname bash jd.sh xxx now</code> ，也可使用 <code>容器ID</code>代替。</em></p>
+</blockquote>
+<h3>
+<a id="2-更新脚本" class="anchor" href="#2-%E6%9B%B4%E6%96%B0%E8%84%9A%E6%9C%AC"></a>2. 更新脚本：</h3>
+<pre><code>docker exec -it jd bash git_pull.sh
+</code></pre>
+<blockquote>
+<p><em>注意：每次使用前请执行此命令，确保使用最新的项目脚本和活动脚本，此脚本也配置了定时任务可自动执行。</em></p>
+</blockquote>
+<blockquote>
+<p>常见报错：<br>
+提示 <code>Repository more than 5 connections</code> 是由于 <code>Gitee</code> 限制了每秒同时拉取项目的IP不能超过 <code>5</code> 个所导致，此报错为正常现象，重新执行更新命令即可。<br>
+提示 <code>ssh: connect to host gitee.com port 22/443: Connection timed out</code> 是由于您使用平台的 <code>22/443</code> 端口不可用所导致，自行解决处理。<br>
+提示 <code>Could not resolve hostname gitee.com: Temporary failure in name resolution lost connection</code> 是由于无法解析到 <code>Gitee</code> 服务器，表明网络环境异常，自行解决处理。</p>
+</blockquote>
+<h3>
+<a id="3-执行特定活动脚本" class="anchor" href="#3-%E6%89%A7%E8%A1%8C%E7%89%B9%E5%AE%9A%E6%B4%BB%E5%8A%A8%E8%84%9A%E6%9C%AC"></a>3. 执行特定活动脚本：</h3>
+<pre><code>docker exec -it jd bash jd.sh xxx      # 如果设置了随机延迟并且当时时间不在0-2、30-31、59分内，将随机延迟一定秒数
+docker exec -it jd bash jd.sh xxx now  # 无论是否设置了随机延迟，均立即运行
+</code></pre>
+<blockquote>
+<p><em>注意：具体查看活动脚本列表可通过命令 <code>docker exec -it jd bash jd.sh</code> 查看， <code>xxx</code> 为脚本名。</em></p>
+</blockquote>
+<h3>
+<a id="4-执行所有活动脚本" class="anchor" href="#4-%E6%89%A7%E8%A1%8C%E6%89%80%E6%9C%89%E6%B4%BB%E5%8A%A8%E8%84%9A%E6%9C%AC"></a>4. 执行所有活动脚本：</h3>
+<ul>
+<li>
+<p>进入容器</p>
+<pre><code>docker exec -it jd bash
+</code></pre>
+</li>
+<li>
+<p>执行一键脚本</p>
+<pre><code>source run_all.sh 或 . run_all.sh
+</code></pre>
+</li>
+</ul>
+<blockquote>
+<p><em>ㅤ注意：1. 此脚本的作用为执行所有活动脚本，共有高达几十个活动脚本，时间较长且与账号数量成正比。</em><br>
+<em>ㅤㅤㅤㅤ2. 除手动运行活动脚本外该项目还会通过定时的方式自动执行活动脚本，可通过日志查看运行记录。</em><br>
+<em>ㅤㅤㅤㅤ3. 执行此脚本后无需守在电脑旁，会自动在最后无限制运行挂机活动脚本，直到您手动停止运行为止。</em></p>
+</blockquote>
+<ul>
+<li>
+<p>退出容器</p>
+<pre><code>exit
+</code></pre>
+</li>
+</ul>
+<h3>
+<a id="5-使用-diy-自定义脚本扩展活动脚本数量" class="anchor" href="#5-%E4%BD%BF%E7%94%A8-diy-%E8%87%AA%E5%AE%9A%E4%B9%89%E8%84%9A%E6%9C%AC%E6%89%A9%E5%B1%95%E6%B4%BB%E5%8A%A8%E8%84%9A%E6%9C%AC%E6%95%B0%E9%87%8F"></a>5. 使用 Diy 自定义脚本扩展活动脚本数量：</h3>
+<ul>
+<li>
+<p>使用需知</p>
+<pre><code>1. 此脚本的用途为添加第三方作者编写的活动脚本到项目中
+2. 您必须使用本项目中的模板文件根据教程说明自己动手编写
+3. 您还可以将自制的 Diy 脚本上传至您的仓库并使用自动同步功能
+</code></pre>
+</li>
+<li>
+<p>启用该功能</p>
+<pre><code>docker exec -it jd cp -f sample/diy.sh.sample config/diy.sh                                    ## 拷贝模板
+docker exec -it jd sed -i 's/EnableExtraShell=""/EnableExtraShell="true"/g' config/config.sh   ## 赋值变量
+</code></pre>
+</li>
+<li>
+<p>启用自动同步功能（选择）</p>
+<pre><code>docker exec -it jd sed -i 's/EnableExtraShellUpdate=""/EnableExtraShellUpdate="true"/g' config/config.sh
+</code></pre>
+</li>
+</ul>
+<blockquote>
+<p><em>注意：启用该功能后便可直接下载或同步更新本项目中的 Diy 脚本，同时代表每次更新时会覆盖您本地编写的内容。</em></p>
+</blockquote>
+<h3>
+<a id="6-查看帮助文档" class="anchor" href="#6-%E6%9F%A5%E7%9C%8B%E5%B8%AE%E5%8A%A9%E6%96%87%E6%A1%A3"></a>6. 查看帮助文档：</h3>
+<pre><code>docker exec -it jd cat README.md
+</code></pre>
+<blockquote>
+<p><em>注意：此文档为《使用与更新》教程，即当前页面内容，跟随项目同步更新。</em></p>
+</blockquote>
+<h3>
+<a id="7-快捷命令" class="anchor" href="#7-%E5%BF%AB%E6%8D%B7%E5%91%BD%E4%BB%A4"></a>7. 快捷命令：</h3>
+<pre><code>git_pull | jup  ==  bash git_pull.sh
+jd | jtask      ==  bash jd.sh
+runall          ==  source run_all.sh
+rm_log          ==  bash rm_log.sh
+</code></pre>
+<hr>
+<p>ㅤ</p>
+<h2>
+<a id="二高阶使用教程" class="anchor" href="#%E4%BA%8C%E9%AB%98%E9%98%B6%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B"></a>二、高阶使用教程</h2>
+<h3>
+<a id="1-获取互助码" class="anchor" href="#1-%E8%8E%B7%E5%8F%96%E4%BA%92%E5%8A%A9%E7%A0%81"></a>1. 获取互助码：</h3>
+<pre><code>docker exec -it jd bash jd.sh get_share_code now
+</code></pre>
+<h3>
+<a id="2-格式化导出互助码" class="anchor" href="#2-%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AF%BC%E5%87%BA%E4%BA%92%E5%8A%A9%E7%A0%81"></a>2. 格式化导出互助码：</h3>
+<pre><code>docker exec -it jd bash export_sharecodes.sh
+</code></pre>
+<blockquote>
+<p><em>注意：其原理是从各个活动脚本的日志中获取，只有运行完所有活动脚本后才可使用。</em></p>
+</blockquote>
+<h3>
+<a id="3-配置互助码与相互助力" class="anchor" href="#3-%E9%85%8D%E7%BD%AE%E4%BA%92%E5%8A%A9%E7%A0%81%E4%B8%8E%E7%9B%B8%E4%BA%92%E5%8A%A9%E5%8A%9B"></a>3. 配置互助码与相互助力：</h3>
+<pre><code>填法示例：
+ 
+########################## 1. 定义东东农场互助（选填） ##########################
+
+MyFruit1="xxxxxxxxxxxxxxxxxxxxxxxxx"
+MyFruit2="xxxxxxxxxxxxxxxxxxxxxxxxx"
+MyFruitA=""
+MyFruitB=""
+
+ForOtherFruit1="${MyFruit1}@${MyFruit2}"
+ForOtherFruit2="${MyFruit1}@${MyFruit2}"
+
+
+########################## 2. 定义东东萌宠互助（选填） ##########################
+
+MyPet1="xxxxxxxxxxxxxxxxxxxxxxxxx"
+MyPet2="xxxxxxxxxxxxxxxxxxxxxxxxx"
+MyPet3="xxxxxxxxxxxxxxxxxxxxxxxxx"
+MyPet4="xxxxxxxxxxxxxxxxxxxxxxxxx"
+MyPet5="xxxxxxxxxxxxxxxxxxxxxxxxx"
+MyPet6="xxxxxxxxxxxxxxxxxxxxxxxxx"
+MyPetA=""
+MyPetB=""
+
+ForOtherPet1="${MyPet1}@${MyPet2}@${MyPet3}@${MyPet4}@${MyPet5}@${MyPet6}"
+ForOtherPet2="${MyPet1}@${MyPet2}@${MyPet3}@${MyPet4}@${MyPet5}@${MyPet6}"
+ForOtherPet3="${MyPet1}@${MyPet2}@${MyPet3}@${MyPet4}@${MyPet5}@${MyPet6}"
+ForOtherPet4="${MyPet1}@${MyPet2}@${MyPet3}@${MyPet4}@${MyPet5}@${MyPet6}"
+ForOtherPet5="${MyPet1}@${MyPet2}@${MyPet3}@${MyPet4}@${MyPet5}@${MyPet6}"
+ForOtherPet6="${MyPet1}@${MyPet2}@${MyPet3}@${MyPet4}@${MyPet5}@${MyPet6}"
+</code></pre>
+<blockquote>
+<p><em>注意：引号等所有符号需使用英文格式。</em></p>
+</blockquote>
+<h3>
+<a id="4-提交您的互助码到公共库telegram-bot" class="anchor" href="#4-%E6%8F%90%E4%BA%A4%E6%82%A8%E7%9A%84%E4%BA%92%E5%8A%A9%E7%A0%81%E5%88%B0%E5%85%AC%E5%85%B1%E5%BA%93telegram-bot"></a>4. 提交您的互助码到公共库（Telegram Bot）：</h3>
+<blockquote>
+<p>Telegram Bot：<br>
+<a href="https://t.me/JD_ShareCode_Bot">@JD_ShareCode_Bot</a></p>
+</blockquote>
+<blockquote>
+<p>输入 /help 查看使用帮助</p>
+</blockquote>
+<h3>
+<a id="5-启动重启后台运行挂机活动脚本程序" class="anchor" href="#5-%E5%90%AF%E5%8A%A8%E9%87%8D%E5%90%AF%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C%E6%8C%82%E6%9C%BA%E6%B4%BB%E5%8A%A8%E8%84%9A%E6%9C%AC%E7%A8%8B%E5%BA%8F"></a>5. 启动/重启后台运行挂机活动脚本程序：</h3>
+<pre><code>docker exec -it jd bash jd.sh hangup
+</code></pre>
+<blockquote>
+<p><em>注意：当有新的账号添加后必须重启此程序，否则此程序将继续执行之前配置文件中的账号。</em></p>
+</blockquote>
+<h3>
+<a id="6-停止后台运行挂机活动脚本程序" class="anchor" href="#6-%E5%81%9C%E6%AD%A2%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C%E6%8C%82%E6%9C%BA%E6%B4%BB%E5%8A%A8%E8%84%9A%E6%9C%AC%E7%A8%8B%E5%BA%8F"></a>6. 停止后台运行挂机活动脚本程序：</h3>
+<pre><code>docker exec -it jd pm2 stop jd_crazy_joy_coin
+</code></pre>
+<h3>
+<a id="7-导入并使用第三方活动脚本" class="anchor" href="#7-%E5%AF%BC%E5%85%A5%E5%B9%B6%E4%BD%BF%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E6%B4%BB%E5%8A%A8%E8%84%9A%E6%9C%AC"></a>7. 导入并使用第三方活动脚本：</h3>
+<pre><code>1. 将脚本放置在该项目容器内 scripts 子目录下，也可放在外部的主机挂载目录（默认为/opt/jd/scripts）
+2. 然后通过命令 docker exec -it jd bash jd.sh xxx now 运行
+</code></pre>
+<blockquote>
+<p><em>注意：导入的第三方活动脚本不会随项目本身活动脚本的更新而删除。</em></p>
+</blockquote>
+<h3>
+<a id="8-删除活动运行日志" class="anchor" href="#8-%E5%88%A0%E9%99%A4%E6%B4%BB%E5%8A%A8%E8%BF%90%E8%A1%8C%E6%97%A5%E5%BF%97"></a>8. 删除活动运行日志：</h3>
+<pre><code>docker exec -it jd bash rm_log.sh 
+</code></pre>
+<blockquote>
+<p><em>注意：默认删除 <code>7天</code> 以上的日志文件，可以通过配置文件中的相关变量更改默认时间值。</em></p>
+</blockquote>
+<hr>
+<p>ㅤ</p>
+<h2>
+<a id="三控制面板教程" class="anchor" href="#%E4%B8%89%E6%8E%A7%E5%88%B6%E9%9D%A2%E6%9D%BF%E6%95%99%E7%A8%8B"></a>三、控制面板教程</h2>
+<h3>
+<a id="1-手动开启控制面板" class="anchor" href="#1-%E6%89%8B%E5%8A%A8%E5%BC%80%E5%90%AF%E6%8E%A7%E5%88%B6%E9%9D%A2%E6%9D%BF"></a>1. 手动开启控制面板：</h3>
+<pre><code>docker exec -it jd bash
+cd panel
+pm2 start ecosystem.config.js
+exit
+</code></pre>
+<blockquote>
+<p><em>注意：在某些环境下当系统重启导致控制面板无法访问提示拒绝连接时可用此命令恢复使用。</em></p>
+</blockquote>
+<h3>
+<a id="2-手动关闭控制面板" class="anchor" href="#2-%E6%89%8B%E5%8A%A8%E5%85%B3%E9%97%AD%E6%8E%A7%E5%88%B6%E9%9D%A2%E6%9D%BF"></a>2. 手动关闭控制面板：</h3>
+<pre><code>docker exec -it jd pm2 stop panel/ecosystem.config.js
+</code></pre>
+<h3>
+<a id="3-重启控制面板" class="anchor" href="#3-%E9%87%8D%E5%90%AF%E6%8E%A7%E5%88%B6%E9%9D%A2%E6%9D%BF"></a>3. 重启控制面板：</h3>
+<pre><code>docker exec -it jd pm2 restart panel/ecosystem.config.js
+</code></pre>
+<h3>
+<a id="4-重置控制面板的用户名和密码" class="anchor" href="#4-%E9%87%8D%E7%BD%AE%E6%8E%A7%E5%88%B6%E9%9D%A2%E6%9D%BF%E7%9A%84%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E5%AF%86%E7%A0%81"></a>4. 重置控制面板的用户名和密码：</h3>
+<pre><code>docker exec -it jd bash jd.sh resetpwd
+</code></pre>
+<h3>
+<a id="5-重新安装控制面板" class="anchor" href="#5-%E9%87%8D%E6%96%B0%E5%AE%89%E8%A3%85%E6%8E%A7%E5%88%B6%E9%9D%A2%E6%9D%BF"></a>5. 重新安装控制面板：</h3>
+<pre><code>docker exec -it jd bash
+cd panel
+npm install -g pm2
+pm2 start ecosystem.config.js
+exit
+</code></pre>
+<blockquote>
+<p><em>注意：此命令适用于在容器初始化过程中安装失败时使用。</em></p>
+</blockquote>
+<h3>
+<a id="6-手动开启网页终端" class="anchor" href="#6-%E6%89%8B%E5%8A%A8%E5%BC%80%E5%90%AF%E7%BD%91%E9%A1%B5%E7%BB%88%E7%AB%AF"></a>6. 手动开启网页终端：</h3>
+<pre><code>docker exec -it jd pm2 start ttyd
+</code></pre>
+<h3>
+<a id="7-重启网页终端" class="anchor" href="#7-%E9%87%8D%E5%90%AF%E7%BD%91%E9%A1%B5%E7%BB%88%E7%AB%AF"></a>7. 重启网页终端：</h3>
+<pre><code>docker exec -it jd pm2 restart ttyd
+</code></pre>
+<h3>
+<a id="8-查看控制面板和网页终端启动状态" class="anchor" href="#8-%E6%9F%A5%E7%9C%8B%E6%8E%A7%E5%88%B6%E9%9D%A2%E6%9D%BF%E5%92%8C%E7%BD%91%E9%A1%B5%E7%BB%88%E7%AB%AF%E5%90%AF%E5%8A%A8%E7%8A%B6%E6%80%81"></a>8. 查看控制面板和网页终端启动状态</h3>
+<pre><code>docker exec -it jd pm2 list
+</code></pre>
+<hr>
+<p>ㅤ</p>
+<h2>
+<a id="四更新教程" class="anchor" href="#%E5%9B%9B%E6%9B%B4%E6%96%B0%E6%95%99%E7%A8%8B"></a>四、更新教程</h2>
+<h3>
+<a id="1-更新配置文件" class="anchor" href="#1-%E6%9B%B4%E6%96%B0%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"></a>1. 更新配置文件：</h3>
+<ul>
+<li>
+<p>备份当前配置文件</p>
+<pre><code>docker exec -it jd mv config/config.sh config/bak/config.sh
+</code></pre>
+</li>
+<li>
+<p>替换新版配置文件</p>
+<pre><code>docker exec -it jd cp -f sample/config.sh.sample config/config.sh
+</code></pre>
+</li>
+</ul>
+<blockquote>
+<p><em>ㅤ注意：操作为直接替换配置文件，您也可以通过控制面板对比工具自行修改。</em></p>
+</blockquote>
+<hr>
+<p>ㅤ</p>
+<h2>
+<a id="五使用需知" class="anchor" href="#%E4%BA%94%E4%BD%BF%E7%94%A8%E9%9C%80%E7%9F%A5"></a>五、使用需知</h2>
+<ul>
+<li><strong>1. <code>git_pull.sh</code> 为一键更新脚本，<code>run_all.sh</code> 为一键执行所有活动脚本</strong></li>
+<li><strong>2. 本项目可以通过定时的方式全天候自动运行活动脚本，具体运行记录可通过日志查看</strong></li>
+<li><strong>3. 项目已配置好 <code>Crontab</code> 定时任务，定时配置文件 <code>crontab.list</code> 会通过活动脚本的更新而同步更新</strong></li>
+<li><strong>4. 您可以通过容器外的主机挂载目录来编辑配置文件、查看活动运行日志、查看脚本文件</strong></li>
+<li><strong>5. 手动执行 <code>run_all.sh</code> 脚本后无需守在电脑旁，会自动在最后运行挂机活动脚本</strong></li>
+<li><strong>6. 执行 <code>run_all</code> 脚本期间如果卡住，可按回车键尝试或通过命令 <code>Ctrl + Z</code> 跳过继续执行剩余活动脚本</strong></li>
+<li><strong>7. 由于京东活动一直变化可能会出现无法参加活动、报错等正常现象，可手动执行一键更新脚本完成更新</strong></li>
+<li><strong>8. 之前填入的 <code>Cookie部分内容</code> 具有一定的时效性，若提示失效请根据教程重新获取并手动更新</strong></li>
+</ul></div>
+          </div>
+        </div>
+      </div>
+      </div>
+  </div>
+</body>
+</html>
