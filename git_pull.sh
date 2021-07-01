@@ -66,6 +66,10 @@ function Git_CloneScripts() {
     [ -d ${ScriptsDir}/docker ] || mkdir -p ${ScriptsDir}/docker
     [ -f ${ListCronLxk} ] || mv -f ${ShellDir}/docker/crontab_list.sh ${ListCronLxk}
     ExitStatusCronLxk=$?
+    apk update
+    apk add --no-cache build-base g++ cairo-dev jpeg-dev pango-dev giflib-dev python3 py3-pip
+    pip3 install --upgrade pip
+    pip3 install requests
     echo
 }
 
@@ -211,10 +215,6 @@ function Npm_Install() {
     cd ${ScriptsDir}
     if [[ "${PackageListOld}" != "$(cat package.json)" ]]; then
         echo -e "安装环境所需的软件包 ...\n"
-        apk update
-        apk add --no-cache build-base g++ cairo-dev jpeg-dev pango-dev giflib-dev python3 py3-pip
-        pip3 install --upgrade pip
-        pip3 install requests
         echo -e "检测到package.json有变化，运行 npm install...\n"
         Npm_InstallSub
         if [ $? -ne 0 ]; then

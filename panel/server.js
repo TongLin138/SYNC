@@ -721,7 +721,7 @@ app.post('/api/save', function (request, response) {
         response.send({
             err: 0,
             title: '保存成功! ',
-            msg: '将自动刷新页面查看修改后的 ' + postfile + ' 文件',
+            msg: '将自动刷新页面查看修改后的 ' + postfile + ' 文件，每次保存都会生成备份',
         });
     } else {
         response.send({

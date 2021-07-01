@@ -32,7 +32,7 @@ nav ul li a:link,
 nav ul li a:visited,
 nav ul li a:active {
     font-size: 0.875rem;
-    padding: 0.5rem 1rem;
+    padding: 0.875rem 1rem;
     color: white;
     text-decoration: none;
     background-color: transparent;
@@ -52,7 +52,7 @@ nav .active a {
     left: 0px;
     bottom: 0px;
     width: 100%;
-    height: 100px;
+    height: 10%;
     position: absolute;
     z-index: 9999;
     width: 100%;
@@ -166,6 +166,8 @@ nav .active a {
     border-radius: 11px 11px 11px 11px;
     -moz-border-radius: 11px 11px 11px 11px;
     -webkit-border-radius: 11px 11px 11px 11px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px #6f7477;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px #6f7477;
 }
 
 .login-form input[type="submit"] {
@@ -180,6 +182,8 @@ nav .active a {
     border-radius: 11px 11px 11px 11px;
     -moz-border-radius: 11px 11px 11px 11px;
     -webkit-border-radius: 11px 11px 11px 11px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px #6f7477;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px #6f7477;
 }
 
 #qrcontainer {
@@ -376,26 +380,25 @@ nav .active a {
     border-color: #1e90ff;
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px #1e90ff;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px #1e90ff;
-
 }
 
 .cmd-section input {
     width: 150px;
     height: 20px;
-    -moz-animation: glow 800ms ease-out infinite alternate;
-    -o-animation: glow 800ms ease-out infinite alternate;
-    -ms-animation: glow 800ms ease-out infinite alternate;
-    animation: glow 800ms ease-out infinite alternate;
     background: #222922;
-    background: -webkit-linear-gradient(#333933, #222922);
-    background: -moz-linear-gradient(#333933, #222922);
-    background: -o-linear-gradient(#333933, #222922);
-    background: -ms-linear-gradient(#333933, #222922);
-    background: linear-gradient(#333933, #222922);
-    color: #efe;
+    transition: all 0.50s ease-in-out;
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    border: #222922 1px solid;
+    border-radius: 3px;
     outline: none;
 }
 
+.cmd-section input:focus {
+    box-shadow: 0 0 5px #1e90ff;
+    -webkit-box-shadow: 0 0 5px #1e90ff;
+    -moz-box-shadow: 0 0 5px #1e90ff;
+}
 
 /* 按钮配置 */
 button {
@@ -405,7 +408,6 @@ button {
     color: rgb(255, 255, 255);
     border: none;
     position: relative;
-    height: 30px;
     font-size: 0.6em;
     padding: 0 1em;
     cursor: pointer;
