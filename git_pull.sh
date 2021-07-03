@@ -406,7 +406,7 @@ echo -e "  我们不会放纵某些行为，不保证不采取非常手段，请
 echo -e ""
 echo -e "+-----------------------------------------------------------+\n"
 
-[ ${ExitStatusCronLxk} -ne 0 ] && echo -e "\n\033[33mScripts仓库脚本定时任务清单拉取失败，已启用备份\033[0m"
+[ ${ExitStatusCronLxk} -ne 0 ] && echo -e "\033[33mScripts仓库脚本定时任务清单拉取失败，已启用备份\033[0m\n"
 
 ## 执行各函数
 if [[ ${ExitStatusScripts} -eq 0 ]]; then
