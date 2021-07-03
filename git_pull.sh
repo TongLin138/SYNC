@@ -64,12 +64,12 @@ function Git_CloneScripts() {
     git clone -b main ${ScriptsURL} ${ScriptsDir}
     ExitStatusScripts=$?
     [ -d ${ScriptsDir}/docker ] || mkdir -p ${ScriptsDir}/docker
-    [ -f ${ListCronLxk} ] || mv -f ${ShellDir}/docker/crontab_list.sh ${ListCronLxk}
+    [ -f ${ListCronLxk} ] || cp -rf ${ShellDir}/docker/crontab_list.sh ${ListCronLxk}
     ExitStatusCronLxk=$?
-    apk update
-    apk add --no-cache build-base g++ cairo-dev jpeg-dev pango-dev giflib-dev python3 py3-pip
+    ## 安装环境所需要的软件包
+    apk update && apk add --no-cache build-base g++ cairo-dev jpeg-dev pango-dev giflib-dev python3 py3-pip
     pip3 install --upgrade pip
-    pip3 install requests
+    cd ${ScriptsDir} && pip3 install requests && cd ${ShellDir}
     echo
 }
 
@@ -207,7 +207,6 @@ function Npm_InstallSub() {
         echo -e "检测到本机安装了 yarn，使用 yarn 替代 npm...\n"
         yarn install || yarn install --registry=https://registry.npm.taobao.org
     fi
-    npm install canvas --build-from-source
 }
 
 ## npm install
@@ -393,7 +392,6 @@ chmod 777 ${ShellDir}/*
 ## 克隆或更新js脚本
 [ -f ${ScriptsDir}/package.json ] && PackageListOld=$(cat ${ScriptsDir}/package.json)
 [ -d ${ScriptsDir}/.git ] && Git_PullScripts || Git_CloneScripts
-[ ${ExitStatusCronLxk} -ne 0 ] && echo -e "\n\033[33mScripts仓库脚本定时任务清单拉取失败，已启用备份\033[0m"
 # [ -f ${ScriptsDir}/sendNotify.js ] && sed -i '/desp += author;/a\  if (text.includes("FreeFuck") || desp.includes("FreeFuck")) return ;' ${ScriptsDir}/sendNotify.js
 
 echo -e "\n+----------------------- 郑 重 提 醒 -----------------------+"
@@ -407,6 +405,8 @@ echo -e ""
 echo -e "  我们不会放纵某些行为，不保证不采取非常手段，请勿挑战底线！"
 echo -e ""
 echo -e "+-----------------------------------------------------------+\n"
+
+[ ${ExitStatusCronLxk} -ne 0 ] && echo -e "\n\033[33mScripts仓库脚本定时任务清单拉取失败，已启用备份\033[0m"
 
 ## 执行各函数
 if [[ ${ExitStatusScripts} -eq 0 ]]; then
