@@ -66,11 +66,6 @@ function Git_CloneScripts() {
     [ -d ${ScriptsDir}/docker ] || mkdir -p ${ScriptsDir}/docker
     [ -f ${ListCronLxk} ] || cp -rf ${ShellDir}/docker/crontab_list.sh ${ListCronLxk}
     ExitStatusCronLxk=$?
-    ## 安装环境所需要的软件包
-    apk update && apk add --no-cache build-base g++ cairo-dev jpeg-dev pango-dev giflib-dev python3 py3-pip
-    pip3 install --upgrade pip
-    cd ${ScriptsDir} && pip3 install requests && cd ${ShellDir}
-    echo
 }
 
 ## 更新scripts

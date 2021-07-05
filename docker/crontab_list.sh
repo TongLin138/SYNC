@@ -114,19 +114,31 @@
 8 0-23/3 * * * node /scripts/jd_speed.js >> /scripts/logs/jd_speed.log 2>&1
 # 京喜牧场
 15 0,12,22 * * * node /scripts/jd_jxmc.js >> /scripts/logs/jd_jxmc.log 2>&1
+# 京喜牧场(New)
+25 0,12,22 * * * node /scripts/jd_jxmc.js >> /scripts/logs/jd_jjxxmmcc.log 2>&1
 # 东东电竞经理
 0 0-23/2 * * * node /scripts/jd_EsportsManager.js >> /scripts/logs/jd_EsportsManager.log 2>&1
-
-##############新的修复版脚本##############
-# 宠汪汪
-45 */2,23 * * * node /scripts/jd_joy_new.js >> /scripts/logs/jd_joy_new.log 2>&1
-# 宠汪汪积分兑换京豆
-0 0-16/8 * * * node /scripts/jd_joy_reward_new.js >> /scripts/logs/jd_joy_reward_new.log 2>&1
-# 宠汪汪邀请助力
-10 13-20/1 * * * node /scripts/jd_joy_run.js >> /scripts/logs/jd_joy_run.log 2>&1
-# 宠汪汪偷好友积分与助力
-10 0-21/3 * * * node /scripts/jd_joy_steal.js >> /scripts/logs/jd_joy_steal.log 2>&1
 # 点点券
 10 0,20 * * * node /scripts/jd_necklace_new.js >> /scripts/logs/jd_necklace_new.log 2>&1
+
+
+##############宠汪汪##############
+# 宠汪汪
+45 */2,23 * * * node /scripts/jd_joy_new.js >> /scripts/logs/jd_joy_new.log 2>&1
+# 宠汪汪积分兑换京豆（有js、python两个版本）
+0 0-16/8 * * * node /scripts/jd_joy_reward_new.js >> /scripts/logs/jd_joy_reward_new.log 2>&1
+# 宠汪汪强制为别人助力
+0 0-16/8 * * * node /scripts/jd_joy_help.js >> /scripts/logs/jd_joy_help.log 2>&1
+# 宠汪汪偷好友积分与助力
+10 0-21/3 * * * node /scripts/jd_joy_steal.js >> /scripts/logs/jd_joy_steal.log 2>&1
 # 预存验证
 58 7,15,23 * * * node /scripts/jd_validate_Worker.js >> /scripts/logs/jd_validate_Worker.log 2>&1
+
+
+############## ts 脚本，目前需要手动改定时 ##############
+# 众筹许愿屋(活动时间：2021-7-1至2021-7-31)
+10 10,15 * 7 * node /scripts/jd_wishingPool.js >> /scripts/logs/jd_wishingPool.log 2>&1
+# 宠汪汪积分兑换京豆
+0 0-16/8 * * * node /scripts/jd_reward.js >> /scripts/logs/jd_reward.log 2>&1
+# 汪汪乐园
+30 8 * * * node /scripts/jd_joy_park.js >> /scripts/logs/jd_joy_park.log 2>&1
