@@ -136,8 +136,8 @@ function Diff_Cron() {
         cat ${ListCronLxk} | grep -E "j[drx]_\w+\.js" | perl -pe "s|.+(j[drx]_\w+)\.js.+|\1|" | sort -u >${ListJs}
 
         if [[ -n ${EnableExtraShell} && ${EnableExtraShell} == "true" ]]; then
-            grep "my_scripts_list" ${FileDiy} | grep -v '#' | grep -ioE "\w+\.js|\w+\.py|\w+\.ts" | perl -pe "{s|\.js||; s|\.py||; s|\.ts||}" | grep -v 'Tokens' | sort -u >>${ListJs}
-            grep "my_scripts_list" ${FileDiy} | grep -v '#' | grep -ioE "\w+\.js|\w+\.py|\w+\.ts" | perl -pe "{s|\.js||; s|\.py||; s|\.ts||}" | grep -v 'Tokens' | sort -u >>${ListTask}
+            grep "my_scripts_list" ${FileDiy} | grep -v '#' | grep -ioE "\S+\.js|\S+\.py|\S+\.ts" | perl -pe '{s|my_scripts_list_[0-9]{1,2}="||; s|\.js||; s|\.py||; s|\.ts||}' | grep -v 'Tokens' | sort -u >>${ListJs}
+            grep "my_scripts_list" ${FileDiy} | grep -v '#' | grep -ioE "\S+\.js|\S+\.py|\S+\.ts" | perl -pe '{s|my_scripts_list_[0-9]{1,2}="||; s|\.js||; s|\.py||; s|\.ts||}' | grep -v 'Tokens' | sort -u >>${ListTask}
         fi
 
         grep -vwf ${ListTask} ${ListJs} >${ListJsAdd}
