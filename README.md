@@ -1,5 +1,5 @@
 # 《使用与更新》教程
-- __修订日期：2021 年 7 月 1 日__
+- __修订日期：2021 年 7 月 7 日__
 
 ## 一、基础使用教程
 >附：[Docker 容器基础使用教程](https://www.runoob.com/docker/docker-container-usage.html)
@@ -30,7 +30,7 @@
 
 ### 3. 执行特定活动脚本：
     docker exec -it jd bash jd.sh xxx      # 如果设置了随机延迟并且当时时间不在0-2、30-31、59分内，将随机延迟一定秒数
-    docker exec -it jd bash jd.sh xxx now  # 无论是否设置了随机延迟，均立即运行
+    docker exec -it jd bash jd.sh xxx now  # 依次执行，无论是否设置了随机延迟，均立即运行，前台会输出日志，同时记录在日志文件中
 > _注意：具体查看活动脚本列表可通过命令 `docker exec -it jd bash jd.sh` 查看， `xxx` 为脚本名。_
 
 
@@ -50,7 +50,30 @@
       exit
 
 
-### 5. 使用 Diy 自定义脚本扩展活动脚本数量：
+### 5. 查看帮助文档：
+    docker exec -it jd cat README.md
+> _注意：此文档为《使用与更新》教程，即当前页面内容，跟随项目同步更新。_
+
+
+### 6. 快捷命令：
+    git_pull | jup  ==  bash git_pull.sh
+    jd | jtask      ==  bash jd.sh
+    runall          ==  source run_all.sh
+    rm_log          ==  bash rm_log.sh
+
+***
+
+ㅤ
+## 二、高阶使用教程
+### 1. 并发执行特定活动脚本：
+    docker exec -it jd bash jd.sh xxx conc  # 并发执行，无论是否设置了随机延迟，均立即运行，前台不产生日志，直接记录在日志文件中
+
+
+### 2. 指定单个账号执行特定活动脚本：
+    docker exec -it jd bash jd.sh xxx <num>  # num为某Cookie的编号，指定只以该Cookie运行脚本
+
+
+### 3. 使用 Diy 自定义脚本扩展活动脚本数量：
 - 使用需知
 
       1. 此脚本的用途为添加第三方作者编写的活动脚本到项目中
@@ -66,21 +89,29 @@
 > _注意：启用该功能后便可直接下载或同步更新本项目中的 Diy 脚本，同时代表每次更新时会覆盖您本地编写的内容。_
 
 
-### 6. 查看帮助文档：
-    docker exec -it jd cat README.md
-> _注意：此文档为《使用与更新》教程，即当前页面内容，跟随项目同步更新。_
+### 4. 启动/重启后台运行挂机活动脚本程序（目前不建议使用）：
+    docker exec -it jd bash jd.sh hangup
+> _注意：当有新的账号添加后必须重启此程序，否则此程序将继续执行之前配置文件中的账号。_
 
 
-### 7. 快捷命令：
-    git_pull | jup  ==  bash git_pull.sh
-    jd | jtask      ==  bash jd.sh
-    runall          ==  source run_all.sh
-    rm_log          ==  bash rm_log.sh
+### 5. 停止后台运行挂机活动脚本程序：
+    docker exec -it jd pm2 stop jd_crazy_joy_coin
+
+
+### 6. 导入并使用第三方活动脚本：
+    1. 将脚本放置在该项目容器内 scripts 子目录下，也可放在外部的主机挂载目录（默认为/opt/jd/scripts）
+    2. 然后通过命令 docker exec -it jd bash jd.sh xxx now 运行
+> _注意：导入的第三方活动脚本不会随项目本身活动脚本的更新而删除。_
+
+
+### 7. 删除活动脚本运行日志：
+    docker exec -it jd bash rm_log.sh 
+> _注意：默认删除 `7天` 以上的日志文件，可以通过配置文件中的相关变量更改默认时间值。_
 
 ***
 
 ㅤ
-## 二、高阶使用教程
+## 三、互助码配置教程
 ### 1. 获取互助码：
     docker exec -it jd bash jd.sh get_share_code now
 
@@ -129,29 +160,10 @@
 
 > 输入 /help 查看使用帮助
 
-### 5. 启动/重启后台运行挂机活动脚本程序：
-    docker exec -it jd bash jd.sh hangup
-> _注意：当有新的账号添加后必须重启此程序，否则此程序将继续执行之前配置文件中的账号。_
-
-
-### 6. 停止后台运行挂机活动脚本程序：
-    docker exec -it jd pm2 stop jd_crazy_joy_coin
-
-
-### 7. 导入并使用第三方活动脚本：
-    1. 将脚本放置在该项目容器内 scripts 子目录下，也可放在外部的主机挂载目录（默认为/opt/jd/scripts）
-    2. 然后通过命令 docker exec -it jd bash jd.sh xxx now 运行
-> _注意：导入的第三方活动脚本不会随项目本身活动脚本的更新而删除。_
-
-
-### 8. 删除活动运行日志：
-    docker exec -it jd bash rm_log.sh 
-> _注意：默认删除 `7天` 以上的日志文件，可以通过配置文件中的相关变量更改默认时间值。_
-
 ***
 
 ㅤ
-## 三、控制面板教程
+## 四、控制面板教程
 ### 1. 手动开启控制面板：
     docker exec -it jd bash
     cd panel
@@ -195,7 +207,7 @@
 ***
 
 ㅤ
-## 四、更新教程
+## 五、更新教程
 ### 1. 更新配置文件：
 - 备份当前配置文件
 
