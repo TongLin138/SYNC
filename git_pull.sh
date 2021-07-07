@@ -367,7 +367,7 @@ function Run_All() {
 ## 在日志中记录时间与路径
 echo -e "+----------------- 开 始 执 行 更 新 脚 本 -----------------+"
 echo -e ''
-echo -e "   脚本跟目录：${ShellDir}"
+echo -e "   脚本根目录：${ShellDir}"
 echo -e ''
 echo -e "   活动脚本目录：${ScriptsDir}"
 echo -e ''
