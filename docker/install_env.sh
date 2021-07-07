@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-## 安装环境所需要的软件包
+## 安装目前环境所需要的软件包
 
 ShellDir=${JD_DIR:-$(
     cd $(dirname $0)
