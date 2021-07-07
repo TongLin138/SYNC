@@ -11,25 +11,23 @@ ConfigDir=${ShellDir}/config
 FileConf=${ConfigDir}/config.sh
 FileConfSample=${ShellDir}/sample/config.sh.sample
 LogDir=${ShellDir}/log
+ListCron=${ConfigDir}/crontab.list
 ListScripts=($(
     cd ${ScriptsDir}
-    ls *.js | grep -E "j[drx]_" | grep -Eiv "enen"
+    ls *.js | grep -E "j[drx]_" | grep -Eiv "enen|jd_update.js|validate|api_test"
 ))
 ListPythonScripts=($(
     cd ${ScriptsDir}
-    ls *.py | grep -Eiv "getCookie.py|jdEnv.py|Notify"
+    ls *.py | grep -Eiv "getCookie.py|jdEnv|Notify"
 ))
 ListTypeScriptScripts=($(
     cd ${ScriptsDir}
-    ls *.ts | grep -Eiv "ts__test|AGENTS|ts__test"
+    ls *.ts | grep -Eiv "ts__test|AGENTS|validate"
 ))
 ListOtherScripts=($(
     cd ${ScriptsDir}
     ls *.js | grep -Eiv "j[drx]_|$(git ls-files)|ShareCodes|AGENTS|index.js|tencentscf.js|Notify|Cookie|Tokens"
 ))
-
-
-ListCron=${ConfigDir}/crontab.list
 
 ## 导入config.sh
 function Import_Conf() {

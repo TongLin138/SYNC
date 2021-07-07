@@ -9,7 +9,7 @@ ShellDir=${JD_DIR:-$(
 ScriptsDir=${ShellDir}/scripts
 
 apk update
-apk add --no-cache build-base g++ cairo-dev jpeg-dev pango-dev giflib-dev python3 py3-pip
+apk add --no-cache python3 py3-pip sudo
 pip3 install --upgrade pip
 cd ${ScriptsDir}
 pip3 install requests
