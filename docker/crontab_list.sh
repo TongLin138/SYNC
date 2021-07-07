@@ -136,7 +136,7 @@
 
 
 ############## ts 脚本，目前需要手动改定时 ##############
-# 众筹许愿屋(活动时间：2021-7-1至2021-7-31)
+# 众筹许愿池(活动时间：2021-7-1至2021-7-31)
 #10 10,15 * 7 * node /scripts/jd_wishingPool.js >> /scripts/logs/jd_wishingPool.log 2>&1
 # 宠汪汪积分兑换京豆
 #0 0-16/8 * * * node /scripts/jd_reward.js >> /scripts/logs/jd_reward.log 2>&1
