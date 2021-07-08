@@ -26,7 +26,7 @@ ListTypeScriptScripts=($(
 ))
 ListOtherScripts=($(
     cd ${ScriptsDir}
-    ls *.js | grep -Eiv "j[drx]_|$(git ls-files)|ShareCodes|AGENTS|index.js|tencentscf.js|Notify|Cookie|Tokens"
+    ls *.js | grep -Eiv "j[drx]_|$(git ls-files)|ShareCodes|AGENTS|index.js|validate|JDJR|MovementFaker|tencentscf.js|Notify|Cookie|Tokens|main|app"
 ))
 
 ## 导入config.sh

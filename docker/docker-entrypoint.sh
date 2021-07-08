@@ -109,7 +109,7 @@ if [[ ${ENABLE_WEB_PANEL} == true ]]; then
   fi
   cd ${JD_DIR}/panel
   pm2 start ecosystem.config.js
-  echo -e "控制面板启动成功...\n"
+  echo -e "\n控制面板启动成功...\n"
   echo -e "如未修改用户名密码，则初始用户名为：useradmin，初始密码为：supermanito\n"
   echo -e "请访问 http://<内部或外部IP地址>:5678 登陆并修改配置...\n"
   ###########################################################################
