@@ -61,14 +61,9 @@
                     <div class="cmd-section" style="margin-left: 0.5em;">
                         <input id="jdScript" name="jdScript" type="text" placeholder="请输入脚本名称" required>
                     </div>
-                    <input style="width: 60px;height: 30px" type="submit" id="runCmd" class="ant-btn ant-btn-primary"
-                        value="执行">
-                    &#12288;<p>
-                        <font color="#d9d9d9" size="2">温馨提示：手动执行的活动直到运行结束才会输出日志。
-                        </font>
-                    </p>
+                    <button id="runCmd" type="submit" style="height:30px; width: 60px; font-size: 13px;" title="bash jd <xxx> now">执行</button>
+                        <font color="#d9d9d9" style="padding-left: 10px;" size="2">温馨提示：手动执行的活动直到运行结束才会输出日志。</font>
                 </form>
-                <br />
             </header>
 
             <div class="wrapper">
@@ -104,7 +99,7 @@
                 editor.setValue('');
 
                 const jsName = this.id === 'jd_list' ? '' : this.id;
-                const cmd = jsName ? `bash jd.sh ${jsName} now` : 'bash jd.sh';
+                const cmd = jsName ? `bash jd ${jsName} now` : 'bash jd list';
                 $.post('./runCmd', {
                     cmd: cmd
                 }, function (data) {
@@ -145,7 +140,7 @@
                             break;
                         case 'hangup':
                             confirmTxt = '确认启动/重启挂机程序？';
-                            cmd = `bash jd.sh ${this.id}`;
+                            cmd = `bash jd ${this.id}`;
                             break;
                         case 'ttyd':
                             confirmTxt = '确认启动/重启网页终端？';
@@ -209,7 +204,7 @@
                 editor.setValue('');
 
                 const jsName = this.id === 'jd_list' ? '' : this.id;
-                const cmd = `bash jd.sh ${jdScript} now`;
+                const cmd = `bash jd ${jdScript} now`;
                 $.post('./runCmd', {
                     cmd: cmd,
                     delay: 500

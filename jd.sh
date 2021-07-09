@@ -14,7 +14,7 @@ LogDir=${ShellDir}/log
 ListCron=${ConfigDir}/crontab.list
 ListScripts=($(
     cd ${ScriptsDir}
-    ls *.js | grep -E "j[drx]_" | grep -Eiv "enen|jd_update.js|validate|api_test"
+    ls *.js | grep -E "j[drx]_" | grep -Eiv "jd_update.js|validate|api_test|env_copy"
 ))
 ListPythonScripts=($(
     cd ${ScriptsDir}
@@ -22,11 +22,11 @@ ListPythonScripts=($(
 ))
 ListTypeScriptScripts=($(
     cd ${ScriptsDir}
-    ls *.ts | grep -Eiv "ts__test|AGENTS|validate"
+    ls *.ts | grep -Eiv "ts_test|AGENTS|validate"
 ))
 ListOtherScripts=($(
     cd ${ScriptsDir}
-    ls *.js | grep -Eiv "j[drx]_|$(git ls-files)|ShareCodes|AGENTS|index.js|validate|JDJR|MovementFaker|tencentscf.js|Notify|Cookie|Tokens|main|app"
+    ls *.js | grep -Eiv "j[drx]_|$(git ls-files)|ShareCodes|AGENTS|index.js|validate|JDJR|MovementFaker|tencentscf.js|Notify|Cookie|Tokens|app"
 ))
 
 ## 导入config.sh
@@ -171,7 +171,7 @@ function Random_Delay() {
         CurMin=$(date "+%-M")
         if [[ ${CurMin} -gt 2 && ${CurMin} -lt 30 ]] || [[ ${CurMin} -gt 31 && ${CurMin} -lt 59 ]]; then
             CurDelay=$((${RANDOM} % ${RandomDelay} + 1))
-            echo -e "\n命令未添加 \"now\"，随机延迟 ${CurDelay} 秒后再执行任务，如需立即终止，请按 CTRL+C...\n"
+            echo -e "\n命令未添加 \"now\"，随机延迟 ${CurDelay} 秒后再执行任务，如需立即终止，请按 Ctrl+C...\n"
             sleep ${CurDelay}
         fi
     fi
@@ -180,14 +180,21 @@ function Random_Delay() {
 ## 使用说明
 function Help() {
     echo -e "本脚本的用法为："
-    echo -e "1. bash ${HelpJd} xxx        # 如果设置了随机延迟并且当时时间不在0-2、30-31、59分内，将随机延迟一定秒数"
-    echo -e "2. bash ${HelpJd} xxx now    # 依次执行，无论是否设置了随机延迟，均立即运行，前台会输出日志，同时记录在日志文件中"
-    echo -e "3. bash ${HelpJd} xxx conc   # 并发执行，无论是否设置了随机延迟，均立即运行，前台不产生日志，直接记录在日志文件中"
-    echo -e "4. bash ${HelpJd} xxx <num>  # num为某Cookie的编号，指定只以该Cookie运行脚本"
-    echo -e "5. bash ${HelpJd} hangup     # 启动或重启后台挂机程序，目前不建议使用"
-    echo -e "6. bash ${HelpJd} resetpwd   # 重置控制面板的用户名和密码"
-    echo -e "7. source runall      # 执行所有活动脚本（Ctrl + Z 跳过执行某个脚本，Ctrl + C 停止执行全部脚本）"
-    echo -e "\n针对用法 1~4 中的\"xxx\"，可以不输入后缀\".js\"，另外，如果前缀是\"jd_\"的话前缀也可以省略。"
+    echo -e "1. bash ${HelpJd} list         # 查看脚本列表"
+    echo -e "2. bash ${HelpJd} <xxx>        # 如果设置了随机延迟并且当时时间不在0-2、30-31、59分内，将随机延迟一定秒数"
+    echo -e "3. bash ${HelpJd} <xxx> now    # 依次执行，无论是否设置了随机延迟，均立即运行，前台会输出日志，同时记录在日志文件中"
+    echo -e "4. bash ${HelpJd} <xxx> conc   # 并发执行，无论是否设置了随机延迟，均立即运行，前台不产生日志，直接记录在日志文件中"
+    echo -e "5. bash ${HelpJd} <xxx> <num>  # 指定某 Cookie 账号单独运行脚本，num为某 Cookie 账号在配置文件中的具体编号"
+    echo -e "6. bash ${HelpJd} <url> raw    # 拉取远程仓库的脚本并通过方法3执行，在末尾加上可选参数 -p 可通过代理进行下载"
+    echo -e "7. bash ${HelpJd} hangup       # 启动或重启后台挂机程序，目前不建议使用"
+    echo -e "8. bash ${HelpJd} resetpwd     # 重置控制面板的用户名和密码"
+    echo -e "9. source runall        # 执行所有活动脚本，非常耗时，Ctrl+Z 跳过执行当前脚本，Ctrl+C 退出执行"
+    echo -e "\n在最新版本的容器中，bash ${HelpJd} 命令可以由 | jd | jtask | 代替。"
+    echo -e "针对用法 2~5 中的 \"xxx\" 为脚本名，可以不输入后缀\".js\"，另外如果前缀是\"jd_\"的话前缀也可以省略。\n"
+}
+
+## 活动列表
+function ScriptsList() {
     echo -e "\n################################## 当前有以下活动脚本可以运行 ##################################"
     echo -e "\n注：所有以 jd、jr、jx 开头的js脚本会被识别成 Scripts 仓库的脚本，本地导入的脚本不会随更新而自动删除"
     cd ${ScriptsDir}
@@ -198,13 +205,11 @@ function Help() {
     done
     echo -e "\nPython 脚本："
     for ((i = 0; i < ${#ListPythonScripts[*]}; i++)); do
-        Name=$(grep "new Env" ${ListPythonScripts[i]} | awk -F "'|\"" '{print $2}')
-        echo -e "$(($i + 1)).${Name}：${ListPythonScripts[i]}"
+        echo -e "$(($i + 1)).${ListPythonScripts[i]}"
     done
     echo -e "\nTypeScript 脚本："
     for ((i = 0; i < ${#ListTypeScriptScripts[*]}; i++)); do
-        Name=$(grep "new Env" ${ListTypeScriptScripts[i]} | awk -F "'|\"" '{print $2}')
-        echo -e "$(($i + 1)).${Name}：${ListTypeScriptScripts[i]}"
+        echo -e "$(($i + 1)).${ListTypeScriptScripts[i]}"
     done
     echo -e "\n第三方作者的脚本："
     for ((i = 0; i < ${#ListOtherScripts[*]}; i++)); do
@@ -384,6 +389,45 @@ Run_Specify() {
     fi
 }
 
+## 拉取远程仓库的脚本并执行
+Run_RawScript() {
+    local Raw_Url=$1
+    FileName=$(echo $Raw_Url | awk -F "/" '{print $NF}')
+    RepositoryName=$(echo $Raw_Url | egrep -o "github|gitee|gitlab")
+    if [[ ${RepositoryName} == "github" ]]; then
+        RepositoryJudge=" Github "
+    elif [[ ${RepositoryName} == "gitee" ]]; then
+        RepositoryJudge=" Gitee "
+    elif [[ ${RepositoryName} == "gitlab" ]]; then
+        RepositoryJudge=" GitLab "
+    else
+        RepositoryJudge=""
+    fi
+    if [ -n "$3" ]; then
+        local Raw_Functions=$3
+        if [ $Raw_Functions = "-p" ]; then
+            DownloadJudgment="https://ghproxy.com/"
+        else
+            echo -e "\n\033[31m[ERROR] 命令错误，请重新输入...\033[0m\n"
+            Help
+            exit
+        fi
+    else
+        DownloadJudgment=""
+    fi
+    echo -e "\n[*] 开始从$RepositoryJudge远程仓库下载 ${FileName} 脚本..."
+    wget -q --no-check-certificate ${DownloadJudgment}$Raw_Url -O "${ScriptsDir}/${FileName}.new"
+    if [[ $? -eq 0 ]]; then
+        mv -f "${ScriptsDir}/${FileName}.new" "${ScriptsDir}/${FileName}"
+        echo -e "\n[Done] 下载完成，倒计时 3 秒后开始执行"
+        sleep 1 && echo -e "3..." && sleep 1 && echo -e "2.." && sleep 1 && echo -e "1." && sleep 1
+        Run_Normal ${FileName} now
+    else
+        [ -f "${ScriptsDir}/${FileName}.new" ] && rm -rf "${ScriptsDir}/${FileName}.new"
+        echo -e "\n\033[31m下载 ${FileName} 失败，请检查 URL 地址是否正确或网络连通性问题...\033[0m\n"
+    fi
+}
+
 ## 命令检测
 case $# in
 0)
@@ -392,6 +436,9 @@ case $# in
     ;;
 1)
     case $1 in
+    list)
+        ScriptsList
+        ;;
     hangup)
         Run_HangUp
         ;;
@@ -414,14 +461,25 @@ case $# in
     [1-9] | [1-3][0-9])
         Run_Specify $1 $2
         ;;
+    raw)
+        Run_RawScript $1
+        ;;
     *)
-        echo -e "\n命令输入错误...\n"
+        echo -e "\n\033[31m[ERROR] 命令错误，请重新输入...\033[0m\n"
         Help
         ;;
     esac
     ;;
+3)
+    if [[ $2 == raw ]]; then
+        Run_RawScript $1 $2 $3
+    else
+        echo -e "\n\033[31m[ERROR] 输入命令过多...\033[0m\n"
+        Help
+    fi
+    ;;
 *)
-    echo -e "\n命令过多...\n"
+    echo -e "\n\033[31m[ERROR] 输入命令过多...\033[0m\n"
     Help
     ;;
 esac

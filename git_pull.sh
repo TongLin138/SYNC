@@ -132,14 +132,14 @@ function Diff_Cron() {
         else
             grep "${ShellDir}/" ${ListCron} | grep -E " j[drx]_\w+" | perl -pe "s|.+ (j[drx]_\w+).*|\1|" | sort -u >${ListTask}
         fi
-
         cat ${ListCronLxk} | grep -E "j[drx]_\w+\.js" | perl -pe "s|.+(j[drx]_\w+)\.js.+|\1|" | sort -u >${ListJs}
 
-        if [[ -n ${EnableExtraShell} && ${EnableExtraShell} == "true" ]]; then
-            grep "my_scripts_list" ${FileDiy} | grep -v '#' | grep -ioE "\w+\.js|\w+\.py|\w+\.ts" | perl -pe "{s|\.js||; s|\.py||; s|\.ts||}" | grep -v 'Tokens' | sort -u >>${ListJs}
-            grep "my_scripts_list" ${FileDiy} | grep -v '#' | grep -ioE "\w+\.js|\w+\.py|\w+\.ts" | perl -pe "{s|\.js||; s|\.py||; s|\.ts||}" | grep -v 'Tokens' | sort -u >>${ListTask}
+        if [ -f ${FileDiy} ]; then
+            if [[ -n ${EnableExtraShell} && ${EnableExtraShell} == "true" ]]; then
+                grep "my_scripts_list" ${FileDiy} | grep -v '#' | grep -ioE "\w+\.js|\w+\.py|\w+\.ts" | perl -pe "{s|\.js||; s|\.py||; s|\.ts||}" | grep -v 'Tokens' | sort -u >>${ListJs}
+                grep "my_scripts_list" ${FileDiy} | grep -v '#' | grep -ioE "\w+\.js|\w+\.py|\w+\.ts" | perl -pe "{s|\.js||; s|\.py||; s|\.ts||}" | grep -v 'Tokens' | sort -u >>${ListTask}
+            fi
         fi
-
         grep -vwf ${ListTask} ${ListJs} >${ListJsAdd}
         grep -vwf ${ListJs} ${ListTask} >${ListJsDrop}
     else
@@ -315,18 +315,29 @@ function Add_Cron() {
     fi
 }
 
+## 用户数量UserSum
+function Count_UserSum() {
+    for ((i = 1; i <= 1000; i++)); do
+        Tmp=Cookie$i
+        CookieTmp=${!Tmp}
+        [[ ${CookieTmp} ]] && UserSum=$i || break
+    done
+}
+
 ## 自定义脚本功能
 function ExtraShell() {
     ## 自动同步用户自定义的diy.sh
     if [[ ${EnableExtraShellUpdate} == true ]]; then
-        wget -q $EnableExtraShellURL -O ${FileDiy}
+        wget -q --no-check-certificate $EnableExtraShellURL -O ${FileDiy}.new
         if [ $? -eq 0 ]; then
-            echo -e "自定义脚本同步完成 [Done]\n"
-            sleep 2s
+            mv -f "${FileDiy}.new" "${FileDiy}"
+            echo -e "[Done] 自定义脚本同步完成\n"
+            sleep 1s
         else
-            echo -e "\033[31m自定义脚本同步失败，请检查原因或再次执行更新命令 ......\033[0m\n"
-            sleep 2s
+            echo -e "\033[31m[ERROR] 自定义脚本同步失败，请检查原因或再次执行更新命令......\033[0m\n"
+            sleep 3s
         fi
+        [ -f "${FileDiy}.new" ] && rm -rf "${FileDiy}.new"
     fi
 
     ## 调用用户自定义的diy.sh
@@ -364,44 +375,46 @@ function Run_All() {
     sed -i '/^\s*$/d' ${FileRunAll}
 }
 
-## 在日志中记录时间与路径
-echo -e "\n+----------------- 开 始 执 行 更 新 脚 本 -----------------+"
-echo -e ''
-echo -e "   脚本根目录：${ShellDir}"
-echo -e ''
-echo -e "   活动脚本目录：${ScriptsDir}"
-echo -e ''
-echo -e "   当前系统时间：$(date "+%Y-%m-%d %H:%M")"
-echo -e ''
-echo -e "+-----------------------------------------------------------+"
+function Title() {
+    echo -e "\n+----------------- 开 始 执 行 更 新 脚 本 -----------------+"
+    echo -e ''
+    echo -e "   脚本根目录：${ShellDir}"
+    echo -e ''
+    echo -e "   Scripts 仓库目录：${ScriptsDir}"
+    echo -e ''
+    echo -e "   当前系统时间：$(date "+%Y-%m-%d %H:%M")"
+    echo -e ''
+    echo -e "+-----------------------------------------------------------+"
+}
 
+function Notice() {
+    echo -e "\n+----------------------- 郑 重 提 醒 -----------------------+"
+    echo -e ""
+    echo -e "  本项目目前闭源并且仅面向内部开放，脚本免费使用仅供于学习！"
+    echo -e ""
+    echo -e "  圈内资源禁止以任何形式发布到咸鱼等国内平台，否则后果自负！"
+    echo -e ""
+    echo -e "  我们始终致力于打击使用本项目进行违法贩卖行为的个人或组织！"
+    echo -e ""
+    echo -e "  我们不会放纵某些行为，不保证不采取非常手段，请勿挑战底线！"
+    echo -e ""
+    echo -e "+-----------------------------------------------------------+\n"
+}
+
+## 在日志中记录时间与路径
+Title
 ## 更新crontab
 [[ $(date "+%-H") -le 2 ]] && Update_Cron
-
 ## 更新源码
 [ -d ${ShellDir}/.git ] && Git_PullShell
 ## 赋权
 chmod 777 ${ShellDir}/*
-
 ## 克隆或更新js脚本
 [ -f ${ScriptsDir}/package.json ] && PackageListOld=$(cat ${ScriptsDir}/package.json)
 [ -d ${ScriptsDir}/.git ] && Git_PullScripts || Git_CloneScripts
 # [ -f ${ScriptsDir}/sendNotify.js ] && sed -i '/desp += author;/a\  if (text.includes("FreeFuck") || desp.includes("FreeFuck")) return ;' ${ScriptsDir}/sendNotify.js
-
-echo -e "\n+----------------------- 郑 重 提 醒 -----------------------+"
-echo -e ""
-echo -e "  本项目目前闭源并且仅面向内部开放，脚本免费使用仅供于学习！"
-echo -e ""
-echo -e "  圈内资源禁止以任何形式发布到咸鱼等国内平台，否则后果自负！"
-echo -e ""
-echo -e "  我们始终致力于打击使用本项目进行违法贩卖行为的个人或组织！"
-echo -e ""
-echo -e "  我们不会放纵某些行为，不保证不采取非常手段，请勿挑战底线！"
-echo -e ""
-echo -e "+-----------------------------------------------------------+\n"
-
-[ ${ExitStatusCronLxk} -ne 0 ] && echo -e "\033[33mScripts仓库脚本定时任务清单拉取失败，已启用备份\033[0m\n"
-
+[ ${ExitStatusCronLxk} -ne 0 ] && echo -e "\033[33m[WARN] Scripts仓库脚本定时任务清单拉取失败，已启用备份\033[0m\n"
+Notice
 ## 执行各函数
 if [[ ${ExitStatusScripts} -eq 0 ]]; then
     Change_ALL
@@ -414,12 +427,11 @@ if [[ ${ExitStatusScripts} -eq 0 ]]; then
     Add_Cron
     ExtraShell
     Run_All
-    echo -e "活动脚本更新完成......\n"
+    echo -e "[Done] 活动脚本更新完成\n"
 else
-    echo -e "\033[31mScripts仓库脚本更新失败，请检查原因或再次执行更新命令 ......\033[0m\n"
     Change_ALL
+    echo -e "\033[31m[ERROR] Scripts仓库脚本更新失败，请检查原因或再次执行更新命令......\033[0m\n"
     ExtraShell
     Run_All
 fi
-
 chmod 777 ${ShellDir}/*
