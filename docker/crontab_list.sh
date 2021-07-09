@@ -110,7 +110,7 @@
 # 天天加速
 8 0-23/3 * * * node /scripts/jd_speed.js >> /scripts/logs/jd_speed.log 2>&1
 # 京喜牧场
-25 0,12,22 * * * node /scripts/jd_jjxxmmcc.js >> /scripts/logs/jd_jjxxmmcc.log 2>&1
+25 0,12,22 * * * node /scripts/jd_jxmc.js >> /scripts/logs/jd_jxmc.log 2>&1
 # 东东电竞经理
 0 0-23/2 * * * node /scripts/jd_EsportsManager.js >> /scripts/logs/jd_EsportsManager.log 2>&1
 # 点点券二代目
@@ -119,8 +119,6 @@
 10 10,15 * 7 * node /scripts/jd_wishingPool.js >> /scripts/logs/jd_wishingPool.log 2>&1
 # 汪汪乐园
 30 8 * * * node /scripts/jd_joy_park.js >> /scripts/logs/jd_joy_park.log 2>&1
-# 汪汪乐园2
-40 8 * * * node /scripts/jd_joy_park2.js >> /scripts/logs/jd_joy_park2.log 2>&1
 # QQ星系牧场
 1 0-23/2 * * * node /scripts/jd_qq_pasture.js >> /scripts/logs/jd_qq_pasture.log 2>&1
 
@@ -133,7 +131,5 @@
 0 0-16/8 * * * node /scripts/jd_reward.js >> /scripts/logs/jd_reward.log 2>&1
 # 宠汪汪强制为别人助力
 0 0-16/8 * * * node /scripts/jd_joy_help.js >> /scripts/logs/jd_joy_help.log 2>&1
-# 宠汪汪偷好友积分与助力
-10 0-21/3 * * * node /scripts/jd_joy_steal.js >> /scripts/logs/jd_joy_steal.log 2>&1
 # 预存验证
 58 7,15,23 * * * node /scripts/jd_validate_Worker.js >> /scripts/logs/jd_validate_Worker.log 2>&1
