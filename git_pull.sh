@@ -331,7 +331,7 @@ function ExtraShell() {
         wget -q --no-check-certificate $EnableExtraShellURL -O ${FileDiy}.new
         if [ $? -eq 0 ]; then
             mv -f "${FileDiy}.new" "${FileDiy}"
-            echo -e "[Done] 自定义脚本同步完成\n"
+            echo -e "\033[32m[Done]\033[0m 自定义脚本同步完成\n"
             sleep 1s
         else
             echo -e "\033[31m[ERROR]\033[0m 自定义脚本同步失败，请检查原因或再次执行更新命令......\n"
@@ -427,7 +427,7 @@ if [[ ${ExitStatusScripts} -eq 0 ]]; then
     Add_Cron
     ExtraShell
     Run_All
-    echo -e "[Done] 活动脚本更新完成\n"
+    echo -e "\033[32m[Done]\033[0m 活动脚本更新完成\n"
 else
     Change_ALL
     echo -e "\033[31m[ERROR]\033[0m Scripts仓库脚本更新失败，请检查原因或再次执行更新命令......\n"

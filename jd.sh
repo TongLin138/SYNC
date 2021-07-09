@@ -249,7 +249,7 @@ function Run_HangUp() {
 ## 重置密码
 function Reset_Pwd() {
     cp -f ${ShellDir}/sample/auth.json ${ConfigDir}/auth.json
-    echo -e "控制面板重置成功，用户名：useradmin，密码：supermanito\n"
+    echo -e "\033[32m[Done]\033[0m 控制面板登录密码重置成功，用户名：useradmin  密码：supermanito\n"
 }
 
 ## 确定脚本
@@ -351,9 +351,9 @@ function Run_Concurrent() {
                 ts-node ${FileName}.ts &>$LogFile &
             fi
         done
-        echo -e "\033[33m[*] 账号并发任务正在执行中，请等候...\033[0m\n"
+        echo -e "\033[33m[*]\033[0m 账号并发任务正在执行中，请等候...\n"
         wait
-        echo -e "\033[32m[Done] 所有并发任务已全部完成，如需查看执行结果，请直接查看相关日志...\033[0m\n"
+        echo -e "\033[32m[Done]\033[0m 所有并发任务已全部完成，如需查看执行结果，请直接查看相关日志...\n"
     else
         echo -e "\n在${ScriptsDir}、${ScriptsDir}/backUp、${ConfigDir}三个目录下均未检测到 $1 脚本的存在，请确认...\n"
         Help
@@ -384,7 +384,7 @@ Run_Specify() {
             ts-node ${FileName}.ts | tee ${LogFile}
         fi
     else
-        echo -e "\n在${ScriptsDir}、${ScriptsDir}/backUp、${ConfigDir}三个目录下均未检测到 $1 脚本的存在，请确认...\n"
+        echo -e "\n\033[31m[ERROR]\033[0m 在${ScriptsDir}、${ScriptsDir}/backUp、${ConfigDir}三个目录下均未检测到 $1 脚本的存在，请确认...\n"
         Help
     fi
 }
@@ -419,12 +419,12 @@ Run_RawScript() {
     wget -q --no-check-certificate ${DownloadJudgment}$Raw_Url -O "${ScriptsDir}/${FileName}.new"
     if [[ $? -eq 0 ]]; then
         mv -f "${ScriptsDir}/${FileName}.new" "${ScriptsDir}/${FileName}"
-        echo -e "\n[Done] 下载完成，倒计时 3 秒后开始执行"
+        echo -e "\n\033[32m[Done]\033[0m 下载完成，倒计时 3 秒后开始执行"
         sleep 1 && echo -e "3..." && sleep 1 && echo -e "2.." && sleep 1 && echo -e "1." && sleep 1
         Run_Normal ${FileName} now
     else
         [ -f "${ScriptsDir}/${FileName}.new" ] && rm -rf "${ScriptsDir}/${FileName}.new"
-        echo -e "\n\033[31m下载 ${FileName} 失败，请检查 URL 地址是否正确或网络连通性问题...\033[0m\n"
+        echo -e "\n\033[31m[ERROR]\033[0m 下载 ${FileName} 失败，请检查 URL 地址是否正确或网络连通性问题...\n"
     fi
 }
 
