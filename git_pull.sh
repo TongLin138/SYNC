@@ -334,7 +334,7 @@ function ExtraShell() {
             echo -e "[Done] 自定义脚本同步完成\n"
             sleep 1s
         else
-            echo -e "\033[31m[ERROR] 自定义脚本同步失败，请检查原因或再次执行更新命令......\033[0m\n"
+            echo -e "\033[31m[ERROR]\033[0m 自定义脚本同步失败，请检查原因或再次执行更新命令......\n"
             sleep 3s
         fi
         [ -f "${FileDiy}.new" ] && rm -rf "${FileDiy}.new"
@@ -413,7 +413,7 @@ chmod 777 ${ShellDir}/*
 [ -f ${ScriptsDir}/package.json ] && PackageListOld=$(cat ${ScriptsDir}/package.json)
 [ -d ${ScriptsDir}/.git ] && Git_PullScripts || Git_CloneScripts
 # [ -f ${ScriptsDir}/sendNotify.js ] && sed -i '/desp += author;/a\  if (text.includes("FreeFuck") || desp.includes("FreeFuck")) return ;' ${ScriptsDir}/sendNotify.js
-[ ${ExitStatusCronLxk} -ne 0 ] && echo -e "\033[33m[WARN] Scripts仓库脚本定时任务清单拉取失败，已启用备份\033[0m\n"
+[ ${ExitStatusCronLxk} -ne 0 ] && echo -e "\033[33m[WARN]\033[0m Scripts仓库脚本定时任务清单拉取失败，已启用备份\n"
 Notice
 ## 执行各函数
 if [[ ${ExitStatusScripts} -eq 0 ]]; then
@@ -430,7 +430,7 @@ if [[ ${ExitStatusScripts} -eq 0 ]]; then
     echo -e "[Done] 活动脚本更新完成\n"
 else
     Change_ALL
-    echo -e "\033[31m[ERROR] Scripts仓库脚本更新失败，请检查原因或再次执行更新命令......\033[0m\n"
+    echo -e "\033[31m[ERROR]\033[0m Scripts仓库脚本更新失败，请检查原因或再次执行更新命令......\n"
     ExtraShell
     Run_All
 fi

@@ -408,7 +408,7 @@ Run_RawScript() {
         if [ $Raw_Functions = "-p" ]; then
             DownloadJudgment="https://ghproxy.com/"
         else
-            echo -e "\n\033[31m[ERROR] 命令错误，请重新输入...\033[0m\n"
+            echo -e "\n\033[31m[ERROR]\033[0m 命令错误，请重新输入...\n"
             Help
             exit
         fi
@@ -465,7 +465,7 @@ case $# in
         Run_RawScript $1
         ;;
     *)
-        echo -e "\n\033[31m[ERROR] 命令错误，请重新输入...\033[0m\n"
+        echo -e "\n\033[31m[ERROR]\033[0m 命令错误，请重新输入...\n"
         Help
         ;;
     esac
@@ -474,12 +474,12 @@ case $# in
     if [[ $2 == raw ]]; then
         Run_RawScript $1 $2 $3
     else
-        echo -e "\n\033[31m[ERROR] 输入命令过多...\033[0m\n"
+        echo -e "\n\033[31m[ERROR]\033[0m 输入命令过多...\n"
         Help
     fi
     ;;
 *)
-    echo -e "\n\033[31m[ERROR] 输入命令过多...\033[0m\n"
+    echo -e "\n\033[31m[ERROR]\033[0m 输入命令过多...\n"
     Help
     ;;
 esac
