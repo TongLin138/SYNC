@@ -415,11 +415,11 @@ Run_RawScript() {
     else
         DownloadJudgment=""
     fi
-    echo -e "\n[*] 开始从$RepositoryJudge远程仓库下载 ${FileName} 脚本..."
+    echo -e "\n\033[33m[*]\033[0m 开始从$RepositoryJudge远程仓库下载 ${FileName} 脚本..."
     wget -q --no-check-certificate ${DownloadJudgment}$Raw_Url -O "${ScriptsDir}/${FileName}.new"
     if [[ $? -eq 0 ]]; then
         mv -f "${ScriptsDir}/${FileName}.new" "${ScriptsDir}/${FileName}"
-        echo -e "\n\033[32m[Done]\033[0m 下载完成，倒计时 3 秒后开始执行"
+        echo -e "\n\033[32m[Done]\033[0m 下载完成，倒计时 3 秒后开始执行\n"
         sleep 1 && echo -e "3..." && sleep 1 && echo -e "2.." && sleep 1 && echo -e "1." && sleep 1
         Run_Normal ${FileName} now
     else
