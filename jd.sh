@@ -351,9 +351,9 @@ function Run_Concurrent() {
                 ts-node ${FileName}.ts &>$LogFile &
             fi
         done
-        echo -e "\033[33m[*]\033[0m 账号并发任务正在执行中，请等候...\n"
+        echo -e "\033[33m[*]\033[0m 并发任务正在执行中，请等候...\n"
         wait
-        echo -e "\033[32m[Done]\033[0m 所有并发任务已全部完成，如需查看执行结果，请直接查看相关日志...\n"
+        echo -e "\033[32m[Done]\033[0m 所有并发任务已全部完成，如需查看执行结果，请直接查看相关日志\n"
     else
         echo -e "\n在${ScriptsDir}、${ScriptsDir}/backUp、${ConfigDir}三个目录下均未检测到 $1 脚本的存在，请确认...\n"
         Help
