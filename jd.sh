@@ -66,45 +66,45 @@ function Count_UserSum() {
 
 ## 组合Cookie和互助码子程序
 function Combin_Sub() {
-    CombinAll=""
-    for ((i = 1; i <= ${UserSum}; i++)); do
-        for num in ${TempBlockCookie}; do
-            if [[ $i -eq $num ]]; then
-                continue 2
-            fi
-        done
-        Tmp1=$1$i
-        Tmp2=${!Tmp1}
-        case $# in
-        1)
-            CombinAll="${CombinAll}&${Tmp2}"
-            ;;
-        2)
-            CombinAll="${CombinAll}&${Tmp2}@$2"
-            ;;
-        3)
-            if [ $(($i % 2)) -eq 1 ]; then
-                CombinAll="${CombinAll}&${Tmp2}@$2"
-            else
-                CombinAll="${CombinAll}&${Tmp2}@$3"
-            fi
-            ;;
-        4)
-            case $(($i % 3)) in
-            1)
-                CombinAll="${CombinAll}&${Tmp2}@$2"
-                ;;
-            2)
-                CombinAll="${CombinAll}&${Tmp2}@$3"
-                ;;
-            0)
-                CombinAll="${CombinAll}&${Tmp2}@$4"
-                ;;
-            esac
-            ;;
-        esac
+  CombinAll=""
+  for ((i = 1; i <= ${UserSum}; i++)); do
+    for num in ${TempBlockCookie}; do
+      if [[ $i -eq $num ]]; then
+        continue 2
+      fi
     done
-    echo ${CombinAll} | perl -pe "{s|^&||; s|^@+||; s|&@|&|g; s|@+|@|g}"
+    Tmp1=$1$i
+    Tmp2=${!Tmp1}
+    case $# in
+    1)
+      CombinAll="${CombinAll}&${Tmp2}"
+      ;;
+    2)
+      CombinAll="${CombinAll}&${Tmp2}@$2"
+      ;;
+    3)
+      if [ $(($i % 2)) -eq 1 ]; then
+        CombinAll="${CombinAll}&${Tmp2}@$2"
+      else
+        CombinAll="${CombinAll}&${Tmp2}@$3"
+      fi
+      ;;
+    4)
+      case $(($i % 3)) in
+      1)
+        CombinAll="${CombinAll}&${Tmp2}@$2"
+        ;;
+      2)
+        CombinAll="${CombinAll}&${Tmp2}@$3"
+        ;;
+      0)
+        CombinAll="${CombinAll}&${Tmp2}@$4"
+        ;;
+      esac
+      ;;
+    esac
+  done
+  echo ${CombinAll} | perl -pe "{s|^&||; s|^@+||; s|&@|&|g; s|@+|@|g}"
 }
 
 ## 组合全部变量
@@ -300,7 +300,7 @@ function Run_Normal() {
     local p=$1
     Find_File $p
     if [ -n "${FileName}" ] && [ -n "${WhichDir}" ]; then
-        Import_Conf
+        Import_Conf $1
         Detect_Cron
         Set_Env
         Combin_All
@@ -328,7 +328,7 @@ function Run_Concurrent() {
     local p=$1
     Find_File $p
     if [ -n "${FileName}" ] && [ -n "${WhichDir}" ]; then
-        Import_Conf
+        Import_Conf $1
         Detect_Cron
         Set_Env
         Combin_SHARECODES
@@ -421,7 +421,8 @@ Run_RawScript() {
         mv -f "${ScriptsDir}/${FileName}.new" "${ScriptsDir}/${FileName}"
         echo -e "\n\033[32m[Done]\033[0m 下载完成，倒计时 3 秒后开始执行\n"
         sleep 1 && echo -e "3..." && sleep 1 && echo -e "2.." && sleep 1 && echo -e "1." && sleep 1
-        Run_Normal ${FileName} now
+        FormatFileName=$(echo ${FileName} | perl -pe "{s|\.js||; s|\.py||; s|\.ts||}")
+        Run_Normal ${FormatFileName} now
     else
         [ -f "${ScriptsDir}/${FileName}.new" ] && rm -rf "${ScriptsDir}/${FileName}.new"
         echo -e "\n\033[31m[ERROR]\033[0m 下载 ${FileName} 失败，请检查 URL 地址是否正确或网络连通性问题...\n"
