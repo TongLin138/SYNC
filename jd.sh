@@ -12,33 +12,17 @@ FileConf=${ConfigDir}/config.sh
 FileConfSample=${ShellDir}/sample/config.sh.sample
 LogDir=${ShellDir}/log
 ListCron=${ConfigDir}/crontab.list
-ListScripts=($(
-    cd ${ScriptsDir}
-    ls *.js | grep -E "j[drx]_" | grep -Eiv "jd_update.js|validate|api_test|env_copy"
-))
-ListPythonScripts=($(
-    cd ${ScriptsDir}
-    ls *.py | grep -Eiv "getCookie.py|jdEnv|Notify"
-))
-ListTypeScriptScripts=($(
-    cd ${ScriptsDir}
-    ls *.ts | grep -Eiv "ts_test|AGENTS|validate"
-))
-ListOtherScripts=($(
-    cd ${ScriptsDir}
-    ls *.js | grep -Eiv "j[drx]_|$(git ls-files)|ShareCodes|AGENTS|index.js|validate|JDJR|MovementFaker|tencentscf.js|Notify|Cookie|Tokens|app"
-))
 
 ## 导入config.sh
 function Import_Conf() {
     if [ -f ${FileConf} ]; then
         . ${FileConf}
         if [ -z "${Cookie1}" ]; then
-            echo -e "请先在config.sh中配置好Cookie...\n"
+            echo -e "\n\033[31m[ERROR]\033[0m 请先在 config.sh 配置文件中配置好 Cookie ！\n"
             exit 1
         fi
     else
-        echo -e "配置文件 ${FileConf} 不存在，请先按教程配置好该文件...\n"
+        echo -e "\n\033[31m[ERROR]\033[0m 配置文件 ${FileConf} 不存在，请先按教程配置好该文件！\n"
         exit 1
     fi
 }
@@ -165,22 +149,10 @@ function Set_Env() {
     Trans_UN_SUBSCRIBES
 }
 
-## 随机延迟
-function Random_Delay() {
-    if [[ -n ${RandomDelay} ]] && [[ ${RandomDelay} -gt 0 ]]; then
-        CurMin=$(date "+%-M")
-        if [[ ${CurMin} -gt 2 && ${CurMin} -lt 30 ]] || [[ ${CurMin} -gt 31 && ${CurMin} -lt 59 ]]; then
-            CurDelay=$((${RANDOM} % ${RandomDelay} + 1))
-            echo -e "\n命令未添加 \"now\"，随机延迟 ${CurDelay} 秒后再执行任务，如需立即终止，请按 Ctrl+C...\n"
-            sleep ${CurDelay}
-        fi
-    fi
-}
-
 ## 使用说明
 function Help() {
     echo -e "本脚本的用法为："
-    echo -e "1. bash ${HelpJd} list         # 查看脚本列表"
+    echo -e "1. bash ${HelpJd} list         # 查看可执行的活动脚本列表"
     echo -e "2. bash ${HelpJd} <xxx>        # 如果设置了随机延迟并且当时时间不在0-2、30-31、59分内，将随机延迟一定秒数"
     echo -e "3. bash ${HelpJd} <xxx> now    # 依次执行，无论是否设置了随机延迟，均立即运行，前台会输出日志，同时记录在日志文件中"
     echo -e "4. bash ${HelpJd} <xxx> conc   # 并发执行，无论是否设置了随机延迟，均立即运行，前台不产生日志，直接记录在日志文件中"
@@ -189,31 +161,76 @@ function Help() {
     echo -e "7. bash ${HelpJd} hangup       # 启动或重启后台挂机程序，目前不建议使用"
     echo -e "8. bash ${HelpJd} resetpwd     # 重置控制面板的用户名和密码"
     echo -e "9. source runall        # 执行所有活动脚本，非常耗时，Ctrl+Z 跳过执行当前脚本，Ctrl+C 退出执行"
-    echo -e "\n在最新版本的容器中，bash ${HelpJd} 命令可以由 | jd | jtask | 代替。"
-    echo -e "针对用法 2~5 中的 \"xxx\" 为脚本名，可以不输入后缀\".js\"，另外如果前缀是\"jd_\"的话前缀也可以省略。\n"
+
+    echo -e "\n支持运行 \"js、py、ts\" 三种类型的脚本，如果脚本同名则优先执行的是 \"js\" 脚本。"
+    echo -e "针对用法 2~5 中的 \"xxx\" 为脚本名，可以不输入文件后缀格式，另外如果前缀是 \"jd_\" 的话前缀也可以省略。"
+    echo -e "在最新版本镜像启动的容器中，bash ${HelpJd} 命令可以由 jtask 或 jd 代替，并且预装了 Python、TypeScript 环境。\n"
 }
 
 ## 活动列表
 function ScriptsList() {
+    ListScripts=($(
+        cd ${ScriptsDir}
+        ls *.js | grep -E "j[drx]_" | grep -Eiv "jd_update.js|validate|api_test|env_copy"
+    ))
+    ListPythonScripts=($(
+        cd ${ScriptsDir}
+        ls *.py | grep -Eiv "getCookie.py|jdEnv|Notify"
+    ))
+    ListTypeScriptScripts=($(
+        cd ${ScriptsDir}
+        ls *.ts | grep -Eiv "ts_test|AGENTS|validate"
+    ))
+    ListOtherScripts=($(
+        cd ${ScriptsDir}
+        ls *.js | grep -Eiv "j[drx]_|$(git ls-files)|ShareCodes|AGENTS|index.js|validate|JDJR|MovementFaker|tencentscf|Notify|Cookie|Tokens|app.|main."
+    ))
+    cd ${ScriptsDir}
     echo -e "\n################################## 当前有以下活动脚本可以运行 ##################################"
     echo -e "\n注：所有以 jd、jr、jx 开头的js脚本会被识别成 Scripts 仓库的脚本，本地导入的脚本不会随更新而自动删除"
-    cd ${ScriptsDir}
+
     echo -e "\nScripts 仓库的js脚本："
     for ((i = 0; i < ${#ListScripts[*]}; i++)); do
-        Name=$(grep "new Env" ${ListScripts[i]} | awk -F "'|\"" '{print $2}')
+        grep -Eq "^[const $ = ].*Env" ${ListScripts[i]}
+        if [ $? -eq 0 ]; then
+            Name=$(grep -E "^[const $ = ].*Env" ${ListScripts[i]} | awk -F "'|\"" '{print $2}' | head -n 1)
+        else
+            Name=$(grep -w "script-path" ${ListScripts[i]} | sed "s/\W//g" | sed "s/[0-9a-zA-Z_]//g" | head -n 1)
+        fi
         echo -e "$(($i + 1)).${Name}：${ListScripts[i]}"
     done
+
+    echo -e "\nTypeScript 脚本（随缘使用）："
+    for ((i = 0; i < ${#ListTypeScriptScripts[*]}; i++)); do
+        if [ ${ListTypeScriptScripts[i]} = "jd_joy_park.ts" ]; then
+            Name="汪汪乐园"
+        elif [ ${ListTypeScriptScripts[i]} = "jd_jxmc.ts" ]; then
+            Name="京喜牧场"
+        elif [ ${ListTypeScriptScripts[i]} = "jd_qq_pasture.ts" ]; then
+            Name="星系牧场"
+        elif [ ${ListTypeScriptScripts[i]} = "jd_reward.ts" ]; then
+            Name="宠汪汪兑换二代目"
+        elif [ ${ListTypeScriptScripts[i]} = "jd_wishingPool.ts" ]; then
+            Name="众筹许愿池"
+        else
+            Name=""
+        fi
+        echo -e "$(($i + 1)).${Name}：${ListTypeScriptScripts[i]}"
+    done
+
     echo -e "\nPython 脚本："
     for ((i = 0; i < ${#ListPythonScripts[*]}; i++)); do
         echo -e "$(($i + 1)).${ListPythonScripts[i]}"
     done
-    echo -e "\nTypeScript 脚本："
-    for ((i = 0; i < ${#ListTypeScriptScripts[*]}; i++)); do
-        echo -e "$(($i + 1)).${ListTypeScriptScripts[i]}"
-    done
-    echo -e "\n第三方作者的脚本："
+
+    echo -e "\n第三方脚本："
     for ((i = 0; i < ${#ListOtherScripts[*]}; i++)); do
-        Name=$(grep "new Env" ${ListOtherScripts[i]} | awk -F "'|\"" '{print $2}')
+        grep -Eq "^[const $ = ].*Env" ${ListOtherScripts[i]}
+        if [ $? -eq 0 ]; then
+            Name=$(grep -E "^[const $ = ].*Env" ${ListOtherScripts[i]} | awk -F "'|\"" '{print $2}' | head -n 1)
+        else
+            Name=$(grep -w "script-path" ${ListOtherScripts[i]} | sed "s/\W//g" | sed "s/[0-9a-zA-Z_]//g" | head -n 1)
+        fi
         echo -e "$(($i + 1)).${Name}：${ListOtherScripts[i]}"
     done
     echo ''
@@ -252,11 +269,11 @@ function Reset_Pwd() {
     echo -e "\033[32m[Done]\033[0m 控制面板登录密码重置成功，用户名：useradmin  密码：supermanito\n"
 }
 
-## 确定脚本
-function Find_File() {
+## 确认脚本
+function Find_Script() {
     FileNameTmp1=$(echo $1 | perl -pe "{s|\.js||; s|\.py||; s|\.ts||}")
     FileNameTmp2=$(echo $1 | perl -pe "{s|jd_||; s|\.js||; s|\.py||; s|\.ts||; s|^|jd_|}")
-    SeekDir="${ScriptsDir} ${ScriptsDir}/backUp ${ConfigDir}"
+    SeekDir="${ScriptsDir} ${ScriptsDir}/backUp ${ScriptsDir}/tools ${ConfigDir}"
     FileName=""
     WhichDir=""
 
@@ -295,10 +312,22 @@ function Find_File() {
     done
 }
 
+## 随机延迟
+function Random_Delay() {
+    if [[ -n ${RandomDelay} ]] && [[ ${RandomDelay} -gt 0 ]]; then
+        CurMin=$(date "+%-M")
+        if [[ ${CurMin} -gt 2 && ${CurMin} -lt 30 ]] || [[ ${CurMin} -gt 31 && ${CurMin} -lt 59 ]]; then
+            CurDelay=$((${RANDOM} % ${RandomDelay} + 1))
+            echo -e "\n\033[33m[*]\033[0m 命令未添加 \"now\"，随机延迟 ${CurDelay} 秒后再执行任务，如需立即终止，请按 Ctrl+C...\n"
+            sleep ${CurDelay}
+        fi
+    fi
+}
+
 ## 正常运行单个京东脚本
 function Run_Normal() {
     local p=$1
-    Find_File $p
+    Find_Script $p
     if [ -n "${FileName}" ] && [ -n "${WhichDir}" ]; then
         Import_Conf $1
         Detect_Cron
@@ -317,7 +346,7 @@ function Run_Normal() {
             ts-node ${FileName}.ts | tee ${LogFile}
         fi
     else
-        echo -e "\n在${ScriptsDir}、${ScriptsDir}/backUp、${ConfigDir}三个目录下均未检测到 $1 脚本的存在，请确认...\n"
+        echo -e "\n\033[31m[ERROR]\033[0m 在 ${ScriptsDir}、${ScriptsDir}/backUp、${ConfigDir}、${ScriptsDir}/tools 四个目录下均未检测到 $1 脚本的存在，请确认！\n"
         Help
     fi
 }
@@ -326,7 +355,7 @@ function Run_Normal() {
 ## 并发执行时，设定的 RandomDelay 不会生效，即所有任务立即执行
 function Run_Concurrent() {
     local p=$1
-    Find_File $p
+    Find_Script $p
     if [ -n "${FileName}" ] && [ -n "${WhichDir}" ]; then
         Import_Conf $1
         Detect_Cron
@@ -355,7 +384,7 @@ function Run_Concurrent() {
         wait
         echo -e "\033[32m[Done]\033[0m 所有并发任务已全部完成，如需查看执行结果，请直接查看相关日志\n"
     else
-        echo -e "\n在${ScriptsDir}、${ScriptsDir}/backUp、${ConfigDir}三个目录下均未检测到 $1 脚本的存在，请确认...\n"
+        echo -e "\n\033[31m[ERROR]\033[0m 在 ${ScriptsDir}、${ScriptsDir}/backUp、${ConfigDir}、${ScriptsDir}/tools 四个目录下均未检测到 $1 脚本的存在，请确认！\n"
         Help
     fi
 }
@@ -364,7 +393,7 @@ function Run_Concurrent() {
 Run_Specify() {
     local p=$1
     local ck_num=$2
-    Find_File $p
+    Find_Script $p
     if [ -n "${FileName}" ] && [ -n "${WhichDir}" ]; then
         Import_Conf
         Detect_Cron
@@ -384,7 +413,7 @@ Run_Specify() {
             ts-node ${FileName}.ts | tee ${LogFile}
         fi
     else
-        echo -e "\n\033[31m[ERROR]\033[0m 在${ScriptsDir}、${ScriptsDir}/backUp、${ConfigDir}三个目录下均未检测到 $1 脚本的存在，请确认...\n"
+        echo -e "\n\033[31m[ERROR]\033[0m 在 ${ScriptsDir}、${ScriptsDir}/backUp、${ConfigDir}、${ScriptsDir}/tools 四个目录下均未检测到 $1 脚本的存在，请确认！\n"
         Help
     fi
 }
