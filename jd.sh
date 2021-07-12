@@ -214,6 +214,8 @@ function ScriptsList() {
             Name="众筹许愿池"
         elif [ ${ListTypeScriptScripts[i]} = "jd_cfd.ts" ]; then
             Name="京喜财富岛"
+        elif [ ${ListTypeScriptScripts[i]} = "jd_cfd_loop.ts" ]; then
+            Name="京喜财富岛捡贝壳"
         else
             Name=""
         fi
@@ -240,25 +242,27 @@ function ScriptsList() {
 
 ## nohup
 function Run_Nohup() {
-    if [[ $(ps -ef | grep "${js}" | grep -v "grep") != "" ]]; then
-        ps -ef | grep "${js}" | grep -v "grep" | awk '{print $2}' | xargs kill -9
+    if [[ $(ps -ef | grep "${scripts}" | grep -v "grep") != "" ]]; then
+        ps -ef | grep "${scripts}" | grep -v "grep" | awk '{print $2}' | xargs kill -9
     fi
-    [ ! -d ${LogDir}/${js} ] && mkdir -p ${LogDir}/${js}
+    [ ! -d ${LogDir}/${scripts} ] && mkdir -p ${LogDir}/${scripts}
     LogTime=$(date "+%Y-%m-%d-%H-%M-%S")
-    LogFile="${LogDir}/${js}/${LogTime}.log"
-    nohup node ${js}.js >${LogFile} &
+    LogFile="${LogDir}/${scripts}/${LogTime}.log"
+    nohup ts-node ${scripts}.ts >${LogFile} &
 }
 
 ## 运行挂机脚本
 function Run_HangUp() {
-    HangUpJs="jd_crazy_joy_coin"
+    HangUpScripts="jd_cfd_loop"
     cd ${ScriptsDir}
-    for js in ${HangUpJs}; do
-        Import_Conf ${js} && Count_UserSum && Combin_All && Trans_JD_BEAN_SIGN_NOTIFY && Trans_UN_SUBSCRIBES
+    for scripts in ${HangUpScripts}; do
+        Import_Conf ${scripts}
+        Set_Env
+        Combin_All
         if type pm2 >/dev/null 2>&1; then
-            pm2 stop ${js}.js 2>/dev/null
+            pm2 stop ${scripts}.ts 2>/dev/null
             pm2 flush
-            pm2 start -a ${js}.js --watch "${ScriptsDir}/${js}.js" --name="${js}"
+            pm2 start -a ${scripts}.ts --interpreter /usr/bin/ts-node --watch "${ScriptsDir}/${scripts}.ts" --name="${scripts}"
         else
             Run_Nohup >/dev/null 2>&1
         fi
