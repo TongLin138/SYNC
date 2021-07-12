@@ -212,6 +212,8 @@ function ScriptsList() {
             Name="宠汪汪兑换二代目"
         elif [ ${ListTypeScriptScripts[i]} = "jd_wishingPool.ts" ]; then
             Name="众筹许愿池"
+        elif [ ${ListTypeScriptScripts[i]} = "jd_cfd.ts" ]; then
+            Name="京喜财富岛"
         else
             Name=""
         fi

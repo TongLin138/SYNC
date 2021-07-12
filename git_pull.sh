@@ -413,7 +413,7 @@ chmod 777 ${ShellDir}/*
 [ -f ${ScriptsDir}/package.json ] && PackageListOld=$(cat ${ScriptsDir}/package.json)
 [ -d ${ScriptsDir}/.git ] && Git_PullScripts || Git_CloneScripts
 # [ -f ${ScriptsDir}/sendNotify.js ] && sed -i '/desp += author;/a\  if (text.includes("FreeFuck") || desp.includes("FreeFuck")) return ;' ${ScriptsDir}/sendNotify.js
-[ ${ExitStatusCronLxk} -ne 0 ] && echo -e "\033[33m[WARN]\033[0m Scripts仓库脚本定时任务清单拉取失败，已启用备份\n"
+[ ${ExitStatusCronLxk} -ne 0 ] && echo -e "\n\033[33m[WARN]\033[0m Scripts仓库脚本定时任务清单拉取失败，已启用备份"
 Notice
 ## 执行各函数
 if [[ ${ExitStatusScripts} -eq 0 ]]; then
