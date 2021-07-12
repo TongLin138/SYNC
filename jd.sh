@@ -161,7 +161,6 @@ function Help() {
     echo -e "7. bash ${HelpJd} hangup       # 启动或重启后台挂机程序，目前不建议使用"
     echo -e "8. bash ${HelpJd} resetpwd     # 重置控制面板的用户名和密码"
     echo -e "9. source runall        # 执行所有活动脚本，非常耗时，Ctrl+Z 跳过执行当前脚本，Ctrl+C 退出执行"
-
     echo -e "\n支持运行 \"js、py、ts\" 三种类型的脚本，如果脚本同名则优先执行的是 \"js\" 脚本。"
     echo -e "针对用法 2~5 中的 \"xxx\" 为脚本名，可以不输入文件后缀格式，另外如果前缀是 \"jd_\" 的话前缀也可以省略。"
     echo -e "在最新版本镜像启动的容器中，bash ${HelpJd} 命令可以由 jtask 或 jd 代替，并且预装了 Python、TypeScript 环境。\n"
@@ -215,7 +214,7 @@ function ScriptsList() {
         elif [ ${ListTypeScriptScripts[i]} = "jd_cfd.ts" ]; then
             Name="京喜财富岛"
         elif [ ${ListTypeScriptScripts[i]} = "jd_cfd_loop.ts" ]; then
-            Name="京喜财富岛捡贝壳"
+            Name="京喜财富岛接待游客"
         else
             Name=""
         fi
