@@ -359,10 +359,9 @@ function Run_All() {
 
     ## 调整执行顺序
     sed -i "1i\jd_bean_change" ${FileRunAll} ## 置顶京豆变动通知
-    echo "jd_crazy_joy_coin" >>${FileRunAll} ## 末尾加入挂机脚本
+    # echo "jd_crazy_joy_coin" >>${FileRunAll} ## 末尾加入挂机脚本
 
     ## 去除不适合的活动脚本
-    ## 例：sed -i '/xxx/d' ${FileRunAll}
     sed -i '/jd_delCoupon/d' ${FileRunAll} ## 不执行 "京东家庭号" 活动
     sed -i '/jd_family/d' ${FileRunAll}    ## 不执行 "删除优惠券" 活动
     ## 第三方脚本
@@ -370,7 +369,7 @@ function Run_All() {
     sed -i '/jx_cfdtx/d' ${FileRunAll}
 
     sed -i "s/^/bash ${ShellJd} &/g" ${FileRunAll}
-    sed -i 's/$/&.js now/g' ${FileRunAll}
+    sed -i 's/$/& now/g' ${FileRunAll}
     sed -i '1i\#!/bin/env bash' ${FileRunAll}
     sed -i '/^\s*$/d' ${FileRunAll}
 }
