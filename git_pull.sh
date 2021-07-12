@@ -143,7 +143,7 @@ function Diff_Cron() {
         grep -vwf ${ListTask} ${ListJs} >${ListJsAdd}
         grep -vwf ${ListJs} ${ListTask} >${ListJsDrop}
     else
-        echo -e "${ListCron} 文件不存在，请先定义您自己的crontab.list...\n"
+        echo -e "${ListCron} 文件不存在，请先定义你自己的crontab.list...\n"
     fi
 }
 
