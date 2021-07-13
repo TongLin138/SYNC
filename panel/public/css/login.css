@@ -31,6 +31,7 @@ main {
 h1 {
   font-size: 25px;
   margin: 0 0 15px 0;
+  letter-spacing: 10px;
   color: black;
   font-weight: 700;
   padding-left: 1rem;
@@ -298,7 +299,7 @@ body.document-loaded .form__cover:before {
 .styled-input__circle {
   position: absolute;
   left: 0;
-  top: 0;
+  top: 3px;
   width: 100%;
   height: 100%;
   z-index: -2;
@@ -330,7 +331,7 @@ body.document-loaded .form__cover:before {
   outline: none;
   background: none;
   padding: 18px 15px;
-  color: black;
+  color: rgb(100, 100, 100);
   border: none;
   font-weight: 600;
   letter-spacing: 0.035em;
@@ -357,6 +358,7 @@ body.document-loaded .form__cover:before {
   -webkit-perspective: 500px;
   perspective: 500px;
   display: inline-block;
+ 
 }
 
 .styled-input__placeholder-text .letter {
@@ -371,6 +373,7 @@ body.document-loaded .form__cover:before {
 .styled-input__placeholder-text .letter.active {
   -webkit-animation: letterAnimIn 0.25s ease forwards;
   animation: letterAnimIn 0.25s ease forwards;
+  top: -3px;
 }
 
 .styled-input:hover {
