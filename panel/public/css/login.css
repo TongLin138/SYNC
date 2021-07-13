@@ -28,14 +28,6 @@ main {
   background-image: linear-gradient(30deg, #ef008f, #6ec3f4, #7038ff, #ffba27);
 }
 
-h1 {
-  font-size: 25px;
-  margin: 0 0 15px 0;
-  color: black;
-  font-weight: 700;
-  padding-left: 1rem;
-}
-
 .form {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -178,6 +170,13 @@ body.document-loaded .form__cover:before {
   transform: scale(2);
   opacity: 0;
 }
+h1 {
+  font-size: 25px;
+  margin: 0 0 15px 0;
+  color: black;
+  font-weight: 700;
+  padding-left: 1rem;
+}
 
 .styled-button {
   -webkit-appearance: none;
@@ -230,6 +229,7 @@ body.document-loaded .form__cover:before {
 }
 
 .styled-button__moving-block {
+  color: #e4e4e4;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
   position: absolute;
