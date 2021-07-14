@@ -4,10 +4,9 @@ html {
     height: 0;
 }
 
-h1,
-ul {
-    color: #ffffff;
-    margin: 0.2em 0 0.4em 0;
+h1 {
+    color: white;
+    margin: 0 0 2px;
     font-size: 1.5rem;
     padding-right: 1rem;
 }
@@ -16,35 +15,8 @@ h4 {
     margin-top: 0.5em;
     margin-left: 0.8em;
     margin-bottom: 0.5em;
-    color: rgb(185, 185, 185);
-}
-
-nav ul {
-    margin: 0;
-    padding: 0;
-}
-
-nav ul li {
-    display: inline;
-}
-
-nav ul li a:link,
-nav ul li a:visited,
-nav ul li a:active {
-    font-size: 0.875rem;
-    padding: 0.875rem 1rem;
-    color: white;
-    text-decoration: none;
-    background-color: transparent;
-    transition: background-color 200ms;
-}
-
-nav ul li a:hover {
-    background-color: #c51414;
-}
-
-nav .active a {
-    background-color: #c51414 !important;
+    color: #F0EFF4;
+    z-index: 10;
 }
 
 .footer {
@@ -63,13 +35,13 @@ nav .active a {
 .container {
     display: flex;
     flex-direction: column;
-    height: 100vh;
     width: 100%;
     height: 100%;
     top: 0px;
     left: 0px;
     position: absolute;
-
+    background-image: linear-gradient(30deg, #ef008f, #6ec3f4, #7038ff, #ffba27);
+    z-index: -5;
 }
 
 .container p {
@@ -94,8 +66,9 @@ nav .active a {
     flex-direction: column;
 }
 
-.diffs header {
-    margin-top: 1rem;
+.diffs .new {
+    margin-top: 0.3em;
+    margin-bottom: 0.5em;
 }
 
 .diffs header * {
@@ -333,7 +306,7 @@ nav .active a {
 }
 
 .cmd-section input {
-    color:white;
+    color: white;
     width: 150px;
     height: 20px;
     background: #222922;
@@ -351,54 +324,302 @@ nav .active a {
     -moz-box-shadow: 0 0 10px #1e90ff;
 }
 
-/* 按钮配置 */
-button {
-    /* 静态背景颜色 */
-    background: transparent;
-    /* 静态字体颜色 */
-    color: rgb(255, 255, 255);
-    border: none;
-    position: relative;
-    font-size: 0.6em;
-    padding: 0 1em;
+.btn {
+    --hue: 190;
+    position: fixed;
+    padding: 3px 9px;
+    font-size: 10px;
+    line-height: 1.5;
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    background-color: hsl(var(--hue), 100%, 41%);
+    border: 1px solid transparent;
+    outline: transparent;
+    overflow: hidden;
     cursor: pointer;
-    transition: 200ms ease all;
-    outline: none;
-    border-radius: 6px;
+    user-select: none;
+    white-space: nowrap;
+    transition: 0.25s;
+    position: relative;
 }
 
-button:hover {
-    /* 点击后字体颜色 */
-    color: #000000;
-    /* 点击后背景颜色 */
-    background: rgb(255, 255, 255);
-	border-radius: 6px;
+.btn:hover {
+    background: hsl(var(--hue), 100%, 31%);
 }
 
-button:before,
-button:after {
-    content: '';
+.btn-primary {
+    --hue: 187;
+}
+
+.btn-ghost {
+    color: hsl(var(--hue), 100%, 41%);
+    background-color: #2772d3;
+}
+
+.btn-ghost:hover {
+    color: white;
+}
+
+.btn-shine {
+    color: rgb(230, 230, 230);
+    transition: 0.5s;
+}
+
+.btn-shine::before {
     position: absolute;
+    content: "";
     top: 0;
-    right: 0;
-    height: 0px;
-    width: 0;
-    /* 线条动画颜色 */
-    background: #535252;
-    transition: 400ms ease all;
-}
-
-button:after {
-    right: inherit;
-    top: inherit;
     left: 0;
-    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, #2e86fa, transparent);
+    transform: translateX(-100%);
+    transition: 0.6s;
 }
 
-button:hover:before,
-button:hover:after {
-    width: 100%;
-    transition: 500ms ease all;
+.btn-shine:hover {
+    background: #2f7bf5;
+    border: 1px solid #2f7bf5;
+    box-shadow: 0 0 10px 0.5px #4a4a4a;
+    transition: 0.5s;
+}
+
+.btn-shine:hover::before {
+    transform: translateX(100%);
+    transition: 0.8s;
+}
+
+.btn-shine:active {
+    color: black;
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* 白色按钮 */
+.multi-button {
+    padding: 4px 6px;
+    border-radius: 50px;
+    background: #fff;
+    border: 0.5px solid rgba(146, 152, 176, 0.4);
+    box-shadow: 0 0 10px rgba(146, 152, 176, 0.2), 4px 4px 10px rgba(146, 152, 176, 0.2);
+    cursor: default;
+}
+
+.multi-button button {
+    border: 0 solid transparent;
+    background: transparent;
+    padding: 4px 20px;
+    margin: 0 -2px;
+    color: #273043;
+    font-size: 17px;
+    border-radius: 12px;
+    cursor: pointer;
+    position: relative;
+    top: 0;
+    left: 0;
+    outline: none;
+    transition: background 0.2s ease-in-out;
+}
+
+.multi-button button:first-child {
+    border-top-left-radius: 40px;
+    border-bottom-left-radius: 40px;
+}
+
+.multi-button button:last-child {
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+}
+
+.multi-button button div {
+    position: absolute;
+    top: -43px;
+    left: calc(50% - 40px);
+    width: 80px;
+    font-size: 13px;
+    color: #fff;
+    background: rgba(20, 25, 36, 0.7);
+    border-radius: 16px;
+    line-height: 30px;
+    font-family: 'Raleway', Arial, sans-serif;
+    text-align: center;
+    font-weight: 500;
+    letter-spacing: 1px;
+    box-shadow: 0 0 5px rgba(39, 48, 68, 0.3), 1px 1px 5px rgba(39, 48, 68, 0.2);
+    display: none;
+    cursor: pointer;
+    z-index: 999;
+}
+
+.multi-button button:hover {
+    background: #f0f1f4;
+}
+
+.multi-button button:hover div {
+    display: block;
+    top: 40px;
+    animation: tooltip-animation-normal 0.3s ease-out forwards;
+}
+
+.multi-button button:hover div.animate-right {
+    animation: tooltip-animation-right 0.3s ease-out forwards;
+}
+
+.multi-button button:hover div.animate-left {
+    animation: tooltip-animation-left 0.3s ease-out forwards;
+}
+
+.multi-button button:active {
+    outline: none;
+    background: #d6d8e1;
+}
+
+@keyframes tooltip-animation-right {
+    0% {
+        transform: translateX(-75px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes tooltip-animation-left {
+    0% {
+        transform: translateX(75px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes tooltip-animation-normal {
+    0% {
+        transform: translateY(-20px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* Checkbox */
+.cbx {
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    padding: 4px 6px;
+    border-radius: 6px;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.cbx:not(:last-child) {
+    margin-right: 6px;
+}
+
+.cbx:hover {
+    background: rgba(125, 100, 247, 0.06);
+}
+
+.cbx span {
+    font-size: 14px;
+    color: #F0EFF4;
+    float: left;
+    vertical-align: middle;
+    transform: translate3d(0, 0, 0);
+}
+
+.cbx span:first-child {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    border-radius: 4px;
+    transform: scale(1);
+    border: 2px solid #c8ccd4;
+    transition: all 0.2s ease;
+}
+
+.cbx span:first-child svg {
+    position: absolute;
+    top: 2px;
+    left: 1px;
+    fill: none;
+    stroke: #fff;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 16px;
+    stroke-dashoffset: 16px;
+    transition: all 0.3s ease;
+    transition-delay: 0.1s;
+    transform: translate3d(0, 0, 0);
+}
+
+.cbx span:last-child {
+    padding-left: 8px;
+    line-height: 18px;
+}
+
+.cbx:hover span:first-child {
+    border-color: #7d64f7;
+}
+
+.inp-cbx:checked+.cbx span:first-child {
+    background: #7d64f7;
+    border-color: #7d64f7;
+    animation: wave 0.4s ease;
+}
+
+.inp-cbx:checked+.cbx span:first-child svg {
+    stroke-dashoffset: 0;
+}
+
+.inline-svg {
+    position: absolute;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    user-select: none;
+}
+
+@media screen and (max-width: 640px) {
+    body {
+        width: auto;
+        display: inherit;
+        padding: 20px;
+    }
+
+    .cbx {
+        width: 100%;
+        margin-bottom: 4px;
+        display: inline-block;
+    }
+}
+
+@-moz-keyframes wave {
+    50% {
+        transform: scale(0.9);
+    }
+}
+
+@-webkit-keyframes wave {
+    50% {
+        transform: scale(0.9);
+    }
+}
+
+@-o-keyframes wave {
+    50% {
+        transform: scale(0.9);
+    }
+}
+
+@keyframes wave {
+    50% {
+        transform: scale(0.9);
+    }
 }
 
 /* chrome 滚动条 */

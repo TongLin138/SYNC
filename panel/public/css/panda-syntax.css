@@ -1,0 +1,114 @@
+/*
+	Name:       Panda Syntax
+	Author:     Siamak Mokhtari (http://github.com/siamak/)
+	CodeMirror template by Siamak Mokhtari (https://github.com/siamak/atom-panda-syntax)
+*/
+.cm-s-panda-syntax {
+  background: #292A2B;
+  color: #E6E6E6;
+  font-size: 15px;
+  font-family: 'Operator Mono', 'Source Code Pro', Menlo, Monaco, Consolas, Courier New, monospace;
+}
+
+.cm-s-panda-syntax .CodeMirror-cursor {
+  border-color: #ffffff;
+}
+
+.cm-s-panda-syntax .CodeMirror-activeline-background {
+  background: rgba(99, 123, 156, 0.1);
+}
+
+.cm-s-panda-syntax .CodeMirror-selected {
+  background: rgb(90, 89, 89);
+}
+
+.cm-s-panda-syntax .cm-comment {
+  color: #a5a5a5;
+}
+
+.cm-s-panda-syntax .cm-operator {
+  color: #f3f3f3;
+}
+
+.cm-s-panda-syntax .cm-string,
+.cm-s-panda-syntax span.cm-string,
+.cm-s-panda-syntax span.cm-string-2 {
+  color: #82db4f;
+}
+
+.cm-s-panda-syntax .cm-string-2 {
+  color: #ff6c6c;
+}
+
+.cm-s-panda-syntax span.cm-def {
+  color: #e7d675;
+}
+
+.cm-s-panda-syntax .cm-tag {
+  color: #ff2c6d;
+}
+
+.cm-s-panda-syntax .cm-meta {
+  color: #8c70b3;
+}
+
+.cm-s-panda-syntax .cm-number {
+  color: #FFB86C;
+}
+
+.cm-s-panda-syntax .cm-atom {
+  color: #ff2c6d;
+}
+
+.cm-s-panda-syntax .cm-keyword {
+  color: #0a97f5;
+}
+
+.cm-s-panda-syntax .cm-variable {
+  color: #ffb86c;
+}
+
+.cm-s-panda-syntax .cm-variable-2 {
+  color: #ff9ac1;
+}
+
+.cm-s-panda-syntax .cm-variable-3,
+.cm-s-panda-syntax .cm-type {
+  color: #ff9ac1;
+}
+
+.cm-s-panda-syntax .cm-def {
+  color: #e6e6e6;
+}
+
+.cm-s-panda-syntax .cm-property {
+  color: #f3f3f3;
+}
+
+.cm-s-dracula span.cm-number {
+  color: #ffb86c;
+}
+
+.cm-s-panda-syntax .cm-unit {
+  color: #ffb86c;
+}
+
+.cm-s-panda-syntax .cm-attribute {
+  color: #ffb86c;
+}
+
+.cm-s-panda-syntax .CodeMirror-matchingbracket {
+  border-bottom: 1px dotted #19F9D8;
+  padding-bottom: 2px;
+  color: #e6e6e6;
+}
+
+.cm-s-panda-syntax .CodeMirror-gutters {
+  background: #292a2b;
+  border-right-color: rgba(255, 255, 255, 0.1);
+}
+
+.cm-s-panda-syntax .CodeMirror-linenumber {
+  color: #e6e6e6;
+  opacity: 0.6;
+}
